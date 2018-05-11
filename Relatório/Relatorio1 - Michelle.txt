@@ -7,3 +7,6 @@ Tarefas da segunda iteração:
 - função que faz as peças andarem com suas regras
  -> Renan
 - Classe das peças com suas defidas movimentações -> Renan
+
+O repositório é público e pode ser acessado por esse link: 
+https://github.com/misantiago17/POO_XadrezProject.git
