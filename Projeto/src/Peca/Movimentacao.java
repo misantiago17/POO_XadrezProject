@@ -15,7 +15,7 @@ public class Movimentacao {
 		return mat;
 	}
 	
-	char[][] vertHor(int posX, int posY, char cor) {
+	char[][] vertHor(int posX, int posY, char cor, int qtd) {
 		Tabuleiro tabuleiro = new Tabuleiro();
 		char tab[][];
 		tab = tabuleiro.getTab();
@@ -24,23 +24,24 @@ public class Movimentacao {
 		mat = iniciaPosMov();
 		
 		//movimento vertical
-		if(posY > 0) {
-			if(tab[posX][posY - 1] == 'x') 
-				mat[posX][posY - 1] = 'v';
-			else if(cor == 'B' && Character.isUpperCase(tab[posX][posY - 1]))
-				mat[posX][posY - 1] = 'a';
-			else if(cor == 'P' && !Character.isUpperCase(tab[posX][posY - 1])) 
-				mat[posX][posY - 1] = 'a';
+		for(int i = 0; i < qtd; i++){
+			if(posY - i > 0) {
+				if(tab[posX][posY - 1] == 'x') 
+					mat[posX][posY - 1] = 'v';
+				else if(cor == 'B' && Character.isUpperCase(tab[posX][posY - 1]))
+					mat[posX][posY - 1] = 'a';
+				else if(cor == 'P' && !Character.isUpperCase(tab[posX][posY - 1])) 
+					mat[posX][posY - 1] = 'a';
+			}
+			if(posY + i < 8) {
+				if(tab[posX][posY + 1] == 'x') 
+					mat[posX][posY + 1] = 'v';
+				else if(cor == 'B' && Character.isUpperCase(tab[posX][posY - 1]))
+					mat[posX][posY + 1] = 'a';
+				else if(cor == 'P' && !Character.isUpperCase(tab[posX][posY - 1])) 
+					mat[posX][posY + 1] = 'a';
+			}
 		}
-		if(posY < 8) {
-			if(tab[posX][posY + 1] == 'x') 
-				mat[posX][posY + 1] = 'v';
-			else if(cor == 'B' && Character.isUpperCase(tab[posX][posY - 1]))
-				mat[posX][posY + 1] = 'a';
-			else if(cor == 'P' && !Character.isUpperCase(tab[posX][posY - 1])) 
-				mat[posX][posY + 1] = 'a';
-		}
-		
 		//movimento horizontal
 		if(posX > 0) {
 			if(tab[posX - 1][posY] == 'x') 
@@ -108,6 +109,4 @@ public class Movimentacao {
 		return mat;
 	}
 	
-	
-
 }

@@ -5,8 +5,17 @@ public abstract class Peca {
 	int posX, posY;
 	char cor;
 	
-	protected abstract Tabuleiro movsPossiveis();
+	public abstract char[][] movsPossiveis();
 	
-	
+	protected char[][] iniciaPosMov() {
+		char mat[][] = new char[8][8];
+		
+		for(int i=0; i< mat.length; i++) {
+			for(int j=0; j< mat[i].length; j++) {
+				mat[i][j] = 'x';
+			}
+		}
+		return mat;
+	}
 	
 	}
