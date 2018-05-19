@@ -1,5 +1,7 @@
 package Peca;
 
+import Tabuleiro.*;
+
 public class Torre {
 	
 	public char[][] movsPossiveis(int posX, int posY, char cor) {
