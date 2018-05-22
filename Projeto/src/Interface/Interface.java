@@ -7,21 +7,47 @@ public abstract class Interface extends JFrame {
 	
 	public abstract void cria();
 	
-	public void criaJanela(int altura,int largura, String nome) {
-		setSize(largura,altura);
-		setTitle(nome);
+	public JFrame criaJanela(int altura,int largura, String nome) {
+		JFrame frame = new JFrame();
+		frame.setSize(largura,altura);
+		frame.setTitle(nome);
 		int[] coordenadas = pegaMeioMonitor(largura, altura); 	// Width, height, x, y
-		setBounds(coordenadas[0],coordenadas[1],largura,altura);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setBounds(coordenadas[0],coordenadas[1],largura,altura);
+		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);		
+		frame.setVisible(true);
+				
+		return frame;
+	}
+	
+	public JPanel criaPainel(Color c, JFrame f) {
+		JPanel p = new JPanel();
 		
-		setVisible(true);
+		p.setBackground(c);		
+		f.getContentPane().add(p);
+		
+		return p;
+	}
+	
+	public void criaBotao(String nome, JPanel painel) {
+		JButton btn = new JButton(nome);
+		// Falta mil coisas
+		painel.add(btn);
+	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponents(g);
+		
+		System.out.println("ASKfjvUYLEADVFG");
+		
+		g.drawString("FRASE AAA", 120, 140);
+		
 	}
 	
 	/* pegaMeioMonitor
 	 *  Função que pega o centro da tela e retorna um array de inteiros contendo:
 	 *  posição x na janela na tela, posição y da janela na tela, a largura do monitor e a altura do monitor
 	 */
-	private int[] pegaMeioMonitor(int larg, int alt) {
+	public int[] pegaMeioMonitor(int larg, int alt) {
 		int[] coord = new int[2];
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -34,7 +60,7 @@ public abstract class Interface extends JFrame {
 	}
 	
 	
-	// JFrame Contrutores
+	// JFrame Construtores -- JANELA
 		/*
 		 * Jframe(String title)
 		 * JFrame()
@@ -61,5 +87,32 @@ public abstract class Interface extends JFrame {
 		 * DISPOSE_ON_CLOSE
 		 * DO_NOTHING_ON_CLOSE
 		 */
+	
+	
+	// JPanel Construtores -- BOTÃO
+			/*
+			 * JFrame(LayoutManager layout)
+			 * JPanel()
+			 */
+			
+			// JPanel Métodos importantes
+			/*
+			 * void setSize(int width,int height)
+			 * void setLayout(LayoutManager layout)
+			 * Component add(Component comp)
+			 * void add(Component c, Object constraints)
+			 * void setEnabled(boolean b)
+			 * void setBackground(Color c)
+			 * void paintComponent(Graphics g)
+			 * void repaint()
+			 */
+			
+			// Valores validos para op
+			/*
+			 * EXIT_ON_CLOSE
+			 * HIDE_ON_CLOSE
+			 * DISPOSE_ON_CLOSE
+			 * DO_NOTHING_ON_CLOSE
+			 */
 
 }

@@ -1,5 +1,8 @@
 package Interface;
 
+import javax.swing.*;
+import java.awt.Color;
+
 //Primeiro menu do jogo
 public class Menu extends Interface {
 	
@@ -8,7 +11,9 @@ public class Menu extends Interface {
 	private final String NOME = "MENU";
 	
 	public void cria() {
-		criaJanela(ALTURA,LARGURA,NOME);
+		JFrame f = criaJanela(ALTURA,LARGURA,NOME);
+		JPanel p = criaPainel(Color.WHITE,f);
+		criaBotao("Jogar", p);
 	}
 
 }
