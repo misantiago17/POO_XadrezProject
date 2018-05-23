@@ -13,7 +13,7 @@ public class XadrezFrame extends Interface {
 	public void cria() {
 		
 		JFrame fXadrez = criaJanela(ALTURA,LARGURA,NOME);
-		
+		System.out.println(fXadrez.getSize());
 		int[] center = pegaMeioMonitor(LARGURA,ALTURA); // 0 -> x, 1 -> y
 		fXadrez.getContentPane().add(new DrawChess(LARGURA,ALTURA,center[0],center[1]));
 

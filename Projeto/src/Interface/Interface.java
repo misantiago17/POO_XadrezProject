@@ -9,13 +9,15 @@ public abstract class Interface extends JFrame {
 	
 	public JFrame criaJanela(int altura,int largura, String nome) {
 		JFrame frame = new JFrame();
-		frame.setSize(largura,altura);
+		frame.setSize(largura, altura);
+		frame.setMaximizedBounds(new Rectangle(largura, altura));
 		frame.setTitle(nome);
 		int[] coordenadas = pegaMeioMonitor(largura, altura); 	// Width, height, x, y
 		frame.setBounds(coordenadas[0],coordenadas[1],largura,altura);
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);		
+		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setExtendedState(frame.getExtendedState() | frame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
-				
+						
 		return frame;
 	}
 	
@@ -32,15 +34,6 @@ public abstract class Interface extends JFrame {
 		JButton btn = new JButton(nome);
 		// Falta mil coisas
 		painel.add(btn);
-	}
-	
-	public void paintComponent(Graphics g) {
-		super.paintComponents(g);
-		
-		System.out.println("ASKfjvUYLEADVFG");
-		
-		g.drawString("FRASE AAA", 120, 140);
-		
 	}
 	
 	/* pegaMeioMonitor
