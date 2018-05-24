@@ -24,20 +24,22 @@ public class XadrezFrame extends Interface {
 	private Peca[] PecasPretas = new Peca[16];
 	private Peca[] PecasBrancas = new Peca[16];
 	
+	private int primCasaX = (int)((LARGURA - 64*8)/2);
+	private int primCasaY = (int)((ALTURA - 64*8)/2);
+	
 	public void cria() {
 		
 		JFrame fXadrez = criaJanela(ALTURA,LARGURA,NOME);
 		
-		int[] center = pegaMeioMonitor(LARGURA,ALTURA); // 0 -> x, 1 -> y
-		desenhaXadrez = new DrawChess(LARGURA,ALTURA,center[0],center[1],this);
-		fXadrez.getContentPane().add(desenhaXadrez);
-		
 		carregaImagem();
 		criaPecas();
 		
-		desenhaXadrez.drawPecas(PecasPretas);
-		desenhaXadrez.drawPecas(PecasBrancas);
-		
+		//desenhaXadrez.drawPecas(PecasPretas);
+		//desenhaXadrez.drawPecas(PecasBrancas);
+				
+		int[] center = pegaMeioMonitor(LARGURA,ALTURA); // 0 -> x, 1 -> y
+		desenhaXadrez = new DrawChess(LARGURA,ALTURA,center[0],center[1],/*primCasaX,primCasaY,*/PecasPretas,PecasBrancas);
+		fXadrez.getContentPane().add(desenhaXadrez);		
 		
 		
 		// Eu tava tentando conseguir um verde escuro mas saiu essa cor e ela é bonita 
@@ -97,10 +99,6 @@ public class XadrezFrame extends Interface {
 			tipo = nome.substring(nome.length() -5, nome.length() -4);
 		}
 		
-		int[] pos = pegaPrimeiraCasa();
-		int primCasaX = pos[0];
-		int primCasaY= pos[1];
-		
 		switch (tipo) {
 		case "B": // Bispo
 			ordemPecas[2] = new Bispo(cor, img, primCasaX + 64*2, primCasaY + 64*posY, nome);
@@ -130,14 +128,5 @@ public class XadrezFrame extends Interface {
 				}
 		}
 	
-	}
-	
-	private int[] pegaPrimeiraCasa() {
-		int[] valores = new int[2];
-		
-		valores[0] = desenhaXadrez.primCasaX;
-		valores[1] = desenhaXadrez.primCasaY;
-		
-		return valores;
 	}
 }
