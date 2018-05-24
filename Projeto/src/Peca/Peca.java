@@ -30,4 +30,5 @@ public abstract class Peca {
 		return mat;
 	}
 	
-	}
+	
+}
