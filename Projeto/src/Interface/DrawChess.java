@@ -50,10 +50,12 @@ public class DrawChess extends JPanel {
 	}
 	
 	public void drawPecas(Peca[] pecas) {
+		
 		for (int i=0;i<pecas.length;i++) {
-			System.out.println(pecas[i]);
-			g2d.drawImage(pecas[i].imagem, pecas[i].posX, pecas[i].posY, null);
+			System.out.println(pecas[i].nome);
+			g2d.drawImage(pecas[i].imagem, 0, 0, null);
 		}
+		
 	}
 	
 	private void createBoard(Graphics2D g, float offSetX, float offSetY) {

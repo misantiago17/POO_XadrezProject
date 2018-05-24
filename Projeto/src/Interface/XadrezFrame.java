@@ -19,6 +19,7 @@ public class XadrezFrame extends Interface {
 	private final File pasta = new File("./resources");
 	private File[] listaArquivos = pasta.listFiles();
 	private Image[] imagens = new Image[12];
+	private String[] nomeImagens = new String[12];
 	
 	private Peca[] PecasPretas = new Peca[16];
 	private Peca[] PecasBrancas = new Peca[16];
@@ -61,6 +62,7 @@ public class XadrezFrame extends Interface {
 			for (int i=0; i<listaArquivos.length;i++) {
 				if (listaArquivos[i].isFile()) {					
 					imagens[i] = ImageIO.read(listaArquivos[i]);
+					nomeImagens[i] = listaArquivos[i].getName();
 				}
 			}		
 		}
@@ -72,48 +74,51 @@ public class XadrezFrame extends Interface {
 	
 	private void criaPecas() {
 		
-		for (int i=0;i<imagens.length;i++) {
-			
-			for (int p=0;p<imagens.length;p++) {
-				System.out.println(imagens[p].toString());
-			}
+		for (int i=0;i<nomeImagens.length;i++) {
 			
 			// Peça preta
-			if (imagens[i].toString().contains("Purple")) {
-				verificaPeca(imagens[i], 'P', 0, PecasPretas);
+			if (nomeImagens[i].contains("Purple")) {
+				verificaPeca(imagens[i], nomeImagens[i], 'P', 0, PecasPretas);
 			} else { // Peça branca
-				verificaPeca(imagens[i], 'B', 7, PecasBrancas);
+				verificaPeca(imagens[i], nomeImagens[i], 'B', 7, PecasBrancas);
 			}
 			
 		}
 	}
 	
 	// posY verifica se a peça vai ficar em começar do tabuleiro ou em baixo
-	private void verificaPeca(Image img, char cor, int posY, Peca[] ordemPecas) {
+	private void verificaPeca(Image img, String nome, char cor, int posY, Peca[] ordemPecas) {
 		
-		String tipo = img.toString().substring(img.toString().length() -1);
+		String tipo;
+		
+		if (cor == 'P') {
+			tipo = nome.substring(nome.length() -5, nome.length() -4);
+		} else {
+			tipo = nome.substring(nome.length() -5, nome.length() -4);
+		}
+		
 		int[] pos = pegaPrimeiraCasa();
 		int primCasaX = pos[0];
 		int primCasaY= pos[1];
 		
 		switch (tipo) {
 		case "B": // Bispo
-			ordemPecas[2] = new Bispo(cor, img, primCasaX + 64*2, primCasaY + 64*posY);
-			ordemPecas[5] = new Bispo(cor, img, primCasaX + 64*5, primCasaY + 64*posY);
+			ordemPecas[2] = new Bispo(cor, img, primCasaX + 64*2, primCasaY + 64*posY, nome);
+			ordemPecas[5] = new Bispo(cor, img, primCasaX + 64*5, primCasaY + 64*posY, nome);
 			break;
 		case "K": // Rei
-			ordemPecas[3] = new Rei(cor, img, primCasaX + 64*3, primCasaY + 64*posY);
+			ordemPecas[3] = new Rei(cor, img, primCasaX + 64*3, primCasaY + 64*posY, nome);
 			break;
 		case "N": // Cavalo
-			ordemPecas[1] = new Cavalo(cor, img, primCasaX + 64*1, primCasaY + 64*posY);
-			ordemPecas[6] = new Cavalo(cor, img, primCasaX + 64*6, primCasaY + 64*posY);
+			ordemPecas[1] = new Cavalo(cor, img, primCasaX + 64*1, primCasaY + 64*posY, nome);
+			ordemPecas[6] = new Cavalo(cor, img, primCasaX + 64*6, primCasaY + 64*posY, nome);
 			break;
 		case "Q": // Rainha
-			ordemPecas[4] = new Rainha(cor, img, primCasaX + 64*4, primCasaY + 64*posY);
+			ordemPecas[4] = new Rainha(cor, img, primCasaX + 64*4, primCasaY + 64*posY, nome);
 			break;
 		case "R": // Torre
-			ordemPecas[0] = new Torre(cor, img, primCasaX, primCasaY*posY);
-			ordemPecas[7] = new Torre(cor, img, primCasaX + 64*7, primCasaY + 64*posY);
+			ordemPecas[0] = new Torre(cor, img, primCasaX, primCasaY*posY, nome);
+			ordemPecas[7] = new Torre(cor, img, primCasaX + 64*7, primCasaY + 64*posY, nome);
 			break;
 			default: // Peao
 				
@@ -121,7 +126,7 @@ public class XadrezFrame extends Interface {
 				int local = (cor == 'P') ? 1 : -1;
 				
 				for (int i=0;i<8;i++) {
-					ordemPecas[i+8] = new Peao(cor, img, primCasaX + 64*i, primCasaY + 64*(posY + local));
+					ordemPecas[i+8] = new Peao(cor, img, primCasaX + 64*i, primCasaY + 64*(posY + local), nome);
 				}
 		}
 	
