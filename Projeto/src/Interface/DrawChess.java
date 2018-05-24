@@ -1,8 +1,10 @@
 package Interface;
 
+import javax.imageio.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.*;
+import Peca.*;
 
 public class DrawChess extends JPanel {
 	
@@ -17,6 +19,11 @@ public class DrawChess extends JPanel {
 	// Tabuleiro sempre no centro da tela
 	private float _offSetX;
 	private float _offSetY;
+	
+	private Peca[] _pecasPretas;
+	private Peca[] _pecasBrancas;
+	
+	private Graphics2D g2d;
 	
 	public int primCasaX = (int)(_offSetX);
 	public int primCasaY = (int)(_offSetY);
@@ -33,18 +40,20 @@ public class DrawChess extends JPanel {
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
-		Graphics2D g2d=(Graphics2D) g;
+		g2d=(Graphics2D) g;
 				
 		Rectangle2D background = new Rectangle2D.Float(0, 0, _largura, _altura);
 		g2d.setColor(Color.getHSBColor(0.92f, 1.0f, 0.23f));
 		g2d.fill(background);
 		
 		createBoard(g2d,_offSetX,_offSetY);
-		
-		//colocar pecas nas posicoes delas
-				
-
-		
+	}
+	
+	public void drawPecas(Peca[] pecas) {
+		for (int i=0;i<pecas.length;i++) {
+			System.out.println(pecas[i]);
+			g2d.drawImage(pecas[i].imagem, pecas[i].posX, pecas[i].posY, null);
+		}
 	}
 	
 	private void createBoard(Graphics2D g, float offSetX, float offSetY) {

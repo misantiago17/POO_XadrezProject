@@ -4,15 +4,17 @@ import java.awt.Image;
 import Tabuleiro.Tabuleiro;
 
 public abstract class Peca {
-	int _posX, _posY;
-	char _cor;
-	Image _imagem;
+	public int posX, posY;
+	public char cor;
+	public Image imagem;
+	public String nome;
 	
-	public Peca(char cor, Image imagem, int posicaoX, int posicaoY) {
-		_posX = posicaoX;
-		_posY = posicaoY;
-		_cor = cor;
-		_imagem = imagem;	
+	public Peca(char cor, Image img, int posicaoX, int posicaoY, String nome) {
+		this.posX = posicaoX;
+		this.posY = posicaoY;
+		this.cor = cor;
+		this.imagem = img;	
+		this.nome = nome;
 	}
 	
 	public abstract char[][] movsPossiveis(int posX, int posY, char cor);

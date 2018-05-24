@@ -4,8 +4,8 @@ import java.awt.Image;
 
 public class Rei extends Peca {
 	
-	public Rei(char cor, Image imagem, int posicaoX, int posicaoY) {
-		super(cor,imagem,posicaoX,posicaoY);
+	public Rei(char cor, Image imagem, int posicaoX, int posicaoY, String nome) {
+		super(cor,imagem,posicaoX,posicaoY, nome);
 	}
 
 	@Override

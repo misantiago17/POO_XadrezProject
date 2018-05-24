@@ -6,8 +6,8 @@ import Tabuleiro.*;
 
 public class Torre extends Peca {
 	
-	public Torre(char cor, Image imagem, int posicaoX, int posicaoY) {
-		super(cor,imagem,posicaoX,posicaoY);
+	public Torre(char cor, Image imagem, int posicaoX, int posicaoY, String nome) {
+		super(cor,imagem,posicaoX,posicaoY, nome);
 	}
 	
 	@Override

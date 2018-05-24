@@ -26,12 +26,17 @@ public class XadrezFrame extends Interface {
 	public void cria() {
 		
 		JFrame fXadrez = criaJanela(ALTURA,LARGURA,NOME);
-		System.out.println(fXadrez.getSize());
+		
 		int[] center = pegaMeioMonitor(LARGURA,ALTURA); // 0 -> x, 1 -> y
 		desenhaXadrez = new DrawChess(LARGURA,ALTURA,center[0],center[1],this);
 		fXadrez.getContentPane().add(desenhaXadrez);
+		
 		carregaImagem();
 		criaPecas();
+		
+		desenhaXadrez.drawPecas(PecasPretas);
+		desenhaXadrez.drawPecas(PecasBrancas);
+		
 		
 		
 		// Eu tava tentando conseguir um verde escuro mas saiu essa cor e ela é bonita 
@@ -68,6 +73,10 @@ public class XadrezFrame extends Interface {
 	private void criaPecas() {
 		
 		for (int i=0;i<imagens.length;i++) {
+			
+			for (int p=0;p<imagens.length;p++) {
+				System.out.println(imagens[p].toString());
+			}
 			
 			// Peça preta
 			if (imagens[i].toString().contains("Purple")) {

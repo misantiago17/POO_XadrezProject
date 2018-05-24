@@ -4,8 +4,8 @@ import java.awt.Image;
 
 public class Bispo extends Peca {
 	
-	public Bispo(char cor, Image img, int posicaoX, int posicaoY) {
-		super(cor,img,posicaoX,posicaoY);
+	public Bispo(char cor, Image img, int posicaoX, int posicaoY, String nome) {
+		super(cor,img,posicaoX,posicaoY, nome);
 	}
 
 	@Override

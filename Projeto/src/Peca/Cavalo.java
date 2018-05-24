@@ -4,8 +4,8 @@ import java.awt.Image;
 
 public class Cavalo extends Peca {
 	
-	public Cavalo(char cor, Image imagem, int posicaoX, int posicaoY) {
-		super(cor,imagem,posicaoX,posicaoY);
+	public Cavalo(char cor, Image imagem, int posicaoX, int posicaoY, String nome) {
+		super(cor,imagem,posicaoX,posicaoY, nome);
 	}
 
 	@Override

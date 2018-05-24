@@ -4,8 +4,8 @@ import java.awt.Image;
 
 public class Rainha extends Peca {
 	
-	public Rainha(char cor, Image imagem, int posicaoX, int posicaoY) {
-		super(cor,imagem,posicaoX,posicaoY);
+	public Rainha(char cor, Image imagem, int posicaoX, int posicaoY, String nome) {
+		super(cor,imagem,posicaoX,posicaoY, nome);
 	}
 
 	@Override
