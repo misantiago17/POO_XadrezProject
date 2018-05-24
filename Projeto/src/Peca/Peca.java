@@ -1,11 +1,21 @@
 package Peca;
+import java.awt.Image;
+
 import Tabuleiro.Tabuleiro;
 
 public abstract class Peca {
-	int posX, posY;
-	char cor;
+	int _posX, _posY;
+	char _cor;
+	Image _imagem;
 	
-	public abstract char[][] movsPossiveis();
+	public Peca(char cor, Image imagem, int posicaoX, int posicaoY) {
+		_posX = posicaoX;
+		_posY = posicaoY;
+		_cor = cor;
+		_imagem = imagem;	
+	}
+	
+	public abstract char[][] movsPossiveis(int posX, int posY, char cor);
 	
 	protected char[][] iniciaPosMov() {
 		char mat[][] = new char[8][8];

@@ -10,14 +10,25 @@ public class DrawChess extends JPanel {
 	private int _altura;
 	private int _x;
 	private int _y;
+	private XadrezFrame _xadrez;
 	
 	private boolean _isWhite = true;
 	
-	public DrawChess(int largura, int altura, int x, int y) {
+	// Tabuleiro sempre no centro da tela
+	private float _offSetX;
+	private float _offSetY;
+	
+	public int primCasaX = (int)(_offSetX);
+	public int primCasaY = (int)(_offSetY);
+	
+	public DrawChess(int largura, int altura, int x, int y, XadrezFrame xadrez) {
 		_largura = largura;
 		_altura = altura;
 		_x = x;
 		_y = y;	
+		_xadrez = xadrez;
+		_offSetX = (_largura - 64*8)/2;
+		_offSetY = (_altura - 64*8)/2;
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -28,21 +39,11 @@ public class DrawChess extends JPanel {
 		g2d.setColor(Color.getHSBColor(0.92f, 1.0f, 0.23f));
 		g2d.fill(background);
 		
-		// Tabuleiro sempre no centro da tela
-		float offSetX = (_largura - 64*8)/2;
-		float offSetY = (_altura - 64*8)/2;
+		createBoard(g2d,_offSetX,_offSetY);
 		
-		System.out.println(offSetX);
-		System.out.println(offSetY);
-		
-		createBoard(g2d,offSetX,offSetY);
-		
-		
-		
-		//g.fillRect(_x, _y, _largura, _altura);
-		//g.col
-		//this.setBackground(Color.getHSBColor(0.92f, 1.0f, 0.23f));
-		//g2d.drawString("FRASE AAA", 120, 140);
+		//colocar pecas nas posicoes delas
+				
+
 		
 	}
 	
@@ -52,7 +53,7 @@ public class DrawChess extends JPanel {
 			for (int j=0;j<8;j++) {
 				
 				Color c = (_isWhite) ? Color.WHITE : Color.BLACK;
-				
+								
 				Rectangle2D ret = new Rectangle2D.Float(64*i + offSetX, 64*j + offSetY, 64, 64);
 				g.setColor(c);
 				g.fill(ret);
@@ -60,17 +61,6 @@ public class DrawChess extends JPanel {
 				_isWhite = (_isWhite) ? false : true;
 			}
 			_isWhite = (_isWhite) ? false : true;
-		}
-	}
-	
-	private void carregaImagem() {
-		Image i;
-		try {
-		i=ImageIO.read(new File("b_dama.gif"));
-		}
-		catch(IOException e) {
-		System.out.println(e.getMessage());
-		System.exit(1);
 		}
 	}
 

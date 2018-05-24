@@ -1,5 +1,17 @@
 package Peca;
 
-public class Rainha {
+import java.awt.Image;
+
+public class Rainha extends Peca {
+	
+	public Rainha(char cor, Image imagem, int posicaoX, int posicaoY) {
+		super(cor,imagem,posicaoX,posicaoY);
+	}
+
+	@Override
+	public char[][] movsPossiveis(int posX, int posY, char cor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

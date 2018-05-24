@@ -1,9 +1,16 @@
 package Peca;
 
+import java.awt.Image;
+
 import Tabuleiro.*;
 
-public class Torre {
+public class Torre extends Peca {
 	
+	public Torre(char cor, Image imagem, int posicaoX, int posicaoY) {
+		super(cor,imagem,posicaoX,posicaoY);
+	}
+	
+	@Override
 	public char[][] movsPossiveis(int posX, int posY, char cor) {
 		Tabuleiro tabuleiro = new Tabuleiro();
 		char tab[][];
@@ -53,4 +60,5 @@ public class Torre {
 		
 		return mat;
 	}
+
 }
