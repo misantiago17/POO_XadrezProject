@@ -1,8 +1,8 @@
 package Peca;
 
 import java.awt.Image;
-
 import Tabuleiro.*;
+
 
 public class Torre extends Peca {
 	
@@ -11,7 +11,7 @@ public class Torre extends Peca {
 	}
 	
 	@Override
-	public char[][] movsPossiveis(int posX, int posY, char cor) {
+	public char[][] movsPossiveis() {
 		Tabuleiro tabuleiro = new Tabuleiro();
 		char tab[][];
 		tab = tabuleiro.getTab();
@@ -22,43 +22,44 @@ public class Torre extends Peca {
 		//movimento vertical
 		for(int i = 0; i < 7; i++){
 			if(posY - i > 0) {
-				if(tab[posX][posY - 1] == 'x') 
-					mat[posX][posY - 1] = 'v';
-				else if(cor == 'B' && Character.isUpperCase(tab[posX][posY - 1]))
-					mat[posX][posY - 1] = 'a';
-				else if(cor == 'P' && !Character.isUpperCase(tab[posX][posY - 1])) 
-					mat[posX][posY - 1] = 'a';
+				if(tab[posX][posY - i] == 'x') 
+					mat[posX][posY - i] = 'v';
+				else if(cor == 'B' && Character.isUpperCase(tab[posX][posY - i]))
+					mat[posX][posY - i] = 'a';
+				else if(cor == 'P' && !Character.isUpperCase(tab[posX][posY - i])) 
+					mat[posX][posY - i] = 'a';
 			}
 			if(posY + i < 8) {
-				if(tab[posX][posY + 1] == 'x') 
-					mat[posX][posY + 1] = 'v';
-				else if(cor == 'B' && Character.isUpperCase(tab[posX][posY - 1]))
-					mat[posX][posY + 1] = 'a';
-				else if(cor == 'P' && !Character.isUpperCase(tab[posX][posY - 1])) 
-					mat[posX][posY + 1] = 'a';
+				if(tab[posX][posY + i] == 'x') 
+					mat[posX][posY + i] = 'v';
+				else if(cor == 'B' && Character.isUpperCase(tab[posX][posY - i]))
+					mat[posX][posY + i] = 'a';
+				else if(cor == 'P' && !Character.isUpperCase(tab[posX][posY - i])) 
+					mat[posX][posY + i] = 'a';
 			}
 		}
 		//movimento horizontal
 		for(int i = 0; i < 7; i++){
-			if(posX > 0) {
-				if(tab[posX - 1][posY] == 'x') 
-					mat[posX - 1][posY] = 'v';
-				else if(cor == 'B' && Character.isUpperCase(tab[posX - 1][posY]))
-					mat[posX - 1][posY] = 'a';
-				else if(cor == 'P' && !Character.isUpperCase(tab[posX - 1][posY])) 
-					mat[posX - 1][posY] = 'a';
+			if(posX - i > 0) {
+				if(tab[posX - i][posY] == 'x') 
+					mat[posX - i][posY] = 'v';
+				else if(cor == 'B' && Character.isUpperCase(tab[posX - i][posY]))
+					mat[posX - i][posY] = 'a';
+				else if(cor == 'P' && !Character.isUpperCase(tab[posX - i][posY])) 
+					mat[posX - i][posY] = 'a';
 			}
-			if(posX < 8) {
-				if(tab[posX + 1][posY] == 'x') 
-					mat[posX + 1][posY] = 'v';
-				else if(cor == 'B' && Character.isUpperCase(tab[posX + 1][posY]))
-					mat[posX + 1][posY] = 'a';
-				else if(cor == 'P' && !Character.isUpperCase(tab[posX + 1][posY])) 
-					mat[posX + 1][posY] = 'a';
+			if(posX + i < 8) {
+				if(tab[posX + i][posY] == 'x') 
+					mat[posX + i][posY] = 'v';
+				else if(cor == 'B' && Character.isUpperCase(tab[posX + i][posY]))
+					mat[posX + i][posY] = 'a';
+				else if(cor == 'P' && !Character.isUpperCase(tab[posX + i][posY])) 
+					mat[posX + i][posY] = 'a';
 			}
 		}
 		
 		return mat;
 	}
+
 
 }

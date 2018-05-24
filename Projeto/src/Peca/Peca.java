@@ -1,7 +1,7 @@
 package Peca;
 import java.awt.Image;
 
-import Tabuleiro.Tabuleiro;
+
 
 public abstract class Peca {
 	public int posX, posY;
@@ -17,7 +17,7 @@ public abstract class Peca {
 		this.nome = nome;
 	}
 	
-	public abstract char[][] movsPossiveis(int posX, int posY, char cor);
+	public abstract char[][] movsPossiveis();
 	
 	protected char[][] iniciaPosMov() {
 		char mat[][] = new char[8][8];
