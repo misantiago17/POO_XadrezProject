@@ -18,8 +18,8 @@ public class DrawChess extends JPanel {
 	private float _offSetX;
 	private float _offSetY;
 	
-	private Peca[] _pecasPretas;
-	private Peca[] _pecasBrancas;
+	private Peca[] _pecasPretas = new Peca[16];
+	private Peca[] _pecasBrancas = new Peca[16];
 		
 	
 	public DrawChess(int largura, int altura, int x, int y){
@@ -35,23 +35,22 @@ public class DrawChess extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
 		Graphics2D g2d=(Graphics2D) g;
-		
-		System.out.println("kd");
-				
+						
 		Rectangle2D background = new Rectangle2D.Float(0, 0, _largura, _altura);
 		g2d.setColor(Color.getHSBColor(0.92f, 1.0f, 0.23f));
 		g2d.fill(background);
 		
 		createBoard(g2d,_offSetX,_offSetY);
 		
-		drawPecas(g2d, _pecasPretas);
-		drawPecas(g2d, _pecasBrancas);
+		if (_pecasPretas[0] != null && _pecasBrancas[0] != null) {
+			drawPecas(g2d, _pecasPretas);
+			drawPecas(g2d, _pecasBrancas);
+		}
 	}
 	
 	public void drawPecas(Graphics2D g, Peca[] pecas) {
 		
 		for (int i=0;i<pecas.length;i++) {
-			System.out.println(pecas[i].nome);
 			g.drawImage(pecas[i].imagem, pecas[i].posX, pecas[i].posY, null);
 		}
 		
