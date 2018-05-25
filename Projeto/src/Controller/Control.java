@@ -20,6 +20,7 @@ public class Control implements MouseListener {
 	
 	private XadrezFrame _xf;
 	private DrawChess _dc;
+	private Tabuleiro _tb = new Tabuleiro();
 	
 	private Casa[][] _matrix;
 	
@@ -47,7 +48,6 @@ public class Control implements MouseListener {
 		_dc.repaint();
 	}
 	
-	
 	// Verifica se clicou dentro do retângulo
 	private boolean checkMatrix(Casa matrix, float x, float y) {
 				
@@ -71,6 +71,9 @@ public class Control implements MouseListener {
 					
 					// pINTA ESSE RETANGULO DE CINZA
 					// Na real verifica se tem uma peça ali e pinta
+					
+					// clica na casa verifica se tem peca, caso sim, chama movspossiveis, retorna matriz de char se 
+					// se v é valido, se a é ataque, atualizar matriz real com os boolean e manda pintar
 					
 					_matrix[i][j].cor = Color.LIGHT_GRAY;
 										

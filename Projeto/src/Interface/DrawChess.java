@@ -26,7 +26,9 @@ public final class DrawChess extends JPanel {
 	private Peca[] _pecasBrancas = new Peca[16];
 	
 	//private Rectangle2D[][] _tabuleiro = new Rectangle2D[8][8];
-	private Tabuleiro _tabuleiroClasse = new Tabuleiro();
+	//private Tabuleiro _tabuleiroClasse = new Tabuleiro();
+	private Control _ctrl;
+	
 	private Casa[][] _tabuleiro = new Casa[8][8];
 			
 	public DrawChess(int largura, int altura, int x, int y){
@@ -84,17 +86,17 @@ public final class DrawChess extends JPanel {
 				Rectangle2D ret = new Rectangle2D.Float(64*i + offSetX, 64*j + offSetY, 64, 64);
 				g.setColor(c);
 				g.fill(ret);
-								
+							
 				Casa casa = new Casa(ret,p,c);
 								
-				_tabuleiroClasse.atualizaCasa(casa, i, j);
+				Tabuleiro.getInstance().atualizaCasa(casa, i, j);
 				
 				_isWhite = (_isWhite) ? false : true;
 			}
 			_isWhite = (_isWhite) ? false : true;
 		}
 		
-		_tabuleiro = _tabuleiroClasse.pegaTabuleiro();
+		_tabuleiro = Tabuleiro.getInstance().pegaTabuleiro();
 	}
 	
 	// Adciona as peças conforme suas posições

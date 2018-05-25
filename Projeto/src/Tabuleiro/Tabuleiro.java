@@ -2,11 +2,12 @@ package Tabuleiro;
 
 import com.sun.prism.Image;
 
+import Controller.Control;
 import Peca.*;
 
 public final class Tabuleiro {
 	
-	private static final Tabuleiro INSTANCE= new Tabuleiro();
+	private static Tabuleiro INSTANCE;
 	
 	private static Casa[][] _tabuleiro = new Casa[8][8];
 	private static char _tabuleiroChar[][] = new char[8][8];
@@ -60,6 +61,13 @@ public final class Tabuleiro {
 		_tabuleiroPeca[30] = new Cavalo('P', 6, 7);
 		_tabuleiroChar[7][7] = 'T';
 		_tabuleiroPeca[31] = new Torre('P', 7, 7);
+	}
+	
+	public static Tabuleiro getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new Tabuleiro();
+		}
+		return INSTANCE;
 	}
 	
 	public void anda(int posXinicial, int posYinicial, int posXfinal, int posYfinal) {

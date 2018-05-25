@@ -9,6 +9,7 @@ public class Casa {
 	public Rectangle2D retangulo;
 	public Peca peca;
 	public Color cor;
+	public Color corOriginal;
 	
 	public boolean movPossivel = false; 
 	public boolean atcPossivel = false; 
@@ -17,6 +18,7 @@ public class Casa {
 		this.retangulo = ret;
 		this.peca = peca;
 		this.cor = cor;
+		this.corOriginal = cor;
 	}
 
 }
