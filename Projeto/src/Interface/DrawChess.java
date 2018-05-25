@@ -15,22 +15,20 @@ public class DrawChess extends JPanel {
 	private boolean _isWhite = true;
 	
 	// Tabuleiro sempre no centro da tela
-	private float _offSetX = (int)((_largura - 64*8)/2);;
-	private float _offSetY = (int)((_altura - 64*8)/2);;
+	private float _offSetX;
+	private float _offSetY;
 	
 	private Peca[] _pecasPretas;
 	private Peca[] _pecasBrancas;
 		
 	
-	public DrawChess(int largura, int altura, int x, int y/*,int offSetX,int offSetY*/, Peca[] pretas, Peca[] brancas){
+	public DrawChess(int largura, int altura, int x, int y){
 		_largura = largura;
 		_altura = altura;
 		_x = x;
 		_y = y;	
-		//_offSetX = offSetX;
-		//_offSetY = offSetY;
-		_pecasPretas = pretas;
-		_pecasBrancas = brancas;
+		_offSetX = (_largura - 64*8)/2;
+		_offSetY = (_altura - 64*8)/2;
 	}
 	
 	@Override
@@ -45,17 +43,23 @@ public class DrawChess extends JPanel {
 		g2d.fill(background);
 		
 		createBoard(g2d,_offSetX,_offSetY);
-		//drawPecas(g2d, _pecasPretas);
-		//drawPecas(g2d, _pecasBrancas);
+		
+		drawPecas(g2d, _pecasPretas);
+		drawPecas(g2d, _pecasBrancas);
 	}
 	
 	public void drawPecas(Graphics2D g, Peca[] pecas) {
 		
 		for (int i=0;i<pecas.length;i++) {
 			System.out.println(pecas[i].nome);
-			g.drawImage(pecas[i].imagem, 0, 0, null);
+			g.drawImage(pecas[i].imagem, pecas[i].posX, pecas[i].posY, null);
 		}
 		
+	}
+	
+	public void atualizaPecas(Peca[] preta, Peca[] branca) {
+		_pecasPretas = preta;
+		_pecasBrancas = branca;
 	}
 	
 	private void createBoard(Graphics2D g, float offSetX, float offSetY) {

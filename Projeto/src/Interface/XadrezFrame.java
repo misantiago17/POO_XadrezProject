@@ -30,16 +30,17 @@ public class XadrezFrame extends Interface {
 	public void cria() {
 		
 		JFrame fXadrez = criaJanela(ALTURA,LARGURA,NOME);
+				
+		int[] center = pegaMeioMonitor(LARGURA,ALTURA); // 0 -> x, 1 -> y
+		desenhaXadrez = new DrawChess(LARGURA,ALTURA,center[0],center[1]);
+		fXadrez.getContentPane().add(desenhaXadrez);	
 		
 		carregaImagem();
 		criaPecas();
 		
-		//desenhaXadrez.drawPecas(PecasPretas);
-		//desenhaXadrez.drawPecas(PecasBrancas);
-				
-		int[] center = pegaMeioMonitor(LARGURA,ALTURA); // 0 -> x, 1 -> y
-		desenhaXadrez = new DrawChess(LARGURA,ALTURA,center[0],center[1],/*primCasaX,primCasaY,*/PecasPretas,PecasBrancas);
-		fXadrez.getContentPane().add(desenhaXadrez);		
+		desenhaXadrez.atualizaPecas(PecasPretas, PecasBrancas);
+		desenhaXadrez.repaint();
+		
 		
 		
 		// Eu tava tentando conseguir um verde escuro mas saiu essa cor e ela é bonita 
@@ -115,7 +116,7 @@ public class XadrezFrame extends Interface {
 			ordemPecas[4] = new Rainha(cor, img, primCasaX + 64*4, primCasaY + 64*posY, nome);
 			break;
 		case "R": // Torre
-			ordemPecas[0] = new Torre(cor, img, primCasaX, primCasaY*posY, nome);
+			ordemPecas[0] = new Torre(cor, img, primCasaX, primCasaY + 64*posY, nome);
 			ordemPecas[7] = new Torre(cor, img, primCasaX + 64*7, primCasaY + 64*posY, nome);
 			break;
 			default: // Peao
