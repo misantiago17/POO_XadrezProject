@@ -1,12 +1,24 @@
 package Peca;
 
 import java.awt.Image;
+
+import Interface.XadrezFrame;
 import Tabuleiro.*;
 
 public class Cavalo extends Peca {
 	
-	public Cavalo(char cor, Image imagem, int posicaoX, int posicaoY, String nome) {
-		super(cor,imagem,posicaoX,posicaoY, nome);
+	public Cavalo(char cor, int posicaoX, int posicaoY) {
+		super(cor,posicaoX,posicaoY);
+		
+		String nomeImg;
+		if(cor == 'B') 
+			nomeImg = "CyanN";
+		else
+			nomeImg = "PurpleN";
+		
+		int posImg = buscaNomeImg(nomeImg);
+		
+		this.imagem = XadrezFrame.imagens[posImg];
 	}
 
 	@Override

@@ -1,12 +1,23 @@
 package Peca;
 
 import java.awt.Image;
+import Interface.XadrezFrame;
 import Tabuleiro.*;
 
 public class Rei extends Peca {
 	
-	public Rei(char cor, Image imagem, int posicaoX, int posicaoY, String nome) {
-		super(cor,imagem,posicaoX,posicaoY, nome);
+	public Rei(char cor, int posicaoX, int posicaoY) {
+		super(cor,posicaoX,posicaoY);
+		
+		String nomeImg;
+		if(cor == 'B') 
+			nomeImg = "CyanK";
+		else
+			nomeImg = "PurpleK";
+		
+		int posImg = buscaNomeImg(nomeImg);
+		
+		this.imagem = XadrezFrame.imagens[posImg];
 	}
 
 	@Override

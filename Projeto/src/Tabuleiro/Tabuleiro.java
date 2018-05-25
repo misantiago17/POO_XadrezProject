@@ -10,28 +10,26 @@ public class Tabuleiro {
 	private static char _tabuleiroChar[][] = new char[8][8];
 	private static Peca _tabuleiroPeca[] = new Peca[32];
 	
-	public Tabuleiro() {
-		Image img;
-		
+	public Tabuleiro() {		
 		_tabuleiroChar[0][0] = 't';
-		_tabuleiroPeca[0] = new Torre('B', img, 0, 0, null);
+		_tabuleiroPeca[0] = new Torre('B', 0, 0);
 		_tabuleiroChar[1][0] = 'c';
-		_tabuleiroPeca[1] = new Cavalo('B', img, 1, 0, null);
+		_tabuleiroPeca[1] = new Cavalo('B', 1, 0);
 		_tabuleiroChar[2][0] = 'b';
-		_tabuleiroPeca[2] = new Bispo('B', img, 2, 0, null);
+		_tabuleiroPeca[2] = new Bispo('B', 2, 0);
 		_tabuleiroChar[3][0] = 'k';
-		_tabuleiroPeca[3] = new Rei('B', img, 3, 0, null);
+		_tabuleiroPeca[3] = new Rei('B', 3, 0);
 		_tabuleiroChar[4][0] = 'q';
-		_tabuleiroPeca[4] = new Rainha('B', img, 4, 0, null);
+		_tabuleiroPeca[4] = new Rainha('B', 4, 0);
 		_tabuleiroChar[5][0] = 'b';
-		_tabuleiroPeca[5] = new Bispo('B', img, 5, 0, null);
+		_tabuleiroPeca[5] = new Bispo('B', 5, 0);
 		_tabuleiroChar[6][0] = 'c';
-		_tabuleiroPeca[6] = new Cavalo('B', img, 6, 0, null);
+		_tabuleiroPeca[6] = new Cavalo('B', 6, 0);
 		_tabuleiroChar[7][0] = 't';
-		_tabuleiroPeca[7] = new Torre('B', img, 7, 0, null);
+		_tabuleiroPeca[7] = new Torre('B', 7, 0);
 		for(int i = 0; i < 8; i++) {
 			_tabuleiroChar[i][1] = 'p';
-			_tabuleiroPeca[8 + i] = new Peao('B', img, i, 1, null);
+			_tabuleiroPeca[8 + i] = new Peao('B', i, 1);
 		}
 		
 		for(int i = 2; i < 6; i++) {
@@ -41,24 +39,24 @@ public class Tabuleiro {
 		
 		for(int i = 0; i < 8; i++) {
 			_tabuleiroChar[i][6] = 'P';
-			_tabuleiroPeca[16 + i] = new Peao('P', img, i, 1, null);
+			_tabuleiroPeca[16 + i] = new Peao('P', i, 1);
 		}
 		_tabuleiroChar[0][7] = 'T';
-		_tabuleiroPeca[24] = new Torre('P', img, 0, 7, null);
+		_tabuleiroPeca[24] = new Torre('P', 0, 7);
 		_tabuleiroChar[1][7] = 'C';
-		_tabuleiroPeca[25] = new Cavalo('P', img, 1, 7, null);
+		_tabuleiroPeca[25] = new Cavalo('P', 1, 7);
 		_tabuleiroChar[2][7] = 'B';
-		_tabuleiroPeca[26] = new Bispo('P', img, 2, 7, null);
+		_tabuleiroPeca[26] = new Bispo('P', 2, 7);
 		_tabuleiroChar[3][7] = 'K';
-		_tabuleiroPeca[27] = new Rei('P', img, 3, 7, null);
+		_tabuleiroPeca[27] = new Rei('P', 3, 7);
 		_tabuleiroChar[4][7] = 'Q';
-		_tabuleiroPeca[28] = new Rainha('P', img, 4, 7, null);
+		_tabuleiroPeca[28] = new Rainha('P', 4, 7);
 		_tabuleiroChar[5][7] = 'B';
-		_tabuleiroPeca[29] = new Bispo('P', img, 5, 7, null);
+		_tabuleiroPeca[29] = new Bispo('P', 5, 7);
 		_tabuleiroChar[6][7] = 'C';
-		_tabuleiroPeca[30] = new Cavalo('P', img, 6, 7, null);
+		_tabuleiroPeca[30] = new Cavalo('P', 6, 7);
 		_tabuleiroChar[7][7] = 'T';
-		_tabuleiroPeca[31] = new Torre('P', img, 7, 7, null);
+		_tabuleiroPeca[31] = new Torre('P', 7, 7);
 	}
 	
 	public void anda(int posXinicial, int posYinicial, int posXfinal, int posYfinal) {
