@@ -16,6 +16,8 @@ public class Control implements MouseListener {
 	// Pega a posição do mouse a calcula se está dentro do quadrado do desenho da matriz, deixa ele cinza,
 	// mostra as posições possíveis da peça. Seleciona a posição desejada e move a peça.
 	
+	// Observer, quando mudar o tabuleiro troca ele na classe tabuleiro tbm
+	
 	private XadrezFrame _xf;
 	private DrawChess _dc;
 	
@@ -70,6 +72,8 @@ public class Control implements MouseListener {
 					// pINTA ESSE RETANGULO DE CINZA
 					// Na real verifica se tem uma peça ali e pinta
 					
+					_matrix[i][j].cor = Color.LIGHT_GRAY;
+										
 					System.out.print("Cliquei");
 				}
 			}

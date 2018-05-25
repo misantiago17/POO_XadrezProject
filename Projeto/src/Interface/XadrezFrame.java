@@ -30,16 +30,16 @@ public class XadrezFrame extends Interface {
 	private Control ctrl;
 	
 	public void cria() {
+		
+		carregaImagem();
+		criaPecas();
 				
 		JFrame fXadrez = criaJanela(ALTURA,LARGURA,NOME);	
 			
 		int[] center = pegaMeioMonitor(LARGURA,ALTURA); // 0 -> x, 1 -> y
 		ctrl = Control.getInstance();
 		fXadrez.getContentPane().add(ctrl.addChess(ALTURA, LARGURA,center[0], center[1]));	
-		
-		carregaImagem();
-		criaPecas();
-		
+				
 		ctrl.atualizaPecas(PecasPretas, PecasBrancas);
 	}
 	

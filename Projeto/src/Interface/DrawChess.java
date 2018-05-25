@@ -87,7 +87,7 @@ public final class DrawChess extends JPanel {
 								
 				Casa casa = new Casa(ret,p,c);
 								
-				_tabuleiroClasse.adicionaCasa(casa, i, j);
+				_tabuleiroClasse.atualizaCasa(casa, i, j);
 				
 				_isWhite = (_isWhite) ? false : true;
 			}
