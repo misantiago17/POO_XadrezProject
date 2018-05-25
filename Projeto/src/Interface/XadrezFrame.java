@@ -40,22 +40,6 @@ public class XadrezFrame extends Interface {
 		
 		desenhaXadrez.atualizaPecas(PecasPretas, PecasBrancas);
 		desenhaXadrez.repaint();
-		
-		
-		
-		// Eu tava tentando conseguir um verde escuro mas saiu essa cor e ela é bonita 
-		//JPanel pXadrez = criaPainel(Color.getHSBColor(0.92f, 1.0f, 0.23f),fXadrez);
-		
-		//LayoutManager overlay = new OverlayLayout(pXadrez);
-		//pXadrez.setLayout(overlay);
-		
-		//pXadrez.add(new DrawChess());
-
-		//pXadrez.add(new DrawChess());
-		//getContentPane().add(new DrawChess());
-
-		
-		//criaBotao("Jogar", pXadrez);
 	}
 	
 	private void carregaImagem() {
