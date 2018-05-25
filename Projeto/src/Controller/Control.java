@@ -9,6 +9,7 @@ import javax.swing.*;
 import Interface.DrawChess;
 import Interface.XadrezFrame;
 import Peca.Peca;
+import Tabuleiro.*;
 
 public class Control implements MouseListener {
 	
@@ -18,7 +19,7 @@ public class Control implements MouseListener {
 	private XadrezFrame _xf;
 	private DrawChess _dc;
 	
-	private Rectangle2D[][] _matrix;
+	private Casa[][] _matrix;
 	
 	private static Control _instance;
 	
@@ -36,7 +37,6 @@ public class Control implements MouseListener {
 	// Adiciona o tabuleiro desenhado ao frame
 	public JPanel addChess(int alt, int larg, int x, int y) {
 		_dc = new DrawChess(larg,alt,x,y);
-		_matrix = _dc.getTabuleiro();
 		return _dc;
 	}
 	
@@ -47,10 +47,10 @@ public class Control implements MouseListener {
 	
 	
 	// Verifica se clicou dentro do retângulo
-	private boolean checkMatrix(Rectangle2D ret, float x, float y) {
-		
-		if (x >= ret.getMinX() && x <= ret.getMaxX()) {
-			if (y >= ret.getMinY() && y <= ret.getMaxY()) {
+	private boolean checkMatrix(Casa matrix, float x, float y) {
+				
+		if (x >= matrix.retangulo.getMinX() && x <= matrix.retangulo.getMaxX()) {
+			if (y >= matrix.retangulo.getMinY() && y <= matrix.retangulo.getMaxY()) {
 				return true;
 			}
 		}
@@ -61,7 +61,7 @@ public class Control implements MouseListener {
 	// Action events do mouse
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+		_matrix = _dc.getTabuleiro();
 		
 		for (int i=0;i<8;i++) {
 			for (int j=0;j<8;j++) {

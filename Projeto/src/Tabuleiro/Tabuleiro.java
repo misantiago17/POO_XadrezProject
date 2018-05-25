@@ -1,17 +1,19 @@
 package Tabuleiro;
 
+import com.sun.prism.Image;
+
 import Peca.*;
 
 public class Tabuleiro {
 	
-	public Casa[][] tabuleiro;
+	private Casa[][] _tabuleiro = new Casa[8][8];
 		
 	
 	private static char _tabuleiroChar[][] = new char[8][8];
 	private static Peca _tabuleiroPeca[] = new Peca[32];
 	
 	public Tabuleiro() {
-		Image img;
+		/*Image img;
 		
 		_tabuleiroChar[0][0] = 't';
 		_tabuleiroPeca[0] = new Torre('B', img, 0, 0, null);
@@ -58,7 +60,7 @@ public class Tabuleiro {
 		_tabuleiroChar[6][7] = 'C';
 		_tabuleiroPeca[30] = new Cavalo('P', img, 6, 7, null);
 		_tabuleiroChar[7][7] = 'T';
-		_tabuleiroPeca[31] = new Torre('P', img, 7, 7, null);
+		_tabuleiroPeca[31] = new Torre('P', img, 7, 7, null);*/
 	}
 	
 	public void anda(int posXinicial, int posYinicial, int posXfinal, int posYfinal) {
@@ -73,6 +75,15 @@ public class Tabuleiro {
 	
 	public Peca[] getTabPeca() {
 		return _tabuleiroPeca;
+	}
+	
+	
+	public void adicionaCasa(Casa casa, int i, int j) {
+		_tabuleiro[i][j] = casa;
+	}
+	
+	public Casa[][] pegaTabuleiro(){
+		return _tabuleiro;
 	}
 	
 }
