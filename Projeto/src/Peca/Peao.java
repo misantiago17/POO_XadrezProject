@@ -14,9 +14,9 @@ public class Peao extends Peca {
 		
 		String nomeImg;
 		if(cor == 'B') 
-			nomeImg = "CyanP";
+			nomeImg = "CyanP.png";
 		else
-			nomeImg = "PurpleP";
+			nomeImg = "PurpleP.png";
 		
 		int posImg = buscaNomeImg(nomeImg);
 		

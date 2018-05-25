@@ -12,9 +12,9 @@ public class Bispo extends Peca {
 		
 		String nomeImg;
 		if(cor == 'B') 
-			nomeImg = "CyanB";
+			nomeImg = "CyanB.png";
 		else
-			nomeImg = "PurpleB";
+			nomeImg = "PurpleB.png";
 		
 		int posImg = buscaNomeImg(nomeImg);
 		

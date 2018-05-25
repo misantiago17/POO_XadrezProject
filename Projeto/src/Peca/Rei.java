@@ -11,9 +11,9 @@ public class Rei extends Peca {
 		
 		String nomeImg;
 		if(cor == 'B') 
-			nomeImg = "CyanK";
+			nomeImg = "CyanK.png";
 		else
-			nomeImg = "PurpleK";
+			nomeImg = "PurpleK.png";
 		
 		int posImg = buscaNomeImg(nomeImg);
 		

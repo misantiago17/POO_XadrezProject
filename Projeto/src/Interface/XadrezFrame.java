@@ -31,7 +31,7 @@ public class XadrezFrame extends Interface {
 	
 	public void cria() {
 				
-		JFrame fXadrez = criaJanela(ALTURA,LARGURA,NOME);
+		JFrame fXadrez = criaJanela(ALTURA,LARGURA,NOME);	
 			
 		int[] center = pegaMeioMonitor(LARGURA,ALTURA); // 0 -> x, 1 -> y
 		ctrl = Control.getInstance();
@@ -44,13 +44,13 @@ public class XadrezFrame extends Interface {
 	}
 	
 	private void carregaImagem() {
-		
+				
 		try {
 			
 			for (int i=0; i<listaArquivos.length;i++) {
 				if (listaArquivos[i].isFile()) {					
 					imagens[i] = ImageIO.read(listaArquivos[i]);
-					nomeImagens[i] = listaArquivos[i].getName();
+					nomeImagens[i] = listaArquivos[i].getName();					
 				}
 			}		
 		}

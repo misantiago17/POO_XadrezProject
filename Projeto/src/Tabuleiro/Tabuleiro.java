@@ -15,7 +15,7 @@ public class Tabuleiro {
 	public Tabuleiro() {
 		//Image img;
 		
-		_tabuleiroChar[0][0] = 't';
+		/*_tabuleiroChar[0][0] = 't';
 		_tabuleiroPeca[0] = new Torre('B', 0, 0);
 		_tabuleiroChar[1][0] = 'c';
 		_tabuleiroPeca[1] = new Cavalo('B', 1, 0);
@@ -60,7 +60,7 @@ public class Tabuleiro {
 		_tabuleiroChar[6][7] = 'C';
 		_tabuleiroPeca[30] = new Cavalo('P', 6, 7);
 		_tabuleiroChar[7][7] = 'T';
-		_tabuleiroPeca[31] = new Torre('P', 7, 7);
+		_tabuleiroPeca[31] = new Torre('P', 7, 7);*/
 	}
 	
 	public void anda(int posXinicial, int posYinicial, int posXfinal, int posYfinal) {

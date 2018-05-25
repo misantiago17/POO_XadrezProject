@@ -12,9 +12,9 @@ public class Cavalo extends Peca {
 		
 		String nomeImg;
 		if(cor == 'B') 
-			nomeImg = "CyanN";
+			nomeImg = "CyanN.png";
 		else
-			nomeImg = "PurpleN";
+			nomeImg = "PurpleN.png";
 		
 		int posImg = buscaNomeImg(nomeImg);
 		

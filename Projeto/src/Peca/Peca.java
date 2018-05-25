@@ -30,14 +30,13 @@ public abstract class Peca {
 	}
 	
 	protected int buscaNomeImg(String nome) {
-		
 		int i = -1;
 		
 		for(i = 0 ; i < XadrezFrame.nomeImagens.length; i++) {
-			if(XadrezFrame.nomeImagens[i] == nome) 
+			if(XadrezFrame.nomeImagens[i].equals(nome)) {
 				break;
+			}
 		}
-		
 		return i;
 	}
 }

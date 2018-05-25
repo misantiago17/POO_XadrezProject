@@ -13,9 +13,9 @@ public class Torre extends Peca {
 		
 		String nomeImg;
 		if(cor == 'B') 
-			nomeImg = "CyanR";
+			nomeImg = "CyanR.png";
 		else
-			nomeImg = "PurpleR";
+			nomeImg = "PurpleR.png";
 		
 		int posImg = buscaNomeImg(nomeImg);
 		

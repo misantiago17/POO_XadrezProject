@@ -12,9 +12,9 @@ public class Rainha extends Peca {
 		
 		String nomeImg;
 		if(cor == 'B') 
-			nomeImg = "CyanQ";
+			nomeImg = "CyanQ.png";
 		else
-			nomeImg = "PurpleQ";
+			nomeImg = "PurpleQ.png";
 		
 		int posImg = buscaNomeImg(nomeImg);
 		
