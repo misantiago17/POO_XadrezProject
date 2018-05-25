@@ -1,13 +1,25 @@
 package Peca;
 
 import java.awt.Image;
+
+import Interface.XadrezFrame;
 import Tabuleiro.*;
 
 
 public class Torre extends Peca {
 	
-	public Torre(char cor, Image imagem, int posicaoX, int posicaoY, String nome) {
-		super(cor,imagem,posicaoX,posicaoY, nome);
+	public Torre(char cor, int posicaoX, int posicaoY) {
+		super(cor,posicaoX,posicaoY);
+		
+		String nomeImg;
+		if(cor == 'B') 
+			nomeImg = "CyanR";
+		else
+			nomeImg = "PurpleR";
+		
+		int posImg = buscaNomeImg(nomeImg);
+		
+		this.imagem = XadrezFrame.imagens[posImg];
 	}
 	
 	@Override

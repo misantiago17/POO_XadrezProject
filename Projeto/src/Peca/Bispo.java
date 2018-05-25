@@ -1,12 +1,24 @@
 package Peca;
 
 import java.awt.Image;
+
+import Interface.XadrezFrame;
 import Tabuleiro.*;
 
 public class Bispo extends Peca {
 	
-	public Bispo(char cor, Image img, int posicaoX, int posicaoY, String nome) {
-		super(cor,img,posicaoX,posicaoY, nome);
+	public Bispo(char cor, int posicaoX, int posicaoY) {
+		super(cor,posicaoX,posicaoY);
+		
+		String nomeImg;
+		if(cor == 'B') 
+			nomeImg = "CyanB";
+		else
+			nomeImg = "PurpleB";
+		
+		int posImg = buscaNomeImg(nomeImg);
+		
+		this.imagem = XadrezFrame.imagens[posImg];
 	}
 
 	@Override

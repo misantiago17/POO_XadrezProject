@@ -18,8 +18,8 @@ public class XadrezFrame extends Interface {
 	
 	private final File pasta = new File("./resources");
 	private File[] listaArquivos = pasta.listFiles();
-	private Image[] imagens = new Image[12];
-	private String[] nomeImagens = new String[12];
+	public static Image[] imagens = new Image[12];
+	public static String[] nomeImagens = new String[12];
 	
 	private Peca[] PecasPretas = new Peca[16];
 	private Peca[] PecasBrancas = new Peca[16];

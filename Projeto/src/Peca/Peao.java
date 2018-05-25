@@ -1,14 +1,26 @@
 package Peca;
 
 import java.awt.Image;
+
+import Interface.XadrezFrame;
 import Tabuleiro.*;
 
 public class Peao extends Peca {
 	
 	private boolean hasMoved;
 	
-	public Peao(char cor, Image imagem, int posicaoX, int posicaoY, String nome) {
-		super(cor,imagem,posicaoX,posicaoY, nome);
+	public Peao(char cor, int posicaoX, int posicaoY) {
+		super(cor,posicaoX,posicaoY);
+		
+		String nomeImg;
+		if(cor == 'B') 
+			nomeImg = "CyanP";
+		else
+			nomeImg = "PurpleP";
+		
+		int posImg = buscaNomeImg(nomeImg);
+		
+		this.imagem = XadrezFrame.imagens[posImg];
 	}
 
 	@Override
