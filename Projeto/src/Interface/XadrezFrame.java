@@ -87,22 +87,22 @@ public class XadrezFrame extends Interface {
 		
 		switch (tipo) {
 		case "B": // Bispo
-			ordemPecas[2] = new Bispo(cor, img, primCasaX + 64*2, primCasaY + 64*posY, nome);
-			ordemPecas[5] = new Bispo(cor, img, primCasaX + 64*5, primCasaY + 64*posY, nome);
+			ordemPecas[2] = new Bispo(cor, primCasaX + 64*2, primCasaY + 64*posY);
+			ordemPecas[5] = new Bispo(cor, primCasaX + 64*5, primCasaY + 64*posY);
 			break;
 		case "K": // Rei
-			ordemPecas[3] = new Rei(cor, img, primCasaX + 64*3, primCasaY + 64*posY, nome);
+			ordemPecas[3] = new Rei(cor, primCasaX + 64*3, primCasaY + 64*posY);
 			break;
 		case "N": // Cavalo
-			ordemPecas[1] = new Cavalo(cor, img, primCasaX + 64*1, primCasaY + 64*posY, nome);
-			ordemPecas[6] = new Cavalo(cor, img, primCasaX + 64*6, primCasaY + 64*posY, nome);
+			ordemPecas[1] = new Cavalo(cor, primCasaX + 64*1, primCasaY + 64*posY);
+			ordemPecas[6] = new Cavalo(cor, primCasaX + 64*6, primCasaY + 64*posY);
 			break;
 		case "Q": // Rainha
-			ordemPecas[4] = new Rainha(cor, img, primCasaX + 64*4, primCasaY + 64*posY, nome);
+			ordemPecas[4] = new Rainha(cor, primCasaX + 64*4, primCasaY + 64*posY);
 			break;
 		case "R": // Torre
-			ordemPecas[0] = new Torre(cor, img, primCasaX, primCasaY + 64*posY, nome);
-			ordemPecas[7] = new Torre(cor, img, primCasaX + 64*7, primCasaY + 64*posY, nome);
+			ordemPecas[0] = new Torre(cor, primCasaX, primCasaY + 64*posY);
+			ordemPecas[7] = new Torre(cor, primCasaX + 64*7, primCasaY + 64*posY);
 			break;
 			default: // Peao
 				
@@ -110,7 +110,7 @@ public class XadrezFrame extends Interface {
 				int local = (cor == 'P') ? 1 : -1;
 				
 				for (int i=0;i<8;i++) {
-					ordemPecas[i+8] = new Peao(cor, img, primCasaX + 64*i, primCasaY + 64*(posY + local), nome);
+					ordemPecas[i+8] = new Peao(cor, primCasaX + 64*i, primCasaY + 64*(posY + local));
 				}
 		}
 	
