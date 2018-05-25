@@ -68,18 +68,29 @@ public class Control implements MouseListener {
 			for (int j=0;j<8;j++) {
 				if (checkMatrix(_matrix[i][j], e.getX(), e.getY())) {
 					
-					// pINTA ESSE RETANGULO DE CINZA
-					// Na real verifica se tem uma peça ali e pinta
-					
-					// clica na casa verifica se tem peca, caso sim, chama movspossiveis, retorna matriz de char se 
-					// se v é valido, se a é ataque, atualizar matriz real com os boolean e manda pintar
-					
-					System.out.println("Cliquei " + i + " " + j);
-					System.out.println(_matrix[i][j].teste);
-					
-					if(_matrix[i][j].peca != null) {
-						System.out.println(" numa peca");
-						_matrix[i][j].cor = Color.LIGHT_GRAY;
+					//Se NAO tem uma peca selecionada no tabuleiro
+					if(!Tabuleiro.pecaSelecionada) {
+						// pINTA ESSE RETANGULO DE CINZA
+						// Na real verifica se tem uma peça ali e pinta
+						
+						// clica na casa verifica se tem peca, caso sim, chama movspossiveis, retorna matriz de char se 
+						// se v é valido, se a é ataque, atualizar matriz real com os boolean e manda pintar
+						System.out.println("Cliquei " + i + " " + j);
+						System.out.println(_matrix[i][j].teste);
+						
+						if(_matrix[i][j].peca != null) {
+							System.out.println(" numa peca");
+							_matrix[i][j].peca.movsPossiveis();
+							_matrix[i][j].cor = Color.LIGHT_GRAY;
+							Tabuleiro.pecaSelecionada = true;
+						}
+					}
+					//Se JA tem uma peca selecionada no tabuleiro
+					else {
+						
+						if(_matrix[i][j].movPossivel || _matrix[i][j].atcPossivel) {
+							//Tabuleiro.getInstance().anda(, , i, j);
+						}
 					}
 				}
 			}
