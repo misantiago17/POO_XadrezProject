@@ -4,6 +4,9 @@ import Peca.*;
 
 public class Tabuleiro {
 	
+	public Casa[][] tabuleiro;
+		
+	
 	private static char _tabuleiroChar[][] = new char[8][8];
 	private static Peca _tabuleiroPeca[] = new Peca[32];
 	

@@ -5,13 +5,13 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.*;
 import javax.swing.*;
+
+import Controller.Control;
 import Peca.*;
 
 // Interface do Tabuleiro e Peças
 public class XadrezFrame extends Interface {
-	
-	private DrawChess desenhaXadrez;
-	
+		
 	private final int LARGURA = 700;
 	private final int ALTURA = 700;
 	private final String NOME = "XADREZ";
@@ -27,19 +27,20 @@ public class XadrezFrame extends Interface {
 	private int primCasaX = (int)((LARGURA - 64*8)/2);
 	private int primCasaY = (int)((ALTURA - 64*8)/2);
 	
+	private Control ctrl;
+	
 	public void cria() {
-		
-		JFrame fXadrez = criaJanela(ALTURA,LARGURA,NOME);
 				
+		JFrame fXadrez = criaJanela(ALTURA,LARGURA,NOME);
+			
 		int[] center = pegaMeioMonitor(LARGURA,ALTURA); // 0 -> x, 1 -> y
-		desenhaXadrez = new DrawChess(LARGURA,ALTURA,center[0],center[1]);
-		fXadrez.getContentPane().add(desenhaXadrez);	
+		ctrl = Control.getInstance();
+		fXadrez.getContentPane().add(ctrl.addChess(ALTURA, LARGURA,center[0], center[1]));	
 		
 		carregaImagem();
 		criaPecas();
 		
-		desenhaXadrez.atualizaPecas(PecasPretas, PecasBrancas);
-		desenhaXadrez.repaint();
+		ctrl.atualizaPecas(PecasPretas, PecasBrancas);
 	}
 	
 	private void carregaImagem() {

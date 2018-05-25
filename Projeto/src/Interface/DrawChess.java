@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.*;
 import Peca.*;
+import Tabuleiro.*;
 import Controller.Control;
 
 // fazer dessa classe um singleton
@@ -24,11 +25,9 @@ public final class DrawChess extends JPanel {
 	private Peca[] _pecasPretas = new Peca[16];
 	private Peca[] _pecasBrancas = new Peca[16];
 	
-	private Rectangle2D[][] _tabuleiro = new Rectangle2D[8][8];
-	
-	private static DrawChess _instance;
-		
-	// Deixar isso privado para ser um singleton de verdade (pegar as coisas daclasse XadrezFrame?)
+	//private Rectangle2D[][] _tabuleiro = new Rectangle2D[8][8];
+	private Tabuleiro _tabuleiro = new Tabuleiro();
+			
 	public DrawChess(int largura, int altura, int x, int y){
 		_largura = largura;
 		_altura = altura;
@@ -38,14 +37,7 @@ public final class DrawChess extends JPanel {
 		_offSetX = (_largura - 64*8)/2;
 		_offSetY = (_altura - 64*8)/2;
 		
-		this.addMouseListener(new Control());
-	}
-	
-	public static DrawChess getInstance() {
-		if (_instance == null) {
-			_instance = new DrawChess(0,0,0,0);
-		}
-		return _instance;
+		this.addMouseListener(Control.getInstance());
 	}
 	
 	@Override
@@ -57,12 +49,19 @@ public final class DrawChess extends JPanel {
 		g2d.setColor(Color.getHSBColor(0.92f, 1.0f, 0.23f));
 		g2d.fill(background);
 		
-		createBoard(g2d,_offSetX,_offSetY);
+		System.out.println(_tabuleiro[0][0]);
+		
+		if (_tabuleiro[0][0] != null) {
+			repaintChess(g2d);
+		} else {
+			createBoard(g2d,_offSetX,_offSetY);
+		}
 		
 		if (_pecasPretas[0] != null && _pecasBrancas[0] != null) {
 			drawPecas(g2d, _pecasPretas);
 			drawPecas(g2d, _pecasBrancas);
 		}
+				
 	}
 	
 	public void atualizaPecas(Peca[] preta, Peca[] branca) {
@@ -74,16 +73,20 @@ public final class DrawChess extends JPanel {
 		return _tabuleiro;
 	}
 	
+	// Cria o tabuleiro
 	private void createBoard(Graphics2D g, float offSetX, float offSetY) {
 		
 		for (int i=0;i<8;i++) {
 			for (int j=0;j<8;j++) {
 				
 				Color c = (_isWhite) ? Color.WHITE : Color.BLACK;
+				Peca p = null;
 								
 				Rectangle2D ret = new Rectangle2D.Float(64*i + offSetX, 64*j + offSetY, 64, 64);
 				g.setColor(c);
 				g.fill(ret);
+								
+				Casa c = new Casa(ret,p,c);
 								
 				_tabuleiro[i][j] = ret;
 				
@@ -93,12 +96,22 @@ public final class DrawChess extends JPanel {
 		}
 	}
 	
+	// Adciona as peças conforme suas posições
 	private void drawPecas(Graphics2D g, Peca[] pecas) {
 		
 		for (int i=0;i<pecas.length;i++) {
 			g.drawImage(pecas[i].imagem, pecas[i].posX, pecas[i].posY, null);
 		}
 		
+	}
+	
+	private void repaintChess(Graphics2D g) {
+		for (int i=0;i<8;i++) {
+			for (int j=0; j<8; j++) {
+				g.setColor(c);
+				g.fill(_tabuleiro[i][j]);
+			}
+		}
 	}
 
 }
