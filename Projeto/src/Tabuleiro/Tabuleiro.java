@@ -4,16 +4,15 @@ import com.sun.prism.Image;
 
 import Peca.*;
 
-public class Tabuleiro {
+public final class Tabuleiro {
 	
-	private Casa[][] _tabuleiro = new Casa[8][8];
-		
+	private static final Tabuleiro INSTANCE= new Tabuleiro();
 	
+	private static Casa[][] _tabuleiro = new Casa[8][8];
 	private static char _tabuleiroChar[][] = new char[8][8];
 	private static Peca _tabuleiroPeca[] = new Peca[32];
 	
 	public Tabuleiro() {
-		//Image img;
 		
 		_tabuleiroChar[0][0] = 't';
 		_tabuleiroPeca[0] = new Torre('B', 0, 0);
@@ -69,11 +68,11 @@ public class Tabuleiro {
 		_tabuleiroChar[posXinicial][posYinicial] = 'x';
 	}
 	
-	public char[][] getTab() {
+	public static char[][] getTab() {
 		return _tabuleiroChar;
 	}
 	
-	public Peca[] getTabPeca() {
+	public static Peca[] getTabPeca() {
 		return _tabuleiroPeca;
 	}
 	
