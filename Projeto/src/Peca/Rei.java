@@ -24,7 +24,7 @@ public class Rei extends Peca {
 	public char[][] movsPossiveis() {
 		Tabuleiro tabuleiro = new Tabuleiro();
 		char tab[][];
-		tab = tabuleiro.getTab();
+		tab = tabuleiro.getTabChar();
 		
 		char mat[][];
 		mat = iniciaPosMov();

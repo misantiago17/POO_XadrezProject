@@ -20,7 +20,6 @@ public class Control implements MouseListener {
 	
 	private XadrezFrame _xf;
 	private DrawChess _dc;
-	private Tabuleiro _tb = new Tabuleiro();
 	
 	private Casa[][] _matrix;
 	
@@ -63,7 +62,7 @@ public class Control implements MouseListener {
 	// Action events do mouse
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		_matrix = _dc.getTabuleiro();
+		_matrix = Tabuleiro.getTabCasa();
 		
 		for (int i=0;i<8;i++) {
 			for (int j=0;j<8;j++) {
@@ -75,9 +74,13 @@ public class Control implements MouseListener {
 					// clica na casa verifica se tem peca, caso sim, chama movspossiveis, retorna matriz de char se 
 					// se v é valido, se a é ataque, atualizar matriz real com os boolean e manda pintar
 					
-					_matrix[i][j].cor = Color.LIGHT_GRAY;
-										
-					System.out.print("Cliquei");
+					System.out.println("Cliquei " + i + " " + j);
+					System.out.println(_matrix[i][j].teste);
+					
+					if(_matrix[i][j].peca != null) {
+						System.out.println(" numa peca");
+						_matrix[i][j].cor = Color.LIGHT_GRAY;
+					}
 				}
 			}
 		}		

@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import Controller.Control;
 import Peca.*;
+import Tabuleiro.Tabuleiro;
 
 // Interface do Tabuleiro e Peças
 public class XadrezFrame extends Interface {
@@ -32,6 +33,7 @@ public class XadrezFrame extends Interface {
 	public void cria() {
 		
 		carregaImagem();
+		Tabuleiro.getInstance();
 		criaPecas();
 				
 		JFrame fXadrez = criaJanela(ALTURA,LARGURA,NOME);	

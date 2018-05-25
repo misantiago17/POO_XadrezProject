@@ -70,9 +70,9 @@ public final class DrawChess extends JPanel {
 		_pecasBrancas = branca;
 	}
 	
-	public Casa[][] getTabuleiro() {
+	/*public Casa[][] getTabuleiro() {
 		return _tabuleiro;
-	}
+	}*/
 	
 	// Cria o tabuleiro
 	private void createBoard(Graphics2D g, float offSetX, float offSetY) {
@@ -96,7 +96,7 @@ public final class DrawChess extends JPanel {
 			_isWhite = (_isWhite) ? false : true;
 		}
 		
-		_tabuleiro = Tabuleiro.getInstance().pegaTabuleiro();
+		_tabuleiro = Tabuleiro.getTabCasa();
 	}
 	
 	// Adciona as peças conforme suas posições

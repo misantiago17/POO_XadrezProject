@@ -23,9 +23,8 @@ public class Bispo extends Peca {
 
 	@Override
 	public char[][] movsPossiveis() {
-		Tabuleiro tabuleiro = new Tabuleiro();
 		char tab[][];
-		tab = tabuleiro.getTab();
+		tab = Tabuleiro.getTabChar();
 		
 		char mat[][];
 		mat = iniciaPosMov();
