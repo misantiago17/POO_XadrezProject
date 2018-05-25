@@ -76,12 +76,14 @@ public final class DrawChess extends JPanel {
 	
 	// Cria o tabuleiro
 	private void createBoard(Graphics2D g, float offSetX, float offSetY) {
+		_tabuleiro = Tabuleiro.getTabCasa();
 		
 		for (int i=0;i<8;i++) {
 			for (int j=0;j<8;j++) {
 				
 				Color c = (_isWhite) ? Color.WHITE : Color.BLACK;
-				Peca p = null;
+				
+				Peca p = _tabuleiro[i][j].peca;
 								
 				Rectangle2D ret = new Rectangle2D.Float(64*i + offSetX, 64*j + offSetY, 64, 64);
 				g.setColor(c);
