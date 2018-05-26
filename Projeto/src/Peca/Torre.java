@@ -8,16 +8,18 @@ import Tabuleiro.*;
 
 public class Torre extends Peca {
 	
-	public Torre(char cor, int posicaoX, int posicaoY) {
-		super(cor,posicaoX,posicaoY);
+	public Torre(char cor, int posicaoX, int posicaoY, String nome, Image img) {
+		super(cor,posicaoX,posicaoY,nome, img);
 		
 		String nomeImg;
-		if(cor == 'B') 
+		/*if(cor == 'B') 
 			nomeImg = "CyanR.png";
 		else
 			nomeImg = "PurpleR.png";
 				
-		this.imagem = buscaNomeImg(nomeImg);
+		this.imagem = buscaNomeImg(nomeImg);*/
+		this.imagem = img;
+		this.nome = nome;
 	}
 	
 	@Override
@@ -31,7 +33,6 @@ public class Torre extends Peca {
 		for (int i=0;i<8;i++) {
 			for (int j=0;j<8;j++) {
 				
-				System.out.println("i " + i + " j " + j);
 				// vertical
 				if (i == Xi && j != Yj) {
 					if (table[i][j].peca != null) {

@@ -6,16 +6,18 @@ import Tabuleiro.*;
 
 public class Rei extends Peca {
 	
-	public Rei(char cor, int posicaoX, int posicaoY) {
-		super(cor,posicaoX,posicaoY);
+	public Rei(char cor, int posicaoX, int posicaoY, String nome, Image img) {
+		super(cor,posicaoX,posicaoY,nome, img);
 		
 		String nomeImg;
-		if(cor == 'B') 
+		/*if(cor == 'B') 
 			nomeImg = "CyanK.png";
 		else
 			nomeImg = "PurpleK.png";
 				
-		this.imagem = buscaNomeImg(nomeImg);
+		this.imagem = buscaNomeImg(nomeImg);*/
+		this.imagem = img;
+		this.nome = nome;
 	}
 	
 	@Override
@@ -34,7 +36,6 @@ public class Rei extends Peca {
 		for (int i=0;i<8;i++) {
 			for (int j=0;j<8;j++) {
 				
-				System.out.println("i " + i + " j " + j);
 				// vertical
 				if (i == Xi && j != Yj) {
 					if (table[i][j].peca != null) {

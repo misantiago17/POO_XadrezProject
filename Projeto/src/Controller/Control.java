@@ -21,6 +21,7 @@ public class Control implements MouseListener {
 	private Casa[][] _matrix;
 	
 	private boolean _selecioneiPeca = false;
+	private Coordenadas _pecaSelecionada;
 	
 	private static Control _instance;
 	
@@ -76,6 +77,7 @@ public class Control implements MouseListener {
 						
 							} else if (_matrix[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
 								_selecioneiPeca = false;
+								_pecaSelecionada = null;
 								_matrix[i][j].peca.selecionada = false;
 								_matrix[i][j].cor = _matrix[i][j].corOriginal;
 								
@@ -99,6 +101,7 @@ public class Control implements MouseListener {
 								
 							if (_matrix[i][j].peca.selecionada == false)
 								_selecioneiPeca = true;
+								_pecaSelecionada = new Coordenadas(i,j);
 								_matrix[i][j].peca.selecionada = true;
 								_matrix[i][j].cor = Color.BLUE;
 								
@@ -123,7 +126,26 @@ public class Control implements MouseListener {
 							if (_selecioneiPeca) {
 								if (_matrix[i][j].movPossivel) {
 									System.out.println("Movi");
-									//Tabuleiro.getInstance().anda(, , i, j);
+									_selecioneiPeca = false;
+									_matrix[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
+									
+									Tabuleiro.currentTable.movePeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
+									
+									int p = 0;
+									while (casasPos[p] != null) {
+										_matrix[_pecaSelecionada.x][_pecaSelecionada.y].cor = _matrix[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
+										_matrix[casasPos[p].x][casasPos[p].y].cor = _matrix[casasPos[p].x][casasPos[p].y].corOriginal;
+										if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
+											_matrix[casasPos[p].x][casasPos[p].y].atcPossivel = false;
+										} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
+											_matrix[casasPos[p].x][casasPos[p].y].movPossivel = false;
+										} 
+										casasPos[p] = null;
+										p += 1;
+									}
+									_pecaSelecionada = null;
+									
+									_dc.repaint();
 									break;
 								}
 							}

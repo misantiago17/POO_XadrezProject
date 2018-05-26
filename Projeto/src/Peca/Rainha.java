@@ -7,16 +7,17 @@ import Tabuleiro.*;
 
 public class Rainha extends Peca {
 	
-	public Rainha(char cor, int posicaoX, int posicaoY) {
-		super(cor,posicaoX,posicaoY);
+	public Rainha(char cor, int posicaoX, int posicaoY, String nome, Image img) {
+		super(cor,posicaoX,posicaoY,nome, img);
 		
 		String nomeImg;
-		if(cor == 'B') 
+		/*if(cor == 'B') 
 			nomeImg = "CyanQ.png";
 		else
-			nomeImg = "PurpleQ.png";
+			nomeImg = "PurpleQ.png";*/
 				
-		this.imagem = buscaNomeImg(nomeImg);
+		this.imagem = img;
+		this.nome = nome;
 	}
 
 	@Override
@@ -35,7 +36,6 @@ public class Rainha extends Peca {
 		for (int i=0;i<8;i++) {
 			for (int j=0;j<8;j++) {
 				
-				System.out.println("i " + i + " j " + j);
 				// vertical
 				if (i == Xi && j != Yj) {
 					if (table[i][j].peca != null) {

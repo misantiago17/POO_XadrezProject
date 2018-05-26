@@ -89,7 +89,15 @@ public final class DrawChess extends JPanel {
 		for (int i=0;i<8;i++) {
 			for (int j=0;j<8;j++) {
 				if (_tabuleiro[i][j].peca != null) {
-					g.drawImage(_tabuleiro[i][j].peca.imagem, _tabuleiro[i][j].peca.posX, _tabuleiro[i][j].peca.posY, null);
+					//System.out.println("TÁ DANDO ERRO AQUI");
+					//Tabuleiro.currentTable.printTabuleiro()
+					if (_tabuleiro[4][4].peca != null) {
+						System.out.println(_tabuleiro[4][4].peca.imagem);
+						System.out.println(_tabuleiro[4][4].peca.posX);
+						System.out.println(_tabuleiro[4][4].peca.posY);
+					}
+
+					g.drawImage(_tabuleiro[i][j].peca.imagem, _tabuleiro[i][j].peca.posX, _tabuleiro[i][j].peca.posY, this);
 				}
 			}
 		}

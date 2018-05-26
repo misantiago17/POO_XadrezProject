@@ -2,21 +2,21 @@ package Peca;
 
 import java.awt.Image;
 import Interface.XadrezFrame;
-import Tabuleiro.Casa;
 import Tabuleiro.Coordenadas;
-
-
 
 public abstract class Peca {
 	public int posX, posY;
 	public char cor;
 	public Image imagem;
 	public boolean selecionada = false;
+	public String nome;
 	
-	public Peca(char cor, int posicaoX, int posicaoY) {
+	public Peca(char cor, int posicaoX, int posicaoY, String nome, Image img) {
 		this.posX = posicaoX;
 		this.posY = posicaoY;
 		this.cor = cor;
+		this.nome = nome;
+		this.imagem = img;
 	}
 	
 	public abstract Coordenadas[] getMovPossiveis(int Xi, int Yj);
