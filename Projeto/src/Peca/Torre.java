@@ -21,6 +21,45 @@ public class Torre extends Peca {
 	}
 	
 	@Override
+	public Coordenadas[] getMovPossiveis(int Xi, int Yj) { // bloquear
+		Tabuleiro tabuleiro = Tabuleiro.currentTable;
+		Casa[][] table = tabuleiro.getTabCasa();
+		
+		Coordenadas[] casasPossiveis = new Coordenadas[64];
+		int index = 0;
+		
+		for (int i=0;i<8;i++) {
+			for (int j=0;j<8;j++) {
+				
+				System.out.println("i " + i + " j " + j);
+				// vertical
+				if (i == Xi && j != Yj) {
+					if (table[i][j].peca != null) {
+						table[i][j].atcPossivel = true;
+					}else {
+						table[i][j].movPossivel = true;
+					}
+					casasPossiveis[index] = new Coordenadas(i,j);
+					index += 1;
+				}
+				
+				// horizontal
+				if (i != Xi && j == Yj) {
+					System.out.println(table[i][j].peca);
+					if (table[i][j].peca != null) {
+						table[i][j].atcPossivel = true;
+					}else {
+						table[i][j].movPossivel = true;
+					}
+					casasPossiveis[index] = new Coordenadas(i,j);
+					index += 1;
+				}
+			}
+		}
+		return casasPossiveis;
+	}
+	
+	@Override
 	public char[][] movsPossiveis() {
 		Tabuleiro tabuleiro = Tabuleiro.currentTable;
 		char tab[][];

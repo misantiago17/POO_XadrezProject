@@ -24,6 +24,8 @@ public class Control implements MouseListener {
 	
 	private static Control _instance;
 	
+	private Coordenadas[] casasPos = new Coordenadas[64];
+	
 	private Control() {
 
 	}
@@ -40,8 +42,6 @@ public class Control implements MouseListener {
 		_dc = new DrawChess(larg,alt);
 		return _dc;
 	}
-	
-	// -------------------------------------------------------------
 	
 	// Verifica se clicou dentro de uma casa
 	private boolean checkMatrix(Casa matrix, float x, float y) {			
@@ -79,7 +79,17 @@ public class Control implements MouseListener {
 								_matrix[i][j].peca.selecionada = false;
 								_matrix[i][j].cor = _matrix[i][j].corOriginal;
 								
-								// tira as opções de movimento do tabuleiro
+								int p = 0;
+								while (casasPos[p] != null) {
+									_matrix[casasPos[p].x][casasPos[p].y].cor = _matrix[casasPos[p].x][casasPos[p].y].corOriginal;
+									if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
+										_matrix[casasPos[p].x][casasPos[p].y].atcPossivel = false;
+									} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
+										_matrix[casasPos[p].x][casasPos[p].y].movPossivel = false;
+									}
+									casasPos[p] = null;
+									p += 1;
+								}
 								
 								_dc.repaint();
 								break;
@@ -92,7 +102,17 @@ public class Control implements MouseListener {
 								_matrix[i][j].peca.selecionada = true;
 								_matrix[i][j].cor = Color.BLUE;
 								
-								// marca as posicoes de  movimento possíveis
+								casasPos = _matrix[i][j].peca.getMovPossiveis(i,j);
+								
+								int p = 0;
+								while (casasPos[p] != null) {
+									if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
+										_matrix[casasPos[p].x][casasPos[p].y].cor = Color.RED;
+									} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
+										_matrix[casasPos[p].x][casasPos[p].y].cor = Color.YELLOW;
+									}
+									p += 1;
+								}
 								
 								_dc.repaint();
 								break;
@@ -103,37 +123,11 @@ public class Control implements MouseListener {
 							if (_selecioneiPeca) {
 								if (_matrix[i][j].movPossivel) {
 									System.out.println("Movi");
+									//Tabuleiro.getInstance().anda(, , i, j);
 									break;
 								}
 							}
-						
-					} 
-					
-					/*//Se NAO tem uma peca selecionada no tabuleiro
-					if(!Tabuleiro.pecaSelecionada) {
-						// pINTA ESSE RETANGULO DE CINZA
-						// Na real verifica se tem uma peça ali e pinta
-						
-						// clica na casa verifica se tem peca, caso sim, chama movspossiveis, retorna matriz de char se 
-						// se v é valido, se a é ataque, atualizar matriz real com os boolean e manda pintar
-						System.out.println("Cliquei " + i + " " + j);
-						//System.out.println(_matrix[i][j].teste);
-						
-						if(_matrix[i][j].peca != null) {
-							System.out.println(" numa peca");
-							_matrix[i][j].peca.movsPossiveis();
-							_matrix[i][j].cor = Color.LIGHT_GRAY;
-							Tabuleiro.pecaSelecionada = true;
-						}
-						break;
-					}
-					//Se JA tem uma peca selecionada no tabuleiro
-					else {
-						
-						if(_matrix[i][j].movPossivel || _matrix[i][j].atcPossivel) {
-							//Tabuleiro.getInstance().anda(, , i, j);
-						}
-					}*/
+						} 
 				}
 			}
 		}		

@@ -2,6 +2,8 @@ package Peca;
 
 import java.awt.Image;
 import Interface.XadrezFrame;
+import Tabuleiro.Casa;
+import Tabuleiro.Coordenadas;
 
 
 
@@ -17,7 +19,19 @@ public abstract class Peca {
 		this.cor = cor;
 	}
 	
+	public abstract Coordenadas[] getMovPossiveis(int Xi, int Yj);
 	public abstract char[][] movsPossiveis();
+	
+	/*protected Casa[][] iniciaPosMov() {
+		Casa mat[][] = new char[8][8];
+		
+		for(int i=0; i< mat.length; i++) {
+			for(int j=0; j< mat[i].length; j++) {
+				mat[i][j] = 'x';
+			}
+		}
+		return mat;
+	}*/
 	
 	protected char[][] iniciaPosMov() {
 		char mat[][] = new char[8][8];
