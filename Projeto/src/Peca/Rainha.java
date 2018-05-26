@@ -11,11 +11,6 @@ public class Rainha extends Peca {
 		super(cor,posicaoX,posicaoY,nome, img);
 		
 		String nomeImg;
-		/*if(cor == 'B') 
-			nomeImg = "CyanQ.png";
-		else
-			nomeImg = "PurpleQ.png";*/
-				
 		this.imagem = img;
 		this.nome = nome;
 	}
