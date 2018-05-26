@@ -13,15 +13,14 @@ import Tabuleiro.*;
 
 public class Control implements MouseListener {
 	
-	// Pega a posição do mouse a calcula se está dentro do quadrado do desenho da matriz, deixa ele cinza,
-	// mostra as posições possíveis da peça. Seleciona a posição desejada e move a peça.
-	
 	// Observer, quando mudar o tabuleiro troca ele na classe tabuleiro tbm
 	
-	private XadrezFrame _xf;
 	private DrawChess _dc;
+	private Tabuleiro _tb;
 	
 	private Casa[][] _matrix;
+	
+	private boolean _selecioneiPeca = false;
 	
 	private static Control _instance;
 	
@@ -37,19 +36,15 @@ public class Control implements MouseListener {
 	}
 	
 	// Adiciona o tabuleiro desenhado ao frame
-	public JPanel addChess(int alt, int larg, int x, int y) {
-		_dc = new DrawChess(larg,alt,x,y);
+	public JPanel addChess(int alt, int larg) {
+		_dc = new DrawChess(larg,alt);
 		return _dc;
 	}
 	
-	public void atualizaPecas(Peca[] preta, Peca[] branca) {
-		_dc.atualizaPecas(preta, branca);
-		_dc.repaint();
-	}
+	// -------------------------------------------------------------
 	
-	// Verifica se clicou dentro do retângulo
-	private boolean checkMatrix(Casa matrix, float x, float y) {
-				
+	// Verifica se clicou dentro de uma casa
+	private boolean checkMatrix(Casa matrix, float x, float y) {			
 		if (x >= matrix.retangulo.getMinX() && x <= matrix.retangulo.getMaxX()) {
 			if (y >= matrix.retangulo.getMinY() && y <= matrix.retangulo.getMaxY()) {
 				return true;
@@ -68,7 +63,53 @@ public class Control implements MouseListener {
 			for (int j=0;j<8;j++) {
 				if (checkMatrix(_matrix[i][j], e.getX(), e.getY())) {
 					
-					//Se NAO tem uma peca selecionada no tabuleiro
+					// Verifica se há uma peça na casa clicada
+					if (_matrix[i][j].peca != null) {
+						
+						// Verifica se está movendo/atacando ou está selecionando uma peça
+						if (_selecioneiPeca) {
+							
+							// Verifica se o local escolhido é válido para ataque
+							if (_matrix[i][j].atcPossivel) {
+								System.out.println("Ataquei");
+								break;
+						
+							} else if (_matrix[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
+								_selecioneiPeca = false;
+								_matrix[i][j].peca.selecionada = false;
+								_matrix[i][j].cor = _matrix[i][j].corOriginal;
+								
+								// tira as opções de movimento do tabuleiro
+								
+								_dc.repaint();
+								break;
+							}
+							
+						} else {
+								
+							if (_matrix[i][j].peca.selecionada == false)
+								_selecioneiPeca = true;
+								_matrix[i][j].peca.selecionada = true;
+								_matrix[i][j].cor = Color.BLUE;
+								
+								// marca as posicoes de  movimento possíveis
+								
+								_dc.repaint();
+								break;
+							}
+						} else {
+							
+							// Se não há peças no lugar e há uma peça selecionada
+							if (_selecioneiPeca) {
+								if (_matrix[i][j].movPossivel) {
+									System.out.println("Movi");
+									break;
+								}
+							}
+						
+					} 
+					
+					/*//Se NAO tem uma peca selecionada no tabuleiro
 					if(!Tabuleiro.pecaSelecionada) {
 						// pINTA ESSE RETANGULO DE CINZA
 						// Na real verifica se tem uma peça ali e pinta
@@ -76,7 +117,7 @@ public class Control implements MouseListener {
 						// clica na casa verifica se tem peca, caso sim, chama movspossiveis, retorna matriz de char se 
 						// se v é valido, se a é ataque, atualizar matriz real com os boolean e manda pintar
 						System.out.println("Cliquei " + i + " " + j);
-						System.out.println(_matrix[i][j].teste);
+						//System.out.println(_matrix[i][j].teste);
 						
 						if(_matrix[i][j].peca != null) {
 							System.out.println(" numa peca");
@@ -84,6 +125,7 @@ public class Control implements MouseListener {
 							_matrix[i][j].cor = Color.LIGHT_GRAY;
 							Tabuleiro.pecaSelecionada = true;
 						}
+						break;
 					}
 					//Se JA tem uma peca selecionada no tabuleiro
 					else {
@@ -91,7 +133,7 @@ public class Control implements MouseListener {
 						if(_matrix[i][j].movPossivel || _matrix[i][j].atcPossivel) {
 							//Tabuleiro.getInstance().anda(, , i, j);
 						}
-					}
+					}*/
 				}
 			}
 		}		

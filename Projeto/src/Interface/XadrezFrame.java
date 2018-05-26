@@ -19,30 +19,20 @@ public class XadrezFrame extends Interface {
 	
 	private final File pasta = new File("./resources");
 	private File[] listaArquivos = pasta.listFiles();
+	
 	public static Image[] imagens = new Image[12];
 	public static String[] nomeImagens = new String[12];
-	
-	private Peca[] PecasPretas = new Peca[16];
-	private Peca[] PecasBrancas = new Peca[16];
-	
-	private int primCasaX = (int)((LARGURA - 64*8)/2);
-	private int primCasaY = (int)((ALTURA - 64*8)/2);
 	
 	private Control ctrl;
 	
 	public void cria() {
 		
 		carregaImagem();
-		Tabuleiro.getInstance();
-		criaPecas();
 				
 		JFrame fXadrez = criaJanela(ALTURA,LARGURA,NOME);	
 			
-		int[] center = pegaMeioMonitor(LARGURA,ALTURA); // 0 -> x, 1 -> y
 		ctrl = Control.getInstance();
-		fXadrez.getContentPane().add(ctrl.addChess(ALTURA, LARGURA,center[0], center[1]));	
-				
-		ctrl.atualizaPecas(PecasPretas, PecasBrancas);
+		fXadrez.getContentPane().add(ctrl.addChess(ALTURA, LARGURA));	
 	}
 	
 	private void carregaImagem() {
@@ -62,59 +52,4 @@ public class XadrezFrame extends Interface {
 		}
 	}
 	
-	private void criaPecas() {
-		
-		for (int i=0;i<nomeImagens.length;i++) {
-			
-			// Peça preta
-			if (nomeImagens[i].contains("Purple")) {
-				verificaPeca(imagens[i], nomeImagens[i], 'P', 0, PecasPretas);
-			} else { // Peça branca
-				verificaPeca(imagens[i], nomeImagens[i], 'B', 7, PecasBrancas);
-			}
-			
-		}
-	}
-	
-	// posY verifica se a peça vai ficar em começar do tabuleiro ou em baixo
-	private void verificaPeca(Image img, String nome, char cor, int posY, Peca[] ordemPecas) {
-		
-		String tipo;
-		
-		if (cor == 'P') {
-			tipo = nome.substring(nome.length() -5, nome.length() -4);
-		} else {
-			tipo = nome.substring(nome.length() -5, nome.length() -4);
-		}
-		
-		switch (tipo) {
-		case "B": // Bispo
-			ordemPecas[2] = new Bispo(cor, primCasaX + 64*2, primCasaY + 64*posY);
-			ordemPecas[5] = new Bispo(cor, primCasaX + 64*5, primCasaY + 64*posY);
-			break;
-		case "K": // Rei
-			ordemPecas[3] = new Rei(cor, primCasaX + 64*3, primCasaY + 64*posY);
-			break;
-		case "N": // Cavalo
-			ordemPecas[1] = new Cavalo(cor, primCasaX + 64*1, primCasaY + 64*posY);
-			ordemPecas[6] = new Cavalo(cor, primCasaX + 64*6, primCasaY + 64*posY);
-			break;
-		case "Q": // Rainha
-			ordemPecas[4] = new Rainha(cor, primCasaX + 64*4, primCasaY + 64*posY);
-			break;
-		case "R": // Torre
-			ordemPecas[0] = new Torre(cor, primCasaX, primCasaY + 64*posY);
-			ordemPecas[7] = new Torre(cor, primCasaX + 64*7, primCasaY + 64*posY);
-			break;
-			default: // Peao
-				
-				// -1 ou +1
-				int local = (cor == 'P') ? 1 : -1;
-				
-				for (int i=0;i<8;i++) {
-					ordemPecas[i+8] = new Peao(cor, primCasaX + 64*i, primCasaY + 64*(posY + local));
-				}
-		}
-	
-	}
 }

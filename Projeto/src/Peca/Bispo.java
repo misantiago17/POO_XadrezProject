@@ -15,14 +15,13 @@ public class Bispo extends Peca {
 			nomeImg = "CyanB.png";
 		else
 			nomeImg = "PurpleB.png";
-		
-		int posImg = buscaNomeImg(nomeImg);
-		
-		this.imagem = XadrezFrame.imagens[posImg];
+				
+		this.imagem = buscaNomeImg(nomeImg);
 	}
 
 	@Override
 	public char[][] movsPossiveis() {
+		Tabuleiro tabuleiro = Tabuleiro.currentTable;
 		char tab[][];
 		tab = Tabuleiro.getTabChar();
 		

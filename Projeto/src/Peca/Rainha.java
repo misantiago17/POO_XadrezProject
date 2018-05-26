@@ -15,15 +15,13 @@ public class Rainha extends Peca {
 			nomeImg = "CyanQ.png";
 		else
 			nomeImg = "PurpleQ.png";
-		
-		int posImg = buscaNomeImg(nomeImg);
-		
-		this.imagem = XadrezFrame.imagens[posImg];
+				
+		this.imagem = buscaNomeImg(nomeImg);
 	}
 
 	@Override
 	public char[][] movsPossiveis() {
-		Tabuleiro tabuleiro = new Tabuleiro();
+		Tabuleiro tabuleiro = Tabuleiro.currentTable;
 		char tab[][];
 		tab = tabuleiro.getTabChar();
 		

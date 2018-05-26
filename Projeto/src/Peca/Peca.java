@@ -9,6 +9,7 @@ public abstract class Peca {
 	public int posX, posY;
 	public char cor;
 	public Image imagem;
+	public boolean selecionada = false;
 	
 	public Peca(char cor, int posicaoX, int posicaoY) {
 		this.posX = posicaoX;
@@ -29,14 +30,12 @@ public abstract class Peca {
 		return mat;
 	}
 	
-	protected int buscaNomeImg(String nome) {
-		int i = -1;
-		
-		for(i = 0 ; i < XadrezFrame.nomeImagens.length; i++) {
+	protected Image buscaNomeImg(String nome) {		
+		for(int i = 0 ; i < XadrezFrame.nomeImagens.length; i++) {
 			if(XadrezFrame.nomeImagens[i].equals(nome)) {
-				break;
+				return XadrezFrame.imagens[i];
 			}
 		}
-		return i;
+		return null;
 	}
 }
