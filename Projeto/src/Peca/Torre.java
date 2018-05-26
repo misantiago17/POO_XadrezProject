@@ -23,22 +23,49 @@ public class Torre extends Peca {
 	}
 	
 	@Override
-	public Coordenadas[] getMovPossiveis(int Xi, int Yj) { // bloquear
-		Tabuleiro tabuleiro = Tabuleiro.currentTable;
-		Casa[][] table = tabuleiro.getTabCasa();
+public Coordenadas[] getMovPossiveis(int Xi, int Yj) { // bloquear
+		
+		Casa[][] table = Tabuleiro.getTabCasa();
 		
 		Coordenadas[] casasPossiveis = new Coordenadas[64];
 		int index = 0;
+		
+		// bloquear de ir alem de uma peça
+		boolean encontrouVertCima = false;
+		boolean encontrouVertBaixo = false;
+		boolean encontrouHorzDireita = false;
+		boolean encontrouHorzEsquerda = false;
+		boolean encontrouDiagCimaDir = false;
+		boolean encontrouDiagBaixoDir = false;
+		boolean encontrouDiagCimaEsq = false;
+		boolean encontrouDiagBaixoEsq = false;
 		
 		for (int i=0;i<8;i++) {
 			for (int j=0;j<8;j++) {
 				
 				// vertical
 				if (i == Xi && j != Yj) {
-					if (table[i][j].peca != null) {
-						table[i][j].atcPossivel = true;
-					}else {
-						table[i][j].movPossivel = true;
+					if(!encontrouVertCima && i > Xi) {
+						if (table[i][j].peca == null) 
+							table[i][j].movPossivel = true;
+						else if(table[Xi][Yj].peca.cor != table[i][j].peca.cor) {
+							table[i][j].atcPossivel = true;
+							encontrouVertCima = true;
+						}
+						else {
+							encontrouVertCima = true;
+						}
+					}
+					if(!encontrouVertBaixo && i < Xi) {
+						if (table[i][j].peca == null) 
+							table[i][j].movPossivel = true;
+						else if(table[Xi][Yj].peca.cor != table[i][j].peca.cor) {
+							table[i][j].atcPossivel = true;
+							encontrouVertBaixo = true;
+						}
+						else 
+							encontrouVertBaixo = true;
+					
 					}
 					casasPossiveis[index] = new Coordenadas(i,j);
 					index += 1;
@@ -46,11 +73,26 @@ public class Torre extends Peca {
 				
 				// horizontal
 				if (i != Xi && j == Yj) {
-					System.out.println(table[i][j].peca);
-					if (table[i][j].peca != null) {
-						table[i][j].atcPossivel = true;
-					}else {
-						table[i][j].movPossivel = true;
+					if(!encontrouHorzDireita && j > Yj) {
+						if (table[i][j].peca == null) 
+							table[i][j].movPossivel = true;
+						else if(table[Xi][Yj].peca.cor != table[i][j].peca.cor) {
+							table[i][j].atcPossivel = true;
+							encontrouHorzDireita = true;
+						}
+						else 
+							encontrouHorzDireita = true;
+					}
+					if(!encontrouHorzEsquerda && j < Yj) {
+						if (table[i][j].peca == null) 
+							table[i][j].movPossivel = true;
+						else if(table[Xi][Yj].peca.cor != table[i][j].peca.cor) {
+							table[i][j].atcPossivel = true;
+							encontrouHorzEsquerda = true;
+						}
+						else 
+							encontrouHorzEsquerda = true;
+					
 					}
 					casasPossiveis[index] = new Coordenadas(i,j);
 					index += 1;
@@ -59,57 +101,5 @@ public class Torre extends Peca {
 		}
 		return casasPossiveis;
 	}
-	
-	@Override
-	public char[][] movsPossiveis() {
-		Tabuleiro tabuleiro = Tabuleiro.currentTable;
-		char tab[][];
-		tab = tabuleiro.getTabChar();
-		
-		char mat[][];
-		mat = iniciaPosMov();
-		
-		//movimento vertical
-		for(int i = 0; i < 7; i++){
-			if(posY - i > 0) {
-				if(tab[posX][posY - i] == 'x') 
-					mat[posX][posY - i] = 'v';
-				else if(cor == 'B' && Character.isUpperCase(tab[posX][posY - i]))
-					mat[posX][posY - i] = 'a';
-				else if(cor == 'P' && !Character.isUpperCase(tab[posX][posY - i])) 
-					mat[posX][posY - i] = 'a';
-			}
-			if(posY + i < 8) {
-				if(tab[posX][posY + i] == 'x') 
-					mat[posX][posY + i] = 'v';
-				else if(cor == 'B' && Character.isUpperCase(tab[posX][posY - i]))
-					mat[posX][posY + i] = 'a';
-				else if(cor == 'P' && !Character.isUpperCase(tab[posX][posY - i])) 
-					mat[posX][posY + i] = 'a';
-			}
-		}
-		//movimento horizontal
-		for(int i = 0; i < 7; i++){
-			if(posX - i > 0) {
-				if(tab[posX - i][posY] == 'x') 
-					mat[posX - i][posY] = 'v';
-				else if(cor == 'B' && Character.isUpperCase(tab[posX - i][posY]))
-					mat[posX - i][posY] = 'a';
-				else if(cor == 'P' && !Character.isUpperCase(tab[posX - i][posY])) 
-					mat[posX - i][posY] = 'a';
-			}
-			if(posX + i < 8) {
-				if(tab[posX + i][posY] == 'x') 
-					mat[posX + i][posY] = 'v';
-				else if(cor == 'B' && Character.isUpperCase(tab[posX + i][posY]))
-					mat[posX + i][posY] = 'a';
-				else if(cor == 'P' && !Character.isUpperCase(tab[posX + i][posY])) 
-					mat[posX + i][posY] = 'a';
-			}
-		}
-		
-		return mat;
-	}
-
 
 }

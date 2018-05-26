@@ -24,83 +24,78 @@ public class Peao extends Peca {
 	}
 	
 	@Override
-	public Coordenadas[] getMovPossiveis(int Xi, int Yj) {
-		Tabuleiro tabuleiro = Tabuleiro.currentTable;
-		Casa[][] table = tabuleiro.getTabCasa();
+	public Coordenadas[] getMovPossiveis(int Xi, int Yj) { // bloquear
+		
+		Casa[][] table = Tabuleiro.getTabCasa();
 		
 		Coordenadas[] casasPossiveis = new Coordenadas[64];
 		int index = 0;
 		
-		// bloquear de ir alem de uma peça?
-		boolean encontrouVert = false;
-		boolean encontrouHorz = false;
-		boolean encontrouDiag = false;
-		
-		for (int i=0;i<8;i++) {
-			for (int j=0;j<8;j++) {
-				
-				// vertical
-				if (i == Xi && j != Yj) {
-					if (table[i][j].peca != null) {
-						table[i][j].atcPossivel = true;
-					}else {
-						table[i][j].movPossivel = true;
-					}
-					casasPossiveis[index] = new Coordenadas(i,j);
-					index += 1;
-				}
-				
-				// diagonal
-				if (i != Xi && j != Yj && ((i - Xi == j - Yj) || (Xi - i == j - Yj))) {
-					if (table[i][j].peca != null) {
-						table[i][j].atcPossivel = true;
-					}else {
-						table[i][j].movPossivel = true;
-					}
-					casasPossiveis[index] = new Coordenadas(i,j);
-					index += 1;
-				}
-			}
-		}
-		return casasPossiveis;
-	}
-	
-	@Override
-	public char[][] movsPossiveis() {
-		Tabuleiro tabuleiro = Tabuleiro.currentTable;
-		char tab[][];
-		tab = tabuleiro.getTabChar();
-		
-		char mat[][];
-		mat = iniciaPosMov();
-		
 		int maxMov;
-		
 		if(hasMoved)
 			maxMov = 1;
 		else
 			maxMov = 2;
 		
+		// bloquear de ir alem de uma peça
+		boolean encontrou = false;
+		
 		for(int i = 0; i < maxMov; i++){
-			if(posY - i > 0) {
-				if(tab[posX][posY - i] == 'x') 
-					mat[posX][posY - i] = 'v';
-				else if(cor == 'B' && Character.isUpperCase(tab[posX][posY - i]))
-					mat[posX][posY - i] = 'a';
-				else if(cor == 'P' && !Character.isUpperCase(tab[posX][posY - i])) 
-					mat[posX][posY - i] = 'a';
+			if(Yj > 0 && table[Xi][Yj].peca.cor == 'B' && !encontrou) {
+				if(table[Xi][Yj - i].peca == null) 
+					table[Xi][Yj - i].movPossivel = true;
+				else
+					encontrou = true;
+				casasPossiveis[index] = new Coordenadas(Xi,Yj - i);
+				index += 1;
 			}
-			if(posY + i < 8) {
-				if(tab[posX][posY + i] == 'x') 
-					mat[posX][posY + i] = 'v';
-				else if(cor == 'B' && Character.isUpperCase(tab[posX][posY - i]))
-					mat[posX][posY + i] = 'a';
-				else if(cor == 'P' && !Character.isUpperCase(tab[posX][posY - i])) 
-					mat[posX][posY + i] = 'a';
+			else if(Yj < 8 && table[Xi][Yj].peca.cor == 'P' && !encontrou) {
+				if(table[Xi][Yj + i].peca == null) 
+					table[Xi][Yj + i].movPossivel = true;
+				else
+					encontrou = true;
+				casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
+				index += 1;
 			}
+			
 		}
 		
-		return mat;
+		if(table[Xi][Yj].peca.cor == 'B') {
+			if(Xi > 0 && Yj > 0) {
+				if(table[Xi - 1][Yj - 1].peca != null)
+					if(table[Xi - 1][Yj - 1].peca. cor != table[Xi][Yj].peca.cor) {
+						table[Xi - 1][Yj - 1].atcPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi - 1,Yj + -1);
+						index += 1;
+					}
+			}
+			if(Xi < 8 && Yj > 0) {
+				if(table[Xi + 1][Yj - 1].peca != null)
+					if(table[Xi + 1][Yj - 1].peca. cor != table[Xi][Yj].peca.cor) {
+						table[Xi + 1][Yj - 1].atcPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi + 1,Yj - 1);
+						index += 1;
+					}
+			}
+		}
+		else if(table[Xi][Yj].peca.cor == 'P') {
+			if(Xi > 0 && Yj < 0) {
+				if(table[Xi - 1][Yj + 1].peca != null)
+					if(table[Xi - 1][Yj + 1].peca. cor != table[Xi][Yj].peca.cor) {
+						table[Xi - 1][Yj + 1].atcPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi - 1,Yj + 1);
+						index += 1;
+					}
+			}
+			if(Xi < 8 && Yj < 0) {
+				if(table[Xi + 1][Yj + 1].peca != null)
+					if(table[Xi + 1][Yj + 1].peca. cor != table[Xi][Yj].peca.cor) {
+						table[Xi + 1][Yj + 1].atcPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi + 1,Yj + 1);
+						index += 1;
+					}
+			}
+		}
+		return casasPossiveis;
 	}
-
 }

@@ -20,7 +20,6 @@ public abstract class Peca {
 	}
 	
 	public abstract Coordenadas[] getMovPossiveis(int Xi, int Yj);
-	public abstract char[][] movsPossiveis();
 	
 	/*protected Casa[][] iniciaPosMov() {
 		Casa mat[][] = new char[8][8];
