@@ -26,7 +26,8 @@ public final class DrawChess extends JPanel {
 	private Casa[][] _tabuleiro = new Casa[8][8];
 		
 	private boolean _isWhite = true;
-			
+	private static boolean comecou = false;
+	
 	public DrawChess(int largura, int altura){	
 		_largura = largura;
 		_altura = altura;
@@ -46,13 +47,15 @@ public final class DrawChess extends JPanel {
 		g2d.setColor(Color.getHSBColor(0.92f, 1.0f, 0.23f));
 		g2d.fill(background);
 			
-		if (_tabuleiro[0][0] != null) {
+			
+		if (comecou) {
 			repaintChess(g2d); //
 		} else {
 			createBoard(g2d,_offSetX,_offSetY);
+			comecou = true;
 		}
 		
-		if (_tabuleiro[0][0].peca != null) {
+		if (comecou) {
 			drawPecas(g2d);
 		}
 				
