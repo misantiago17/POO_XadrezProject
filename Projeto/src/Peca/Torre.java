@@ -40,7 +40,7 @@ public Coordenadas[] getMovPossiveis(int Xi, int Yj) { // bloquear
 		boolean encontrouDiagCimaEsq = false;
 		boolean encontrouDiagBaixoEsq = false;
 		
-		for (int i=0;i<8;i++) {
+		for (int i=1; i <= 8; i++) {
 			// vertical
 			if(!encontrouVertCima && Yj + i < 8) {
 				if (table[Xi][Yj + i].peca == null) 
@@ -86,7 +86,7 @@ public Coordenadas[] getMovPossiveis(int Xi, int Yj) { // bloquear
 				casasPossiveis[index] = new Coordenadas(Xi + i,Yj);
 				index += 1;
 			}
-			if(!encontrouHorzEsquerda && Yj - i >= 0) {
+			if(!encontrouHorzEsquerda && Xi - i >= 0) {
 				if (table[Xi - i][Yj].peca == null) 
 					table[Xi - i][Yj].movPossivel = true;
 				else if(table[Xi][Yj].peca.cor != table[Xi - i][Yj].peca.cor) {

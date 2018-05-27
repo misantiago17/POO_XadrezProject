@@ -3,9 +3,7 @@ package Controller;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
-
 import javax.swing.*;
-
 import Interface.DrawChess;
 import Interface.XadrezFrame;
 import Peca.Peca;
@@ -108,10 +106,13 @@ public class Control implements MouseListener {
 								casasPos = _matrix[i][j].peca.getMovPossiveis(i,j);
 								
 								int p = 0;
+								
 								while (casasPos[p] != null) {
 									if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
 										_matrix[casasPos[p].x][casasPos[p].y].cor = Color.RED;
 									} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
+
+										System.out.println(casasPos[p].x);
 										_matrix[casasPos[p].x][casasPos[p].y].cor = Color.YELLOW;
 									}
 									p += 1;
@@ -145,6 +146,7 @@ public class Control implements MouseListener {
 									}
 									_pecaSelecionada = null;
 									
+																	
 									_dc.repaint();
 									break;
 								}

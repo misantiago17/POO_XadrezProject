@@ -3,7 +3,7 @@ package Tabuleiro;
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
-import com.sun.prism.Image;
+//import com.sun.prism.Image;
 import Controller.Control;
 import Interface.DrawChess;
 import Interface.XadrezFrame;
@@ -131,7 +131,9 @@ public final class Tabuleiro {
 			_tabuleiroCasa[destX][destY].peca = new Rei(p.cor,newPosX,newPosY,p.nome, p.imagem);
 			break;
 			default:
-				_tabuleiroCasa[destX][destY].peca = new Peao(p.cor,newPosX,newPosY,p.nome, p.imagem);
+				Peao peao = new Peao(p.cor,newPosX,newPosY,p.nome, p.imagem);
+				peao.hasMoved = true;
+				_tabuleiroCasa[destX][destY].peca = peao;
 				break;
 		}	
 

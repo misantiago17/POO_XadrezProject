@@ -34,7 +34,7 @@ public class Bispo extends Peca {
 		boolean encontrouDiagCimaEsq = false;
 		boolean encontrouDiagBaixoEsq = false;
 		
-		for (int i=0;i<8;i++) {
+		for (int i=1; i <= 8;i++) {
 			// diagonal
 			if(!encontrouDiagCimaDir && Xi + i < 8 && Yj + i < 8) {
 				if (table[Xi + i][Yj + i].peca == null) 
@@ -73,7 +73,7 @@ public class Bispo extends Peca {
 				else 
 					encontrouDiagCimaEsq = true;
 						
-				casasPossiveis[index] = new Coordenadas(Xi + i,Yj - i);
+				casasPossiveis[index] = new Coordenadas(Xi - i,Yj + i);
 				index += 1;	
 			}
 			if(!encontrouDiagBaixoEsq && Xi - i >= 0 && Yj - i >= 0) {
