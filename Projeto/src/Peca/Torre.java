@@ -41,64 +41,66 @@ public Coordenadas[] getMovPossiveis(int Xi, int Yj) { // bloquear
 		boolean encontrouDiagBaixoEsq = false;
 		
 		for (int i=0;i<8;i++) {
-			for (int j=0;j<8;j++) {
-				
-				// vertical
-				if (i == Xi && j != Yj) {
-					if(!encontrouVertCima && i > Xi) {
-						if (table[i][j].peca == null) 
-							table[i][j].movPossivel = true;
-						else if(table[Xi][Yj].peca.cor != table[i][j].peca.cor) {
-							table[i][j].atcPossivel = true;
-							encontrouVertCima = true;
-						}
-						else {
-							encontrouVertCima = true;
-						}
-					}
-					if(!encontrouVertBaixo && i < Xi) {
-						if (table[i][j].peca == null) 
-							table[i][j].movPossivel = true;
-						else if(table[Xi][Yj].peca.cor != table[i][j].peca.cor) {
-							table[i][j].atcPossivel = true;
-							encontrouVertBaixo = true;
-						}
-						else 
-							encontrouVertBaixo = true;
-					
-					}
-					casasPossiveis[index] = new Coordenadas(i,j);
-					index += 1;
+			// vertical
+			if(!encontrouVertCima && Yj + i < 8) {
+				if (table[Xi][Yj + i].peca == null) 
+						table[Xi][Yj + i].movPossivel = true;
+				else if(table[Xi][Yj].peca.cor != table[Xi][Yj + i].peca.cor) {
+					table[Xi][Yj + i].atcPossivel = true;
+					encontrouVertCima = true;
 				}
+				else
+					encontrouVertCima = true;
 				
-				// horizontal
-				if (i != Xi && j == Yj) {
-					if(!encontrouHorzDireita && j > Yj) {
-						if (table[i][j].peca == null) 
-							table[i][j].movPossivel = true;
-						else if(table[Xi][Yj].peca.cor != table[i][j].peca.cor) {
-							table[i][j].atcPossivel = true;
-							encontrouHorzDireita = true;
-						}
-						else 
-							encontrouHorzDireita = true;
-					}
-					if(!encontrouHorzEsquerda && j < Yj) {
-						if (table[i][j].peca == null) 
-							table[i][j].movPossivel = true;
-						else if(table[Xi][Yj].peca.cor != table[i][j].peca.cor) {
-							table[i][j].atcPossivel = true;
-							encontrouHorzEsquerda = true;
-						}
-						else 
-							encontrouHorzEsquerda = true;
-					
-					}
-					casasPossiveis[index] = new Coordenadas(i,j);
-					index += 1;
+				casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
+				index += 1;
+			}
+			if(!encontrouVertBaixo && Yj - i >= 0) {
+				if (table[Xi][Yj - i].peca == null) 
+					table[Xi][Yj - i].movPossivel = true;
+				else if(table[Xi][Yj].peca.cor != table[Xi][Yj - i].peca.cor) {
+					table[Xi][Yj - i].atcPossivel = true;
+					encontrouVertBaixo = true;
 				}
+				else 
+					encontrouVertBaixo = true;
+				
+				casasPossiveis[index] = new Coordenadas(Xi,Yj - i);
+				index += 1;
+			}
+			
+				
+						
+						
+			// horizontal
+			if(!encontrouHorzDireita && Xi + i < 8) {
+				if (table[Xi + i][Yj].peca == null) 
+					table[Xi + i][Yj].movPossivel = true;
+				else if(table[Xi][Yj].peca.cor != table[Xi + i][Yj].peca.cor) {
+					table[Xi + i][Yj].atcPossivel = true;
+					encontrouHorzDireita = true;
+				}
+				else 
+					encontrouHorzDireita = true;
+				
+				casasPossiveis[index] = new Coordenadas(Xi + i,Yj);
+				index += 1;
+			}
+			if(!encontrouHorzEsquerda && Yj - i >= 0) {
+				if (table[Xi - i][Yj].peca == null) 
+					table[Xi - i][Yj].movPossivel = true;
+				else if(table[Xi][Yj].peca.cor != table[Xi - i][Yj].peca.cor) {
+					table[Xi - i][Yj].atcPossivel = true;
+					encontrouHorzEsquerda = true;
+				}
+				else 
+					encontrouHorzEsquerda = true;
+				
+				casasPossiveis[index] = new Coordenadas(Xi - i,Yj);
+				index += 1;			
 			}
 		}
+		
 		return casasPossiveis;
 	}
 

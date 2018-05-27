@@ -35,53 +35,60 @@ public class Bispo extends Peca {
 		boolean encontrouDiagBaixoEsq = false;
 		
 		for (int i=0;i<8;i++) {
-			for (int j=0;j<8;j++) {
-				
-				if (i != Xi && j != Yj && ((i - Xi == j - Yj) || (Xi - i == j - Yj))) {
-					if(!encontrouDiagCimaDir && i > Xi && j > Yj) {
-						if (table[i][j].peca == null) 
-							table[i][j].movPossivel = true;
-						else if(table[Xi][Yj].peca.cor != table[i][j].peca.cor) {
-							table[i][j].atcPossivel = true;
-							encontrouDiagCimaDir = true;
-						}
-						else 
-							encontrouDiagCimaDir = true;
-					}
-					if(!encontrouDiagBaixoDir && i > Xi && j < Yj) {
-						if (table[i][j].peca == null) 
-							table[i][j].movPossivel = true;
-						else if(table[Xi][Yj].peca.cor != table[i][j].peca.cor) {
-							table[i][j].atcPossivel = true;
-							encontrouDiagBaixoDir = true;
-						}
-						else 
-							encontrouDiagBaixoDir = true;
-					
-					}
-					if(!encontrouDiagCimaEsq && i < Xi && j > Yj) {
-						if (table[i][j].peca == null) 
-							table[i][j].movPossivel = true;
-						else if(table[Xi][Yj].peca.cor != table[i][j].peca.cor) {
-							table[i][j].atcPossivel = true;
-							encontrouDiagCimaEsq = true;
-						}
-						else 
-							encontrouDiagCimaEsq = true;
-					}
-					if(!encontrouDiagBaixoEsq && i < Xi && j < Yj) {
-						if (table[i][j].peca == null) 
-							table[i][j].movPossivel = true;
-						else if(table[Xi][Yj].peca.cor != table[i][j].peca.cor) {
-							table[i][j].atcPossivel = true;
-							encontrouDiagBaixoEsq = true;
-						}
-						else 
-							encontrouDiagBaixoEsq = true;
-					
-					}
+			// diagonal
+			if(!encontrouDiagCimaDir && Xi + i < 8 && Yj + i < 8) {
+				if (table[Xi + i][Yj + i].peca == null) 
+					table[Xi + i][Yj + i].movPossivel = true;
+				else if(table[Xi][Yj].peca.cor != table[Xi + i][Yj + i].peca.cor) {
+					table[Xi + i][Yj + i].atcPossivel = true;
+					encontrouDiagCimaDir = true;
 				}
+				else 
+					encontrouDiagCimaDir = true;
+				
+				casasPossiveis[index] = new Coordenadas(Xi + i,Yj + i);
+				index += 1;	
 			}
+			if(!encontrouDiagBaixoDir && Xi + i < 8 && Yj - i >= 0) {
+				if (table[Xi + i][Yj - i].peca == null) 
+					table[Xi + i][Yj - i].movPossivel = true;
+				else if(table[Xi][Yj].peca.cor != table[Xi + i][Yj - i].peca.cor) {
+					table[Xi + i][Yj - i].atcPossivel = true;
+					encontrouDiagBaixoDir = true;
+				}
+				else 
+					encontrouDiagBaixoDir = true;
+				
+				casasPossiveis[index] = new Coordenadas(Xi + i,Yj - i);
+				index += 1;	
+			
+			}
+			if(!encontrouDiagCimaEsq && Xi - i >= 0 && Yj + i < 8) {
+				if (table[Xi - i][Yj + i].peca == null) 
+					table[Xi - i][Yj + i].movPossivel = true;
+				else if(table[Xi][Yj].peca.cor != table[Xi - i][Yj + i].peca.cor) {
+					table[Xi - i][Yj + i].atcPossivel = true;
+					encontrouDiagCimaEsq = true;
+				}
+				else 
+					encontrouDiagCimaEsq = true;
+						
+				casasPossiveis[index] = new Coordenadas(Xi + i,Yj - i);
+				index += 1;	
+			}
+			if(!encontrouDiagBaixoEsq && Xi - i >= 0 && Yj - i >= 0) {
+				if (table[Xi- i][Yj - i].peca == null) 
+					table[Xi- i][Yj - i].movPossivel = true;
+				else if(table[Xi][Yj].peca.cor != table[Xi- i][Yj - i].peca.cor) {
+					table[Xi- i][Yj - i].atcPossivel = true;
+					encontrouDiagBaixoEsq = true;
+				}
+				else 
+					encontrouDiagBaixoEsq = true;
+				
+				casasPossiveis[index] = new Coordenadas(Xi - i, Yj - i);
+				index += 1;
+			}			
 		}
 		return casasPossiveis;
 	}
