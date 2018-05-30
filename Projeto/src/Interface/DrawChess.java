@@ -58,6 +58,15 @@ public final class DrawChess extends JPanel {
 		if (_comecou) {
 			drawPecas(g2d);
 		}
+		
+		
+		g2d.setColor(Color.WHITE);
+		g2d.setFont(new Font("Helvetica", Font.PLAIN, 18)); 
+		if (Control.turnoBranco) {
+			g2d.drawString("Turno do Player 1 (Branco)", (float)(_offSetX + 64*5/2), (float) (_offSetY + 64*8.5));
+		} else {
+			g2d.drawString("Turno do Player 2 (Preto)", (float)(_offSetX + 64*5/2), (float) (_offSetY - 64*0.35));
+		}
 				
 	}
 	
