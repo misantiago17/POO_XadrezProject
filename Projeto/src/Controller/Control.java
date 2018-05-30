@@ -24,6 +24,8 @@ public class Control implements MouseListener {
 	
 	private Coordenadas[] casasPos = new Coordenadas[64];
 	
+	public static boolean turnoBranco = true;
+	
 	private Control() {
 
 	}
@@ -85,78 +87,118 @@ public class Control implements MouseListener {
 					// Verifica se há uma peça na casa clicada
 					if (_matrix[i][j].peca != null) {
 						
-						// Verifica se está movendo/atacando ou está selecionando uma peça
-						if (_selecioneiPeca) {
+						if ((turnoBranco == true && _matrix[i][j].peca.cor == 'B') || (turnoBranco == false && _matrix[i][j].peca.cor == 'P')) {
+							// Verifica se está movendo/atacando ou está selecionando uma peça
+							if (_selecioneiPeca) {
+								
+								// Verifica se o local escolhido é válido para ataque
+								if (_matrix[i][j].atcPossivel) {
+									
+									_selecioneiPeca = false;
+									_matrix[i][j].peca.selecionada = false;
+									
+									Tabuleiro.atacaPeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
+									tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
+															
+									_dc.repaint();
+									break;
+															
+								} else if (_matrix[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
+									_pecaSelecionada = null;
+									_matrix[i][j].cor = _matrix[i][j].corOriginal;
+									
+									_selecioneiPeca = false;
+									_matrix[i][j].peca.selecionada = false;
+									
+									tiraCor(-1,-1);
+									
+									_dc.repaint();
+									break;
+								} else if (!_matrix[i][j].peca.selecionada) { // Clicou numa peça que não estava selecionada
+									_matrix[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
+									_matrix[_pecaSelecionada.x][_pecaSelecionada.y].cor = _matrix[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
+									
+									tiraCor(-1,-1);
+									
+									_pecaSelecionada = new Coordenadas(i,j);
+									_matrix[i][j].peca.selecionada = true;
+									
+									_matrix[i][j].cor = Color.BLUE;
+									casasPos = _matrix[i][j].peca.getMovPossiveis(i,j);
+									
+									int p = 0;
+									while (casasPos[p] != null) {
+										if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
+											_matrix[casasPos[p].x][casasPos[p].y].cor = Color.RED;
+										} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
+											_matrix[casasPos[p].x][casasPos[p].y].cor = Color.GREEN;
+										}
+										p += 1;
+									}
+									
+									_dc.repaint();
+									break;
+								}
+								
+							} else {
+									
+								if (_matrix[i][j].peca.selecionada == false)
+									_selecioneiPeca = true;
+									_pecaSelecionada = new Coordenadas(i,j);
+									_matrix[i][j].peca.selecionada = true;
+									_matrix[i][j].cor = Color.BLUE;
+									
+									casasPos = _matrix[i][j].peca.getMovPossiveis(i,j);
+									
+									int p = 0;
+									
+									while (casasPos[p] != null) {
+										if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
+											_matrix[casasPos[p].x][casasPos[p].y].cor = Color.RED;
+										} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
+											_matrix[casasPos[p].x][casasPos[p].y].cor = Color.GREEN;
+										}
+										p += 1;
+									}
+									
+									_dc.repaint();
+									break;
+							}
 							
-							// Verifica se o local escolhido é válido para ataque
-							if (_matrix[i][j].atcPossivel) {
-								
+						}	
+					}  else {
+					
+						// Se não há peças no lugar e há uma peça selecionada
+						if (_selecioneiPeca) {
+							if (_matrix[i][j].movPossivel) {
+							
 								_selecioneiPeca = false;
-								_matrix[i][j].peca.selecionada = false;
-								
-								Tabuleiro.atacaPeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
+								_matrix[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
+							
+								Tabuleiro.movePeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
+							
 								tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
-														
+															
 								_dc.repaint();
 								break;
-														
-							} else if (_matrix[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
-								_pecaSelecionada = null;
-								_matrix[i][j].cor = _matrix[i][j].corOriginal;
 								
+							} else {	// Deseleciona peça
+								_matrix[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
+								_matrix[_pecaSelecionada.x][_pecaSelecionada.y].cor = _matrix[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
+								
+								_pecaSelecionada = null;
 								_selecioneiPeca = false;
-								_matrix[i][j].peca.selecionada = false;
 								
 								tiraCor(-1,-1);
 								
 								_dc.repaint();
 								break;
 							}
-							
-						} else {
-								
-							if (_matrix[i][j].peca.selecionada == false)
-								_selecioneiPeca = true;
-								_pecaSelecionada = new Coordenadas(i,j);
-								_matrix[i][j].peca.selecionada = true;
-								_matrix[i][j].cor = Color.BLUE;
-								
-								casasPos = _matrix[i][j].peca.getMovPossiveis(i,j);
-								
-								int p = 0;
-								
-								while (casasPos[p] != null) {
-									if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
-										_matrix[casasPos[p].x][casasPos[p].y].cor = Color.RED;
-									} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
-										_matrix[casasPos[p].x][casasPos[p].y].cor = Color.GREEN;
-									}
-									p += 1;
-								}
-								
-								_dc.repaint();
-								break;
-							}
-						} else {
-							
-							// Se não há peças no lugar e há uma peça selecionada
-							if (_selecioneiPeca) {
-								if (_matrix[i][j].movPossivel) {
-									_selecioneiPeca = false;
-									_matrix[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
-									
-									Tabuleiro.movePeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
-									
-									tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
-																	
-									_dc.repaint();
-									break;
-								}
-							}
-						} 
+						}
+					} 
 				}
 			}
-		}		
+		}
 	}
 
 	@Override

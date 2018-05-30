@@ -10,18 +10,12 @@ public class Rei extends Peca {
 		super(cor,posicaoX,posicaoY,nome, img);
 		
 		String nomeImg;
-		/*if(cor == 'B') 
-			nomeImg = "CyanK.png";
-		else
-			nomeImg = "PurpleK.png";
-				
-		this.imagem = buscaNomeImg(nomeImg);*/
 		this.imagem = img;
 		this.nome = nome;
 	}
 	
 	@Override
-	public Coordenadas[] getMovPossiveis(int Xi, int Yj) { // só anda uma casa 
+	public Coordenadas[] getMovPossiveis(int Xi, int Yj) {
 		Casa[][] table = Tabuleiro.getTabCasa();
 		
 		Coordenadas[] casasPossiveis = new Coordenadas[64];

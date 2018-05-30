@@ -16,7 +16,7 @@ public class Rainha extends Peca {
 	}
 
 	@Override
-	public Coordenadas[] getMovPossiveis(int Xi, int Yj) { // bloquear
+	public Coordenadas[] getMovPossiveis(int Xi, int Yj) {
 		
 		Casa[][] table = Tabuleiro.getTabCasa();
 		

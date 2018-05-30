@@ -11,12 +11,6 @@ public class Cavalo extends Peca {
 		super(cor,posicaoX,posicaoY,nome, img);
 		
 		String nomeImg;
-		/*if(cor == 'B') 
-			nomeImg = "CyanN.png";
-		else
-			nomeImg = "PurpleN.png";
-				
-		this.imagem = buscaNomeImg(nomeImg);*/
 		this.imagem = img;
 		this.nome = nome;
 	}

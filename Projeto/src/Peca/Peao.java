@@ -13,18 +13,12 @@ public class Peao extends Peca {
 		super(cor,posicaoX,posicaoY,nome, img);
 		
 		String nomeImg;
-		/*if(cor == 'B') 
-			nomeImg = "CyanP.png";
-		else
-			nomeImg = "PurpleP.png";
-				
-		this.imagem = buscaNomeImg(nomeImg);*/
 		this.imagem = img;
 		this.nome = nome;
 	}
 	
 	@Override
-	public Coordenadas[] getMovPossiveis(int Xi, int Yj) { // bloquear
+	public Coordenadas[] getMovPossiveis(int Xi, int Yj) { 
 		
 		Casa[][] table = Tabuleiro.getTabCasa();
 		
@@ -40,7 +34,7 @@ public class Peao extends Peca {
 		// bloquear de ir alem de uma peça
 		boolean encontrou = false;
 		for(int i = 1; i <= maxMov; i++){
-			if(Yj > 0 && table[Xi][Yj].peca.cor == 'P' && !encontrou) {
+			if(Yj > 0 && table[Xi][Yj].peca.cor == 'B' && !encontrou) {
 				if(table[Xi][Yj - i].peca == null) 
 					table[Xi][Yj - i].movPossivel = true;
 				else
@@ -49,7 +43,7 @@ public class Peao extends Peca {
 				casasPossiveis[index] = new Coordenadas(Xi,Yj - i);
 				index += 1;
 			}
-			else if(Yj < 8 && table[Xi][Yj].peca.cor == 'B' && !encontrou) {
+			else if(Yj < 8 && table[Xi][Yj].peca.cor == 'P' && !encontrou) {
 				if(table[Xi][Yj + i].peca == null) 
 					table[Xi][Yj + i].movPossivel = true;
 				else
@@ -61,7 +55,7 @@ public class Peao extends Peca {
 			
 		}
 		
-		if(table[Xi][Yj].peca.cor == 'P') {
+		if(table[Xi][Yj].peca.cor == 'B') {
 			if(Xi > 0 && Yj > 0) {
 				if(table[Xi - 1][Yj - 1].peca != null)
 					if(table[Xi - 1][Yj - 1].peca. cor != table[Xi][Yj].peca.cor) {
@@ -79,7 +73,7 @@ public class Peao extends Peca {
 					}
 			}
 		}
-		else if(table[Xi][Yj].peca.cor == 'B') {
+		else if(table[Xi][Yj].peca.cor == 'P') {
 			if(Xi > 0 && Yj < 7) {
 				if(table[Xi - 1][Yj + 1].peca != null)
 					if(table[Xi - 1][Yj + 1].peca. cor != table[Xi][Yj].peca.cor) {

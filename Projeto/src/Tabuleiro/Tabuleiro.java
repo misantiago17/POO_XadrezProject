@@ -99,6 +99,14 @@ public final class Tabuleiro {
 		}	
 
 		_tabuleiroCasa[originX][originY].peca = null;
+		
+		// Se não for peão trocando de peça, troca a vez do oponente
+		if (Control.turnoBranco) {
+			Control.turnoBranco = false;
+		} else {
+			Control.turnoBranco = true;
+		}
+		
 		printTabuleiro();
 	}
 	

@@ -11,12 +11,6 @@ public class Bispo extends Peca {
 		super(cor,posicaoX,posicaoY,nome,img);
 		
 		String nomeImg;
-		/*if(cor == 'B') 
-			nomeImg = "CyanB.png";
-		else
-			nomeImg = "PurpleB.png";
-				
-		this.imagem = buscaNomeImg(nomeImg);*/
 		this.imagem = img;
 		this.nome = nome;
 	}

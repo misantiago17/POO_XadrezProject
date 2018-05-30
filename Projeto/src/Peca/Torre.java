@@ -12,18 +12,12 @@ public class Torre extends Peca {
 		super(cor,posicaoX,posicaoY,nome, img);
 		
 		String nomeImg;
-		/*if(cor == 'B') 
-			nomeImg = "CyanR.png";
-		else
-			nomeImg = "PurpleR.png";
-				
-		this.imagem = buscaNomeImg(nomeImg);*/
 		this.imagem = img;
 		this.nome = nome;
 	}
 	
 	@Override
-public Coordenadas[] getMovPossiveis(int Xi, int Yj) { // bloquear
+public Coordenadas[] getMovPossiveis(int Xi, int Yj) { 
 		
 		Casa[][] table = Tabuleiro.getTabCasa();
 		
