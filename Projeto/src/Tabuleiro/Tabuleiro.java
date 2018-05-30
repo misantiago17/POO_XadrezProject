@@ -31,17 +31,17 @@ public final class Tabuleiro {
 		_imgs = XadrezFrame.imagens; // CyanB, CyanK,  CyanN,  CyanP,  CyanQ,  CyanR, 
 									 // PurpleB, PurpleK, PurpleN, PurpleP, PurpleQ, PurpleR  
 				
-		_tabuleiroCasa[0][0] = new Casa(ret[0][0], new Torre('B', 64*0 + x, 64*0 + y, "Torre", _imgs[5]),cor[0][0]);
-		_tabuleiroCasa[1][0] = new Casa(ret[1][0], new Cavalo('B', 64*1 + x, 64*0 + y, "Cavalo", _imgs[2]),cor[1][0]);
-		_tabuleiroCasa[2][0] = new Casa(ret[2][0], new Bispo('B', 64*2 + x, 64*0 + y, "Bispo", _imgs[0]),cor[2][0]);
-		_tabuleiroCasa[3][0] = new Casa(ret[3][0], new Rei('B', 64*3 + x, 64*0 + y, "Rei", _imgs[1]),cor[3][0]);
-		_tabuleiroCasa[4][0] = new Casa(ret[4][0], new Rainha('B', 64*4 + x, 64*0 + y, "Rainha", _imgs[4]),cor[4][0]);
-		_tabuleiroCasa[5][0] = new Casa(ret[5][0], new Bispo('B', 64*5 + x, 64*0 + y, "Bispo", _imgs[0]),cor[5][0]);
-		_tabuleiroCasa[6][0] = new Casa(ret[6][0], new Cavalo('B', 64*6 + x, 64*0 + y, "Cavalo", _imgs[2]),cor[6][0]);
-		_tabuleiroCasa[7][0] = new Casa(ret[7][0], new Torre('B', 64*7 + x, 64*0 + y, "Torre", _imgs[5]),cor[7][0]);
+		_tabuleiroCasa[0][7] = new Casa(ret[0][7], new Torre('B', 64*0 + x, 64*7 + y, "Torre", _imgs[5]),cor[0][7]);
+		_tabuleiroCasa[1][7] = new Casa(ret[1][7], new Cavalo('B', 64*1 + x, 64*7 + y, "Cavalo", _imgs[2]),cor[1][7]);
+		_tabuleiroCasa[2][7] = new Casa(ret[2][7], new Bispo('B', 64*2 + x, 64*7 + y, "Bispo", _imgs[0]),cor[2][7]);
+		_tabuleiroCasa[3][7] = new Casa(ret[3][7], new Rei('B', 64*3 + x, 64*7 + y, "Rei", _imgs[1]),cor[3][7]);
+		_tabuleiroCasa[4][7] = new Casa(ret[4][7], new Rainha('B', 64*4 + x, 64*7 + y, "Rainha", _imgs[4]),cor[4][7]);
+		_tabuleiroCasa[5][7] = new Casa(ret[5][7], new Bispo('B', 64*5 + x, 64*7 + y, "Bispo", _imgs[0]),cor[5][7]);
+		_tabuleiroCasa[6][7] = new Casa(ret[6][7], new Cavalo('B', 64*6 + x, 64*7 + y, "Cavalo", _imgs[2]),cor[6][7]);
+		_tabuleiroCasa[7][7] = new Casa(ret[7][7], new Torre('B', 64*7 + x, 64*7 + y, "Torre", _imgs[5]),cor[7][7]);
 		
 		for(int i = 0; i < 8; i++) {
-			_tabuleiroCasa[i][1] = new Casa(ret[i][1], new Peao('B', 64*i + x, 64*1 + y, "Peao", _imgs[3]),cor[i][1]);
+			_tabuleiroCasa[i][6] = new Casa(ret[i][6], new Peao('B', 64*i + x, 64*6 + y, "Peao", _imgs[3]),cor[i][6]);
 		}
 		
 		for(int i = 2; i < 6; i++) {
@@ -51,17 +51,17 @@ public final class Tabuleiro {
 		}
 		
 		for(int i = 0; i < 8; i++) {
-			_tabuleiroCasa[i][6] = new Casa(ret[i][6], new Peao('P', 64*i + x, 64*6 + y, "Peao", _imgs[9]),cor[i][6]);
+			_tabuleiroCasa[i][1] = new Casa(ret[i][1], new Peao('P', 64*i + x, 64*1 + y, "Peao", _imgs[9]),cor[i][1]);
 		}
 		
-		_tabuleiroCasa[0][7] = new Casa(ret[0][7], new Torre('P', 64*0 + x, 64*7 + y, "Torre", _imgs[11]),cor[0][7]);
-		_tabuleiroCasa[1][7] = new Casa(ret[1][7], new Cavalo('P', 64*1 + x, 64*7 + y, "Cavalo", _imgs[8]),cor[1][7]);
-		_tabuleiroCasa[2][7] = new Casa(ret[2][7], new Bispo('P', 64*2 + x, 64*7 + y, "Bispo", _imgs[6]),cor[2][7]);
-		_tabuleiroCasa[3][7] = new Casa(ret[3][7], new Rei('P', 64*3 + x, 64*7 + y, "Rei", _imgs[7]),cor[3][7]);
-		_tabuleiroCasa[4][7] = new Casa(ret[4][7], new Rainha('P', 64*4 + x, 64*7 + y, "Rainha", _imgs[10]),cor[4][7]);
-		_tabuleiroCasa[5][7] = new Casa(ret[5][7], new Bispo('P', 64*5 + x, 64*7 + y, "Bispo", _imgs[6]),cor[5][7]);
-		_tabuleiroCasa[6][7] = new Casa(ret[6][7], new Cavalo('P', 64*6 + x, 64*7 + y, "Cavalo", _imgs[8]),cor[6][7]);
-		_tabuleiroCasa[7][7] = new Casa(ret[7][7], new Torre('P', 64*7 + x, 64*7 + y, "Torre", _imgs[11]),cor[7][7]);
+		_tabuleiroCasa[0][0] = new Casa(ret[0][0], new Torre('P', 64*0 + x, 64*0 + y, "Torre", _imgs[11]),cor[0][0]);
+		_tabuleiroCasa[1][0] = new Casa(ret[1][0], new Cavalo('P', 64*1 + x, 64*0 + y, "Cavalo", _imgs[8]),cor[1][0]);
+		_tabuleiroCasa[2][0] = new Casa(ret[2][0], new Bispo('P', 64*2 + x, 64*0 + y, "Bispo", _imgs[6]),cor[2][0]);
+		_tabuleiroCasa[3][0] = new Casa(ret[3][0], new Rei('P', 64*3 + x, 64*0 + y, "Rei", _imgs[7]),cor[3][0]);
+		_tabuleiroCasa[4][0] = new Casa(ret[4][0], new Rainha('P', 64*4 + x, 64*0 + y, "Rainha", _imgs[10]),cor[4][0]);
+		_tabuleiroCasa[5][0] = new Casa(ret[5][0], new Bispo('P', 64*5 + x, 64*0 + y, "Bispo", _imgs[6]),cor[5][0]);
+		_tabuleiroCasa[6][0] = new Casa(ret[6][0], new Cavalo('P', 64*6 + x, 64*0 + y, "Cavalo", _imgs[8]),cor[6][0]);
+		_tabuleiroCasa[7][0] = new Casa(ret[7][0], new Torre('P', 64*7 + x, 64*0 + y, "Torre", _imgs[11]),cor[7][0]);
 		
 	}
 	
