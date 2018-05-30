@@ -14,7 +14,6 @@ public class Control implements MouseListener {
 	// Observer, quando mudar o tabuleiro troca ele na classe tabuleiro tbm
 	
 	private DrawChess _dc;
-	private Tabuleiro _tb;
 	
 	private Casa[][] _matrix;
 	
@@ -51,6 +50,27 @@ public class Control implements MouseListener {
 		}
 		return false;		
 	}
+	
+	private void tiraCor(int i, int j) {
+		
+		int p = 0;
+		while (casasPos[p] != null) {
+			if (i == -1 && j == -1) {
+				_matrix[casasPos[p].x][casasPos[p].y].cor = _matrix[casasPos[p].x][casasPos[p].y].corOriginal;
+			} else {
+				_matrix[i][j].cor = _matrix[i][j].corOriginal;
+			}
+			_matrix[casasPos[p].x][casasPos[p].y].cor = _matrix[casasPos[p].x][casasPos[p].y].corOriginal;
+			if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
+				_matrix[casasPos[p].x][casasPos[p].y].atcPossivel = false;
+			} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
+				_matrix[casasPos[p].x][casasPos[p].y].movPossivel = false;
+			} 
+			casasPos[p] = null;
+			p += 1;
+		}
+		_pecaSelecionada = null;
+	}
 
 	
 	// Action events do mouse
@@ -70,26 +90,24 @@ public class Control implements MouseListener {
 							
 							// Verifica se o local escolhido é válido para ataque
 							if (_matrix[i][j].atcPossivel) {
-								System.out.println("Ataquei");
-								break;
-						
-							} else if (_matrix[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
+								
 								_selecioneiPeca = false;
-								_pecaSelecionada = null;
 								_matrix[i][j].peca.selecionada = false;
+								
+								Tabuleiro.atacaPeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
+								tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
+														
+								_dc.repaint();
+								break;
+														
+							} else if (_matrix[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
+								_pecaSelecionada = null;
 								_matrix[i][j].cor = _matrix[i][j].corOriginal;
 								
-								int p = 0;
-								while (casasPos[p] != null) {
-									_matrix[casasPos[p].x][casasPos[p].y].cor = _matrix[casasPos[p].x][casasPos[p].y].corOriginal;
-									if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
-										_matrix[casasPos[p].x][casasPos[p].y].atcPossivel = false;
-									} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
-										_matrix[casasPos[p].x][casasPos[p].y].movPossivel = false;
-									}
-									casasPos[p] = null;
-									p += 1;
-								}
+								_selecioneiPeca = false;
+								_matrix[i][j].peca.selecionada = false;
+								
+								tiraCor(-1,-1);
 								
 								_dc.repaint();
 								break;
@@ -111,9 +129,7 @@ public class Control implements MouseListener {
 									if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
 										_matrix[casasPos[p].x][casasPos[p].y].cor = Color.RED;
 									} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
-
-										System.out.println(casasPos[p].x);
-										_matrix[casasPos[p].x][casasPos[p].y].cor = Color.YELLOW;
+										_matrix[casasPos[p].x][casasPos[p].y].cor = Color.GREEN;
 									}
 									p += 1;
 								}
@@ -126,26 +142,12 @@ public class Control implements MouseListener {
 							// Se não há peças no lugar e há uma peça selecionada
 							if (_selecioneiPeca) {
 								if (_matrix[i][j].movPossivel) {
-									System.out.println("Movi");
 									_selecioneiPeca = false;
 									_matrix[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
 									
-									Tabuleiro.currentTable.movePeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
+									Tabuleiro.movePeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
 									
-									int p = 0;
-									while (casasPos[p] != null) {
-										_matrix[_pecaSelecionada.x][_pecaSelecionada.y].cor = _matrix[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
-										_matrix[casasPos[p].x][casasPos[p].y].cor = _matrix[casasPos[p].x][casasPos[p].y].corOriginal;
-										if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
-											_matrix[casasPos[p].x][casasPos[p].y].atcPossivel = false;
-										} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
-											_matrix[casasPos[p].x][casasPos[p].y].movPossivel = false;
-										} 
-										casasPos[p] = null;
-										p += 1;
-									}
-									_pecaSelecionada = null;
-									
+									tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
 																	
 									_dc.repaint();
 									break;

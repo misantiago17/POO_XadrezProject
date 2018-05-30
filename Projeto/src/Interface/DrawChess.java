@@ -26,7 +26,7 @@ public final class DrawChess extends JPanel {
 	private Casa[][] _tabuleiro = new Casa[8][8];
 		
 	private boolean _isWhite = true;
-	private static boolean comecou = false;
+	private static boolean _comecou = false;
 	
 	public DrawChess(int largura, int altura){	
 		_largura = largura;
@@ -48,14 +48,14 @@ public final class DrawChess extends JPanel {
 		g2d.fill(background);
 			
 			
-		if (comecou) {
+		if (_comecou) {
 			repaintChess(g2d); //
 		} else {
 			createBoard(g2d,_offSetX,_offSetY);
-			comecou = true;
+			_comecou = true;
 		}
 		
-		if (comecou) {
+		if (_comecou) {
 			drawPecas(g2d);
 		}
 				
@@ -92,14 +92,6 @@ public final class DrawChess extends JPanel {
 		for (int i=0;i<8;i++) {
 			for (int j=0;j<8;j++) {
 				if (_tabuleiro[i][j].peca != null) {
-					//System.out.println("TÁ DANDO ERRO AQUI");
-					//Tabuleiro.currentTable.printTabuleiro()
-					if (_tabuleiro[4][4].peca != null) {
-						System.out.println(_tabuleiro[4][4].peca.imagem);
-						System.out.println(_tabuleiro[4][4].peca.posX);
-						System.out.println(_tabuleiro[4][4].peca.posY);
-					}
-
 					g.drawImage(_tabuleiro[i][j].peca.imagem, _tabuleiro[i][j].peca.posX, _tabuleiro[i][j].peca.posY, this);
 				}
 			}
@@ -112,8 +104,18 @@ public final class DrawChess extends JPanel {
 		
 		for (int i=0;i<8;i++) {
 			for (int j=0; j<8; j++) {
-				g.setColor(_tabuleiro[i][j].cor);
+				g.setColor(_tabuleiro[i][j].corOriginal);
 				g.fill(_tabuleiro[i][j].retangulo);
+			}
+		}
+		
+		for (int i=0;i<8;i++) {
+			for (int j=0; j<8; j++) {
+				if (_tabuleiro[i][j].cor != _tabuleiro[i][j].corOriginal) {
+					g.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+					g.setColor(_tabuleiro[i][j].cor);
+					g.draw(_tabuleiro[i][j].retangulo);
+				}
 			}
 		}
 	}
