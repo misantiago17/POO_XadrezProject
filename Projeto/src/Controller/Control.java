@@ -91,19 +91,7 @@ public class Control implements MouseListener {
 							// Verifica se está movendo/atacando ou está selecionando uma peça
 							if (_selecioneiPeca) {
 								
-								// Verifica se o local escolhido é válido para ataque
-								if (_matrix[i][j].atcPossivel) {
-									
-									_selecioneiPeca = false;
-									_matrix[i][j].peca.selecionada = false;
-									
-									Tabuleiro.atacaPeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
-									tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
-															
-									_dc.repaint();
-									break;
-															
-								} else if (_matrix[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
+								if (_matrix[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
 									_pecaSelecionada = null;
 									_matrix[i][j].cor = _matrix[i][j].corOriginal;
 									
@@ -165,7 +153,23 @@ public class Control implements MouseListener {
 									break;
 							}
 							
-						}	
+						} else {
+							// Verifica se o local escolhido é válido para ataque
+							if (_selecioneiPeca) {
+								if (_matrix[i][j].atcPossivel) {
+									
+									_selecioneiPeca = false;
+									_matrix[i][j].peca.selecionada = false;
+									
+									Tabuleiro.atacaPeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
+									tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
+															
+									_dc.repaint();
+									break;
+															
+								}
+							}
+						}
 					}  else {
 					
 						// Se não há peças no lugar e há uma peça selecionada
