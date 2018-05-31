@@ -67,33 +67,28 @@ public class Rei extends Peca {
 		
 		//Roque
 		if(!hasMoved) {
+			
 			if(table[Xi - 1][Yj].peca == null && table[Xi - 2][Yj].peca == null && table[0][Yj].peca != null) {
-				System.out.println("OI=====================");
-				//if(table[0][Yj].peca.getClass().isInstance(Torre.class)) {
-					System.out.println("OI2");
+				if(Torre.class.isInstance(table[0][Yj].peca)) {
 					Torre temp = (Torre)table[0][Yj].peca;
 					if(!temp.hasMoved) {
-						System.out.println("OI3");
 						table[Xi - 2][Yj].movPossivel = true;
 						casasPossiveis[index] = new Coordenadas(Xi - 2, Yj);
 						index += 1;
 					}
-				//}
+				}
 			}
 			
 			if(table[Xi + 1][Yj].peca == null && table[Xi + 2][Yj].peca == null && table[7][Yj].peca != null) {
-				System.out.println("OI=====================");
-				//if(table[7][Yj].peca.getClass().isInstance(Torre.class)) {
-					System.out.println("OI2");
+				if(Torre.class.isInstance(table[7][Yj].peca)) {
 					Torre temp = (Torre)table[7][Yj].peca;
 					if(!temp.hasMoved) {
-						System.out.println("OI3");
 						table[Xi + 2][Yj].movPossivel = true;
 						casasPossiveis[index] = new Coordenadas(Xi + 2, Yj);
 						index += 1;
 					}
 						
-				//}
+				}
 			}
 		}
 		

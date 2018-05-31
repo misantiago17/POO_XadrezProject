@@ -2,7 +2,9 @@ package Peca;
 
 import java.awt.Image;
 import Interface.XadrezFrame;
+import Tabuleiro.Casa;
 import Tabuleiro.Coordenadas;
+import Tabuleiro.Tabuleiro;
 
 public abstract class Peca {
 	public int posX, posY;
@@ -21,16 +23,18 @@ public abstract class Peca {
 	
 	public abstract Coordenadas[] getMovPossiveis(int Xi, int Yj);
 	
-	/*protected Casa[][] iniciaPosMov() {
-		Casa mat[][] = new char[8][8];
+	void verificaCheck(char cor){
 		
-		for(int i=0; i< mat.length; i++) {
-			for(int j=0; j< mat[i].length; j++) {
-				mat[i][j] = 'x';
-			}
-		}
-		return mat;
-	}*/
+		char corAdv;
+		Casa[][] table = Tabuleiro.getTabCasa();
+		
+		if(cor == 'P')
+			corAdv = 'B';
+		else 
+			corAdv = 'P';
+		
+		
+	}
 	
 	protected char[][] iniciaPosMov() {
 		char mat[][] = new char[8][8];
