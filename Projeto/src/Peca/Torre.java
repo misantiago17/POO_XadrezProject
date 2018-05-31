@@ -8,6 +8,8 @@ import Tabuleiro.*;
 
 public class Torre extends Peca {
 	
+	public boolean hasMoved = false;
+	
 	public Torre(char cor, int posicaoX, int posicaoY, String nome, Image img) {
 		super(cor,posicaoX,posicaoY,nome, img);
 		
@@ -29,10 +31,6 @@ public Coordenadas[] getMovPossiveis(int Xi, int Yj) {
 		boolean encontrouVertBaixo = false;
 		boolean encontrouHorzDireita = false;
 		boolean encontrouHorzEsquerda = false;
-		boolean encontrouDiagCimaDir = false;
-		boolean encontrouDiagBaixoDir = false;
-		boolean encontrouDiagCimaEsq = false;
-		boolean encontrouDiagBaixoEsq = false;
 		
 		for (int i=1; i <= 8; i++) {
 			// vertical

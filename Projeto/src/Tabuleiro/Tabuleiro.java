@@ -74,10 +74,14 @@ public final class Tabuleiro {
 		Peca p = _tabuleiroCasa[originX][originY].peca;
 		int newPosX = 64*destX + _offsetX;
 		int newPosY = 64*destY + _offsetY;
-						
+		
+		boolean roque = false;
+		
 		switch (p.nome) {
 		case "Torre":
-			_tabuleiroCasa[destX][destY].peca = new Torre(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			Torre torre = new Torre(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			torre.hasMoved = true;
+			_tabuleiroCasa[destX][destY].peca = torre;
 			break;
 		case "Cavalo":
 			_tabuleiroCasa[destX][destY].peca = new Cavalo(p.cor,newPosX,newPosY,p.nome, p.imagem);
@@ -89,7 +93,21 @@ public final class Tabuleiro {
 			_tabuleiroCasa[destX][destY].peca = new Rainha(p.cor,newPosX,newPosY,p.nome, p.imagem);
 			break;
 		case "Rei":
-			_tabuleiroCasa[destX][destY].peca = new Rei(p.cor,newPosX,newPosY,p.nome, p.imagem);
+
+			Rei rei = new Rei(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			rei.hasMoved = true;
+			_tabuleiroCasa[destX][destY].peca = rei;
+			
+			//Roque
+			if(destX > originX + 1) {
+				movePeca(7, originY, destX - 1, destY);
+				roque = true;
+			}
+			else if(destX < originX - 1) {
+				movePeca(0, originY, destX + 1, destY);
+				roque = true;
+			}
+			
 			break;
 			default:
 				Peao peao = new Peao(p.cor,newPosX,newPosY,p.nome, p.imagem);
@@ -101,9 +119,9 @@ public final class Tabuleiro {
 		_tabuleiroCasa[originX][originY].peca = null;
 		
 		// Se não for peão trocando de peça, troca a vez do oponente
-		if (Control.turnoBranco) {
+		if (Control.turnoBranco && !roque) {
 			Control.turnoBranco = false;
-		} else {
+		} else if(!Control.turnoBranco && !roque){
 			Control.turnoBranco = true;
 		}
 		
