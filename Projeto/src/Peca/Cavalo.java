@@ -24,70 +24,211 @@ public class Cavalo extends Peca {
 		int index = 0;
 		
 		if(Xi - 2 >= 0 && Yj - 1 >= 0) {
-			if(table[Xi - 2][Yj - 1].peca == null) 
+			if(table[Xi - 2][Yj - 1].peca == null) {
 				table[Xi - 2][Yj - 1].movPossivel = true;
-			else if(table[Xi][Yj].peca.cor != table[Xi - 2][Yj -1].peca.cor)
+				casasPossiveis[index] = new Coordenadas(Xi - 2, Yj - 1);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi - 2][Yj -1].peca.cor) {
 				table[Xi - 2][Yj - 1].atcPossivel = true;
-			casasPossiveis[index] = new Coordenadas(Xi - 2, Yj - 1);
-			index += 1;
+				casasPossiveis[index] = new Coordenadas(Xi - 2, Yj - 1);
+				index += 1;
+			}
+			
 		}
 		if(Xi - 2 >= 0 && Yj + 1 < 8) {
-			if(table[Xi - 2][Yj + 1].peca == null) 
+			if(table[Xi - 2][Yj + 1].peca == null) {
 				table[Xi - 2][Yj + 1].movPossivel = true;
-			else if(table[Xi][Yj].peca.cor != table[Xi - 2][Yj + 1].peca.cor)
+				casasPossiveis[index] = new Coordenadas(Xi - 2, Yj + 1);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi - 2][Yj + 1].peca.cor) {
 				table[Xi - 2][Yj + 1].atcPossivel = true;
-			casasPossiveis[index] = new Coordenadas(Xi - 2, Yj + 1);
-			index += 1;
+				casasPossiveis[index] = new Coordenadas(Xi - 2, Yj + 1);
+				index += 1;
+			}
+			
 		}
 		if(Xi + 2 < 8 && Yj - 1 >= 0) {
-			if(table[Xi + 2][Yj - 1].peca == null) 
+			if(table[Xi + 2][Yj - 1].peca == null) {
 				table[Xi + 2][Yj - 1].movPossivel = true;
-			else if(table[Xi][Yj].peca.cor != table[Xi + 2][Yj - 1].peca.cor)
+				casasPossiveis[index] = new Coordenadas(Xi + 2, Yj - 1);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi + 2][Yj - 1].peca.cor) {
 				table[Xi + 2][Yj - 1].atcPossivel = true;
-			casasPossiveis[index] = new Coordenadas(Xi + 2, Yj - 1);
-			index += 1;
+				casasPossiveis[index] = new Coordenadas(Xi + 2, Yj - 1);
+				index += 1;
+			}
+			
 		}
 		if(Xi + 2 < 8 && Yj + 1 < 8) {
-			if(table[Xi + 2][Yj + 1].peca == null) 
+			if(table[Xi + 2][Yj + 1].peca == null) {
 				table[Xi + 2][Yj + 1].movPossivel = true;
-			else if(table[Xi][Yj].peca.cor != table[Xi + 2][Yj + 1].peca.cor)
+				casasPossiveis[index] = new Coordenadas(Xi + 2, Yj + 1);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi + 2][Yj + 1].peca.cor) {
 				table[Xi + 2][Yj + 1].atcPossivel = true;
-			casasPossiveis[index] = new Coordenadas(Xi + 2, Yj + 1);
-			index += 1;
+				casasPossiveis[index] = new Coordenadas(Xi + 2, Yj + 1);
+				index += 1;
+			}
+			
 		}
 
 
 		if(Xi - 1 >= 0 && Yj - 2 >= 0) {
-			if(table[Xi - 1][Yj - 2].peca == null) 
+			if(table[Xi - 1][Yj - 2].peca == null) {
 				table[Xi - 1][Yj - 2].movPossivel = true;
-			else if(table[Xi][Yj].peca.cor != table[Xi - 1][Yj - 2].peca.cor)
+				casasPossiveis[index] = new Coordenadas(Xi - 1, Yj - 2);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi - 1][Yj - 2].peca.cor) {
 				table[Xi - 1][Yj - 2].atcPossivel = true;
-			casasPossiveis[index] = new Coordenadas(Xi - 1, Yj - 2);
-			index += 1;
+				casasPossiveis[index] = new Coordenadas(Xi - 1, Yj - 2);
+				index += 1;
+			}
+			
 		}
 		if(Xi - 1 >= 0 && Yj + 2 < 8) {
-			if(table[Xi - 1][Yj + 2].peca == null) 
+			if(table[Xi - 1][Yj + 2].peca == null) {
 				table[Xi - 1][Yj + 2].movPossivel = true;
-			else if(table[Xi][Yj].peca.cor != table[Xi - 1][Yj + 2].peca.cor)
+				casasPossiveis[index] = new Coordenadas(Xi - 1, Yj + 2);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi - 1][Yj + 2].peca.cor) {
 				table[Xi - 1][Yj + 2].atcPossivel = true;
-			casasPossiveis[index] = new Coordenadas(Xi - 1, Yj + 2);
-			index += 1;
+				casasPossiveis[index] = new Coordenadas(Xi - 1, Yj + 2);
+				index += 1;
+			}
+			
 		}
 		if(Xi + 1 < 8 && Yj - 2 >= 0) {
-			if(table[Xi + 1][Yj - 2].peca == null) 
+			if(table[Xi + 1][Yj - 2].peca == null) {
 				table[Xi + 1][Yj - 2].movPossivel = true;
-			else if(table[Xi][Yj].peca.cor != table[Xi + 1][Yj - 2].peca.cor)
+				casasPossiveis[index] = new Coordenadas(Xi + 1, Yj - 2);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi + 1][Yj - 2].peca.cor) {
 				table[Xi + 1][Yj - 2].atcPossivel = true;
-			casasPossiveis[index] = new Coordenadas(Xi + 1, Yj - 2);
-			index += 1;
+				casasPossiveis[index] = new Coordenadas(Xi + 1, Yj - 2);
+				index += 1;
+			}
+			
 		}
 		if(Xi + 1 < 8 && Yj + 2 < 8) {
-			if(table[Xi + 1][Yj + 2].peca == null) 
+			if(table[Xi + 1][Yj + 2].peca == null) {
 				table[Xi + 1][Yj + 2].movPossivel = true;
-			else if(table[Xi][Yj].peca.cor != table[Xi + 1][Yj + 2].peca.cor)
+				casasPossiveis[index] = new Coordenadas(Xi + 1, Yj + 2);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi + 1][Yj + 2].peca.cor) {
 				table[Xi + 1][Yj + 2].atcPossivel = true;
-			casasPossiveis[index] = new Coordenadas(Xi + 1, Yj + 2);
-			index += 1;
+				casasPossiveis[index] = new Coordenadas(Xi + 1, Yj + 2);
+				index += 1;
+			}
+			
+		}
+		return casasPossiveis;
+	}
+	
+	@Override
+	public Coordenadas[] testaMov(int Xi, int Yj) {
+		
+		Casa[][] table = Tabuleiro.getTabCasa();
+		
+		Coordenadas[] casasPossiveis = new Coordenadas[64];
+		int index = 0;
+		
+		if(Xi - 2 >= 0 && Yj - 1 >= 0) {
+			if(table[Xi - 2][Yj - 1].peca == null) {
+				casasPossiveis[index] = new Coordenadas(Xi - 2, Yj - 1);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi - 2][Yj -1].peca.cor) {
+				casasPossiveis[index] = new Coordenadas(Xi - 2, Yj - 1);
+				index += 1;
+			}
+			
+		}
+		if(Xi - 2 >= 0 && Yj + 1 < 8) {
+			if(table[Xi - 2][Yj + 1].peca == null) {
+				casasPossiveis[index] = new Coordenadas(Xi - 2, Yj + 1);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi - 2][Yj + 1].peca.cor) {
+				casasPossiveis[index] = new Coordenadas(Xi - 2, Yj + 1);
+				index += 1;
+			}
+			
+		}
+		if(Xi + 2 < 8 && Yj - 1 >= 0) {
+			if(table[Xi + 2][Yj - 1].peca == null) {
+				casasPossiveis[index] = new Coordenadas(Xi + 2, Yj - 1);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi + 2][Yj - 1].peca.cor) {
+				casasPossiveis[index] = new Coordenadas(Xi + 2, Yj - 1);
+				index += 1;
+			}
+			
+		}
+		if(Xi + 2 < 8 && Yj + 1 < 8) {
+			if(table[Xi + 2][Yj + 1].peca == null) {
+				casasPossiveis[index] = new Coordenadas(Xi + 2, Yj + 1);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi + 2][Yj + 1].peca.cor) {
+				casasPossiveis[index] = new Coordenadas(Xi + 2, Yj + 1);
+				index += 1;
+			}
+			
+		}
+
+
+		if(Xi - 1 >= 0 && Yj - 2 >= 0) {
+			if(table[Xi - 1][Yj - 2].peca == null) {
+				casasPossiveis[index] = new Coordenadas(Xi - 1, Yj - 2);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi - 1][Yj - 2].peca.cor) {
+				casasPossiveis[index] = new Coordenadas(Xi - 1, Yj - 2);
+				index += 1;
+			}
+			
+		}
+		if(Xi - 1 >= 0 && Yj + 2 < 8) {
+			if(table[Xi - 1][Yj + 2].peca == null) {
+				casasPossiveis[index] = new Coordenadas(Xi - 1, Yj + 2);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi - 1][Yj + 2].peca.cor) {
+				casasPossiveis[index] = new Coordenadas(Xi - 1, Yj + 2);
+				index += 1;
+			}
+			
+		}
+		if(Xi + 1 < 8 && Yj - 2 >= 0) {
+			if(table[Xi + 1][Yj - 2].peca == null) {
+				casasPossiveis[index] = new Coordenadas(Xi + 1, Yj - 2);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi + 1][Yj - 2].peca.cor) {
+				casasPossiveis[index] = new Coordenadas(Xi + 1, Yj - 2);
+				index += 1;
+			}
+			
+		}
+		if(Xi + 1 < 8 && Yj + 2 < 8) {
+			if(table[Xi + 1][Yj + 2].peca == null) {
+				casasPossiveis[index] = new Coordenadas(Xi + 1, Yj + 2);
+				index += 1;
+			}
+			else if(table[Xi][Yj].peca.cor != table[Xi + 1][Yj + 2].peca.cor) {
+				casasPossiveis[index] = new Coordenadas(Xi + 1, Yj + 2);
+				index += 1;
+			}
+			
 		}
 		return casasPossiveis;
 	}

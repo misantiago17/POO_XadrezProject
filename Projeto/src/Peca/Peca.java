@@ -19,11 +19,11 @@ public abstract class Peca {
 		this.imagem = img;
 	}
 	
-	public abstract Coordenadas[] getMovPossiveis(int Xi, int Yj);
+	public abstract Coordenadas[] getMovPossiveis(int Xi, int Yj) throws CloneNotSupportedException;
+	public abstract Coordenadas[] testaMov(int Xi, int Yj);
 	
-	boolean verificaCheck(char cor){
+	boolean verificaCheck(Casa[][] table){
 		
-		Casa[][] table = Tabuleiro.getTabCasa();
 		Coordenadas coordRei = new Coordenadas();
 		boolean isInCheck = false;
 		
@@ -40,7 +40,7 @@ public abstract class Peca {
 			for(int j = 0; j < 8; j++) {
 				if(table[i][j].peca != null) {
 					if(table[i][j].peca.cor != cor) {
-						casasPos = getMovPossiveis(i, j);
+						casasPos = testaMov(i, j);
 						for(Coordenadas c: casasPos) {
 							if(c == coordRei)
 								isInCheck = true;
@@ -53,19 +53,20 @@ public abstract class Peca {
 	}
 	
 	//Verifica se uma movimentacao causaria um check no proprio rei -> movimento invalido
-	boolean preveCheck(char cor, Coordenadas atual, Coordenadas nova) {
+	boolean preveCheck(int posX,  int posY, int novoX, int novoY) throws CloneNotSupportedException {
+		Casa[][] table;
 		
-		Tabuleiro./*Pseudo*/movePeca(atual.x, atual.y, nova.x, nova.y);
+		table = simulaMovimento(posX, posY, novoX, novoY);
 		
-		return verificaCheck(cor);
+		return verificaCheck(table);
 	}
 	
-	boolean verificaCheckMate(char cor) {
+	boolean verificaCheckMate() throws CloneNotSupportedException {
 		Casa[][] table = Tabuleiro.getTabCasa();
 		boolean isInCheckMate = false;
 		Coordenadas[] casasPos = new Coordenadas[64];
 		
-		if(verificaCheck(cor)) {
+		if(verificaCheck(table)) {
 			
 			isInCheckMate = true;
 			
@@ -74,11 +75,10 @@ public abstract class Peca {
 					
 					if(table[i][j].peca != null) {
 						if(table[i][j].peca.cor == cor) {
-							casasPos = getMovPossiveis(i, j);
+							casasPos = testaMov(i, j);
 							for(Coordenadas c: casasPos) {
-								Coordenadas atual = new Coordenadas(i, j);
 								if(isInCheckMate)
-									isInCheckMate = preveCheck(cor, atual, c);
+									isInCheckMate = preveCheck(i, j, c.x, c.y);
 							}
 						}
 					}
@@ -89,6 +89,8 @@ public abstract class Peca {
 		}
 		return isInCheckMate;
 	}
+	
+	
 	protected char[][] iniciaPosMov() {
 		char mat[][] = new char[8][8];
 		
@@ -107,5 +109,52 @@ public abstract class Peca {
 			}
 		}
 		return null;
+	}
+	
+	public Casa[][] simulaMovimento(int originX, int originY, int destX, int destY) throws CloneNotSupportedException {
+		Casa table[][] = new Casa[8][8];
+		
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				table[i][j] = Tabuleiro.getTabCasa()[i][j].clone();
+			}
+		}
+		
+		Peca p = table[originX][originY].peca;
+		int newPosX = 64*destX + Tabuleiro._offsetX;
+		int newPosY = 64*destY + Tabuleiro._offsetY;
+				
+		switch (p.nome) {
+		case "Torre":
+			table[destX][destY].peca = new Torre(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			break;
+		case "Cavalo":
+			table[destX][destY].peca = new Cavalo(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			break;
+		case "Bispo":
+			table[destX][destY].peca = new Bispo(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			break;
+		case "Rainha":
+			table[destX][destY].peca = new Rainha(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			break;
+		case "Rei":
+
+			table[destX][destY].peca = new Rei(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			
+			//Roque
+			if(destX > originX + 1) 
+				simulaMovimento(7, originY, destX - 1, destY);
+			else if(destX < originX - 1) 
+				simulaMovimento(0, originY, destX + 1, destY);
+			
+			break;
+			default:
+				table[destX][destY].peca = new Peao(p.cor,newPosX,newPosY,p.nome, p.imagem);
+				break;
+		}	
+
+		table[originX][originY].peca = null;
+
+		return table;
 	}
 }

@@ -2,9 +2,16 @@ package Tabuleiro;
 
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
-import Peca.Peca;
 
-public class Casa {
+import Peca.Bispo;
+import Peca.Cavalo;
+import Peca.Peao;
+import Peca.Peca;
+import Peca.Rainha;
+import Peca.Rei;
+import Peca.Torre;
+
+public class Casa implements Cloneable{
 	
 	public Rectangle2D retangulo;
 	public Peca peca;
@@ -20,5 +27,10 @@ public class Casa {
 		this.cor = cor;
 		this.corOriginal = cor;
 	}
-
+	
+	@Override
+    public Casa clone() throws CloneNotSupportedException {
+        return (Casa) super.clone();
+    }
+	
 }

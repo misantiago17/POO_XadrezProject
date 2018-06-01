@@ -19,8 +19,8 @@ public final class Tabuleiro {
 	
 	public static Peca[] pecasPerdidas = new Peca[64];
 	
-	private static int _offsetX;
-	private static int _offsetY;
+	public static int _offsetX;
+	public static int _offsetY;
 	private java.awt.Image[] _imgs;
 	
 	public Tabuleiro(Rectangle2D[][] ret, Color[][] cor, int x, int y) {
