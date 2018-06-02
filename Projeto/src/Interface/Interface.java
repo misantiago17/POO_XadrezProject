@@ -30,10 +30,23 @@ public abstract class Interface extends JFrame {
 		return p;
 	}
 	
-	public void criaBotao(String nome, JPanel painel) {
+	public JButton criaBotao(String nome, JPanel painel) {
 		JButton btn = new JButton(nome);
 		// Falta mil coisas
 		painel.add(btn);
+		return btn;
+	}
+	
+	public JButton criaBotao(String nome, JPopupMenu painel) {
+		JButton btn = new JButton(nome);
+		// Falta mil coisas
+		painel.add(btn);
+		return btn;
+	}
+	
+	public JPopupMenu criaPopUpPromocao() {
+		JPopupMenu popUp = new JPopupMenu();
+		return popUp;
 	}
 	
 	/* pegaMeioMonitor

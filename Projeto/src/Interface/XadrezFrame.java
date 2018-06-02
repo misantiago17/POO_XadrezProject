@@ -5,13 +5,15 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.*;
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 import Controller.Control;
 import Peca.*;
 import Tabuleiro.Tabuleiro;
 
 // Interface do Tabuleiro e Peças
-public class XadrezFrame extends Interface {
+public class XadrezFrame extends Interface implements PopupMenuListener{
 		
 	private final int LARGURA = 700;
 	private final int ALTURA = 700;
@@ -32,7 +34,27 @@ public class XadrezFrame extends Interface {
 		JFrame fXadrez = criaJanela(ALTURA,LARGURA,NOME);	
 			
 		ctrl = Control.getInstance();
-		fXadrez.getContentPane().add(ctrl.addChess(ALTURA, LARGURA));	
+		fXadrez.getContentPane().add(ctrl.addChess(ALTURA, LARGURA,this));	
+	}
+	
+	public void showPopUpPromocao() {
+		String[] pecas = {"Torre", "Cavalo", "Bispo", "Rainha"};
+		
+		JPopupMenu popUp = criaPopUpPromocao();
+		
+		popUp.setLayout(new BoxLayout(popUp,BoxLayout.Y_AXIS));
+		
+		JLabel l = new JLabel("   Escolha a peça da promoção do peão   ");
+		l.setAlignmentX(Component.CENTER_ALIGNMENT);
+		popUp.add(l);
+		
+		for (int i=0; i<4;i++) {
+			JButton b = criaBotao(pecas[i], popUp);
+			b.setAlignmentX(Component.CENTER_ALIGNMENT);
+			popUp.add(b);
+		}
+		
+		popUp.show(null, LARGURA/2, ALTURA/2);
 	}
 	
 	private void carregaImagem() {
@@ -51,5 +73,14 @@ public class XadrezFrame extends Interface {
 			System.exit(1);
 		}
 	}
+
+	@Override
+	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {}
+
+	@Override
+	public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {}
+
+	@Override
+	public void popupMenuCanceled(PopupMenuEvent e) {}
 	
 }

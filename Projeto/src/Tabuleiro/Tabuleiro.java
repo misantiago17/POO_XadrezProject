@@ -113,6 +113,18 @@ public final class Tabuleiro {
 				Peao peao = new Peao(p.cor,newPosX,newPosY,p.nome, p.imagem);
 				peao.hasMoved = true;
 				_tabuleiroCasa[destX][destY].peca = peao;
+								
+				// Promoção do peao
+				if(peao.cor == 'P') {
+					if (destY == 7) {
+						Control.getInstance().promocaoPeao(_tabuleiroCasa[destX][destY]);
+					}
+				} else {
+					if (destY == 0) {
+						Control.getInstance().promocaoPeao(_tabuleiroCasa[destX][destY]);
+					}
+				}
+				
 				break;
 		}	
 
