@@ -45,10 +45,12 @@ public class Control implements MouseListener {
 		return _dc;
 	}
 	
-	public void promocaoPeao(Casa casaPromocao) {
-		_xf.showPopUpPromocao();
-		
-		System.out.println("Popup");
+	public void promocaoPeao(Casa tab) {
+		_xf.showPopUpPromocao(tab);
+	}
+	
+	public void repaintTable() {
+		_dc.repaint();
 	}
 	
 	// Verifica se clicou dentro de uma casa

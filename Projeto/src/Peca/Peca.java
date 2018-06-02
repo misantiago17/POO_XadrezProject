@@ -10,13 +10,15 @@ public abstract class Peca {
 	public Image imagem;
 	public boolean selecionada = false;
 	public String nome;
+	public Coordenadas coord;
 
-	public Peca(char cor, int posicaoX, int posicaoY, String nome, Image img) {
+	public Peca(char cor, int posicaoX, int posicaoY, String nome, Image img, Coordenadas coord) {
 		this.posX = posicaoX;
 		this.posY = posicaoY;
 		this.cor = cor;
 		this.nome = nome;
 		this.imagem = img;
+		this.coord = coord;
 	}
 
 	public abstract Coordenadas[] getMovPossiveis(int Xi, int Yj);
@@ -136,20 +138,20 @@ public abstract class Peca {
 
 		switch (p.nome) {
 		case "Torre":
-			table[destX][destY].peca = new Torre(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			table[destX][destY].peca = new Torre(p.cor,newPosX,newPosY,p.nome, p.imagem, new Coordenadas(destX,destY));
 			break;
 		case "Cavalo":
-			table[destX][destY].peca = new Cavalo(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			table[destX][destY].peca = new Cavalo(p.cor,newPosX,newPosY,p.nome, p.imagem, new Coordenadas(destX,destY));
 			break;
 		case "Bispo":
-			table[destX][destY].peca = new Bispo(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			table[destX][destY].peca = new Bispo(p.cor,newPosX,newPosY,p.nome, p.imagem, new Coordenadas(destX,destY));
 			break;
 		case "Rainha":
-			table[destX][destY].peca = new Rainha(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			table[destX][destY].peca = new Rainha(p.cor,newPosX,newPosY,p.nome, p.imagem, new Coordenadas(destX,destY));
 			break;
 		case "Rei":
 
-			table[destX][destY].peca = new Rei(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			table[destX][destY].peca = new Rei(p.cor,newPosX,newPosY,p.nome, p.imagem, new Coordenadas(destX,destY));
 
 			//Roque
 			if(destX > originX + 1) 
@@ -159,7 +161,7 @@ public abstract class Peca {
 
 			break;
 		default:
-			table[destX][destY].peca = new Peao(p.cor,newPosX,newPosY,p.nome, p.imagem);
+			table[destX][destY].peca = new Peao(p.cor,newPosX,newPosY,p.nome, p.imagem, new Coordenadas(destX,destY));
 			break;
 		}	
 

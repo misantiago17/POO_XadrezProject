@@ -10,8 +10,8 @@ public class Torre extends Peca {
 
 	public boolean hasMoved = false;
 
-	public Torre(char cor, int posicaoX, int posicaoY, String nome, Image img) {
-		super(cor,posicaoX,posicaoY,nome, img);
+	public Torre(char cor, int posicaoX, int posicaoY, String nome, Image img, Coordenadas coord) {
+		super(cor,posicaoX,posicaoY,nome, img, coord);
 
 		String nomeImg;
 		this.imagem = img;

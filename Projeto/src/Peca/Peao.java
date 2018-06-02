@@ -9,8 +9,8 @@ public class Peao extends Peca {
 	
 	public boolean hasMoved = false;
 	
-	public Peao(char cor, int posicaoX, int posicaoY, String nome, Image img) {
-		super(cor,posicaoX,posicaoY,nome, img);
+	public Peao(char cor, int posicaoX, int posicaoY, String nome, Image img, Coordenadas coord) {
+		super(cor,posicaoX,posicaoY,nome, img, coord);
 		
 		String nomeImg;
 		this.imagem = img;
