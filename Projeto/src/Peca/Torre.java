@@ -108,9 +108,8 @@ public class Torre extends Peca {
 	}
 	
 	@Override
-	public Coordenadas[] testaMov(int Xi, int Yj) { 
+	public Coordenadas[] testaMov(int Xi, int Yj, Casa[][] table) { 
 
-		Casa[][] table = Tabuleiro.getTabCasa();
 
 		Coordenadas[] casasPossiveis = new Coordenadas[64];
 		int index = 0;

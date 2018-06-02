@@ -112,12 +112,8 @@ public class Control implements MouseListener {
 									_matrix[i][j].peca.selecionada = true;
 									
 									_matrix[i][j].cor = Color.BLUE;
-									try {
-										casasPos = _matrix[i][j].peca.getMovPossiveis(i,j);
-									} catch (CloneNotSupportedException e1) {
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
-									}
+									
+									casasPos = _matrix[i][j].peca.getMovPossiveis(i,j);
 									
 									int p = 0;
 									while (casasPos[p] != null) {
@@ -141,12 +137,8 @@ public class Control implements MouseListener {
 									_matrix[i][j].peca.selecionada = true;
 									_matrix[i][j].cor = Color.BLUE;
 									
-									try {
-										casasPos = _matrix[i][j].peca.getMovPossiveis(i,j);
-									} catch (CloneNotSupportedException e1) {
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
-									}
+									
+									casasPos = _matrix[i][j].peca.getMovPossiveis(i,j);
 									
 									int p = 0;
 									

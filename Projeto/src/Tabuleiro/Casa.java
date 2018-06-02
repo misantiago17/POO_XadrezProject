@@ -11,7 +11,7 @@ import Peca.Rainha;
 import Peca.Rei;
 import Peca.Torre;
 
-public class Casa implements Cloneable{
+public class Casa{
 	
 	public Rectangle2D retangulo;
 	public Peca peca;
@@ -29,8 +29,9 @@ public class Casa implements Cloneable{
 	}
 	
 	@Override
-    public Casa clone() throws CloneNotSupportedException {
-        return (Casa) super.clone();
+    public Casa clone(){
+        Casa casa = new Casa(this.retangulo, this.peca, this.cor);
+        return casa;
     }
 	
 }

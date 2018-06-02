@@ -16,7 +16,7 @@ public class Bispo extends Peca {
 	}
 
 	@Override
-	public Coordenadas[] getMovPossiveis(int Xi, int Yj) throws CloneNotSupportedException {
+	public Coordenadas[] getMovPossiveis(int Xi, int Yj) {
 		Casa[][] table = Tabuleiro.getTabCasa();
 
 		Coordenadas[] casasPossiveis = new Coordenadas[64];
@@ -32,14 +32,14 @@ public class Bispo extends Peca {
 			// diagonal
 			if(!encontrouDiagCimaDir && Xi + i < 8 && Yj + i < 8) {
 				if (table[Xi + i][Yj + i].peca == null) {
-					if(preveCheck(Xi, Yj, Xi + i, Yj + i)) {
+					if(!preveCheck(Xi, Yj, Xi + i, Yj + i)) {
 						table[Xi + i][Yj + i].movPossivel = true;
 						casasPossiveis[index] = new Coordenadas(Xi + i,Yj + i);
 						index += 1;	
 					}
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi + i][Yj + i].peca.cor) {
-					if(preveCheck(Xi, Yj, Xi + i, Yj + i)) {
+					if(!preveCheck(Xi, Yj, Xi + i, Yj + i)) {
 						table[Xi + i][Yj + i].atcPossivel = true;
 						encontrouDiagCimaDir = true;
 						casasPossiveis[index] = new Coordenadas(Xi + i,Yj + i);
@@ -53,14 +53,14 @@ public class Bispo extends Peca {
 			
 			if(!encontrouDiagBaixoDir && Xi + i < 8 && Yj - i >= 0) {
 				if (table[Xi + i][Yj - i].peca == null) {
-					if(preveCheck(Xi, Yj, Xi + i, Yj - i)) {
+					if(!preveCheck(Xi, Yj, Xi + i, Yj - i)) {
 						table[Xi + i][Yj - i].movPossivel = true;
 						casasPossiveis[index] = new Coordenadas(Xi + i,Yj - i);
 						index += 1;	
 					}
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi + i][Yj - i].peca.cor) {
-					if(preveCheck(Xi, Yj, Xi + i, Yj - i)) {
+					if(!preveCheck(Xi, Yj, Xi + i, Yj - i)) {
 						table[Xi + i][Yj - i].atcPossivel = true;
 						encontrouDiagBaixoDir = true;
 						casasPossiveis[index] = new Coordenadas(Xi + i,Yj - i);
@@ -73,16 +73,18 @@ public class Bispo extends Peca {
 			}
 			if(!encontrouDiagCimaEsq && Xi - i >= 0 && Yj + i < 8) {
 				if (table[Xi - i][Yj + i].peca == null) {
-					if(preveCheck(Xi, Yj, Xi - i, Yj + i)) {
+					if(!preveCheck(Xi, Yj, Xi - i, Yj + i)) {
 						table[Xi - i][Yj + i].movPossivel = true;
 						casasPossiveis[index] = new Coordenadas(Xi - i,Yj + i);
 						index += 1;	
 					}
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi - i][Yj + i].peca.cor) {
-					if(preveCheck(Xi, Yj, Xi - i, Yj + i)) {
+					if(!preveCheck(Xi, Yj, Xi - i, Yj + i)) {
 						table[Xi - i][Yj + i].atcPossivel = true;
 						encontrouDiagCimaEsq = true;
+						casasPossiveis[index] = new Coordenadas(Xi - i,Yj + i);
+						index += 1;	
 					}
 				}
 				else 
@@ -91,14 +93,14 @@ public class Bispo extends Peca {
 			}
 			if(!encontrouDiagBaixoEsq && Xi - i >= 0 && Yj - i >= 0) {
 				if (table[Xi- i][Yj - i].peca == null) {
-					if(preveCheck(Xi, Yj, Xi - i, Yj - i)) {
+					if(!preveCheck(Xi, Yj, Xi - i, Yj - i)) {
 						table[Xi- i][Yj - i].movPossivel = true;
 						casasPossiveis[index] = new Coordenadas(Xi - i, Yj - i);
 						index += 1;
 					}
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi- i][Yj - i].peca.cor) {
-					if(preveCheck(Xi, Yj, Xi - i, Yj - i)) {
+					if(!preveCheck(Xi, Yj, Xi - i, Yj - i)) {
 						table[Xi- i][Yj - i].atcPossivel = true;
 						encontrouDiagBaixoEsq = true;
 						casasPossiveis[index] = new Coordenadas(Xi - i, Yj - i);
@@ -114,8 +116,7 @@ public class Bispo extends Peca {
 	}
 	
 	@Override
-	public Coordenadas[] testaMov(int Xi, int Yj) {
-		Casa[][] table = Tabuleiro.getTabCasa();
+	public Coordenadas[] testaMov(int Xi, int Yj, Casa[][] table) {
 
 		Coordenadas[] casasPossiveis = new Coordenadas[64];
 		int index = 0;

@@ -53,6 +53,23 @@ public class Rainha extends Peca {
 					encontrouVertBaixo = true;
 				
 			}
+			
+			if(!encontrouVertCima && Yj + i < 7) {
+				if (table[Xi][Yj + i].peca == null) {
+					table[Xi][Yj + i].movPossivel = true;
+					casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
+					index += 1;
+				}
+				else if(table[Xi][Yj].peca.cor != table[Xi][Yj + i].peca.cor) {
+					table[Xi][Yj + i].atcPossivel = true;
+					encontrouVertCima = true;
+					casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
+					index += 1;
+				}
+				else 
+					encontrouVertCima = true;
+				
+			}
 					
 			
 			// horizontal
@@ -116,6 +133,8 @@ public class Rainha extends Peca {
 				else if(table[Xi][Yj].peca.cor != table[Xi + i][Yj - i].peca.cor) {
 					table[Xi + i][Yj - i].atcPossivel = true;
 					encontrouDiagBaixoDir = true;
+					casasPossiveis[index] = new Coordenadas(Xi + i,Yj - i);
+					index += 1;	
 				}
 				else 
 					encontrouDiagBaixoDir = true;
@@ -130,6 +149,8 @@ public class Rainha extends Peca {
 				else if(table[Xi][Yj].peca.cor != table[Xi - i][Yj + i].peca.cor) {
 					table[Xi - i][Yj + i].atcPossivel = true;
 					encontrouDiagCimaEsq = true;
+					casasPossiveis[index] = new Coordenadas(Xi - i,Yj + i);
+					index += 1;	
 				}
 				else 
 					encontrouDiagCimaEsq = true;
@@ -157,9 +178,7 @@ public class Rainha extends Peca {
 	}
 	
 	@Override
-	public Coordenadas[] testaMov(int Xi, int Yj) {
-		
-		Casa[][] table = Tabuleiro.getTabCasa();
+	public Coordenadas[] testaMov(int Xi, int Yj, Casa[][] table) {
 		
 		Coordenadas[] casasPossiveis = new Coordenadas[64];
 		int index = 0;

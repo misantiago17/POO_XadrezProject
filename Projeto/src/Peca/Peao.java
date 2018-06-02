@@ -36,9 +36,11 @@ public class Peao extends Peca {
 		for(int i = 1; i <= maxMov; i++){
 			if(Yj > 0 && table[Xi][Yj].peca.cor == 'B' && !encontrou) {
 				if(table[Xi][Yj - i].peca == null) {
-					table[Xi][Yj - i].movPossivel = true;
-					casasPossiveis[index] = new Coordenadas(Xi,Yj - i);
-					index += 1;
+					if(!preveCheck(Xi, Yj, Xi, Yj - i)) {
+						table[Xi][Yj - i].movPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi,Yj - i);
+						index += 1;
+					}
 				}
 				else
 					encontrou = true;
@@ -47,9 +49,11 @@ public class Peao extends Peca {
 			}
 			else if(Yj < 8 && table[Xi][Yj].peca.cor == 'P' && !encontrou) {
 				if(table[Xi][Yj + i].peca == null) {
-					table[Xi][Yj + i].movPossivel = true;
-					casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
-					index += 1;
+					if(!preveCheck(Xi, Yj, Xi, Yj + i)) {
+						table[Xi][Yj + i].movPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
+						index += 1;
+					}
 				}
 				else
 					encontrou = true;
@@ -60,48 +64,58 @@ public class Peao extends Peca {
 		
 		if(table[Xi][Yj].peca.cor == 'B') {
 			if(Xi > 0 && Yj > 0) {
-				if(table[Xi - 1][Yj - 1].peca != null)
+				if(table[Xi - 1][Yj - 1].peca != null) {
 					if(table[Xi - 1][Yj - 1].peca. cor != table[Xi][Yj].peca.cor) {
-						table[Xi - 1][Yj - 1].atcPossivel = true;
-						casasPossiveis[index] = new Coordenadas(Xi - 1,Yj - 1);
-						index += 1;
+						if(!preveCheck(Xi, Yj, Xi - 1, Yj - 1)) {
+							table[Xi - 1][Yj - 1].atcPossivel = true;
+							casasPossiveis[index] = new Coordenadas(Xi - 1,Yj - 1);
+							index += 1;
+						}
 					}
+				}
 			}
 			if(Xi < 7 && Yj > 0) {
-				if(table[Xi + 1][Yj - 1].peca != null)
+				if(table[Xi + 1][Yj - 1].peca != null) {
 					if(table[Xi + 1][Yj - 1].peca. cor != table[Xi][Yj].peca.cor) {
-						table[Xi + 1][Yj - 1].atcPossivel = true;
-						casasPossiveis[index] = new Coordenadas(Xi + 1,Yj - 1);
-						index += 1;
+						if(!preveCheck(Xi, Yj, Xi + 1, Yj - 1)) {
+							table[Xi + 1][Yj - 1].atcPossivel = true;
+							casasPossiveis[index] = new Coordenadas(Xi + 1,Yj - 1);
+							index += 1;
+						}
 					}
+				}
 			}
 		}
 		else if(table[Xi][Yj].peca.cor == 'P') {
 			if(Xi > 0 && Yj < 7) {
-				if(table[Xi - 1][Yj + 1].peca != null)
+				if(table[Xi - 1][Yj + 1].peca != null) {
 					if(table[Xi - 1][Yj + 1].peca. cor != table[Xi][Yj].peca.cor) {
-						table[Xi - 1][Yj + 1].atcPossivel = true;
-						casasPossiveis[index] = new Coordenadas(Xi - 1,Yj + 1);
-						index += 1;
+						if(!preveCheck(Xi, Yj, Xi - 1, Yj + 1)) {
+							table[Xi - 1][Yj + 1].atcPossivel = true;
+							casasPossiveis[index] = new Coordenadas(Xi - 1,Yj + 1);
+							index += 1;
+						}
 					}
+				}
 			}
 			if(Xi < 7 && Yj < 7) {
-				if(table[Xi + 1][Yj + 1].peca != null)
+				if(table[Xi + 1][Yj + 1].peca != null) {
 					if(table[Xi + 1][Yj + 1].peca. cor != table[Xi][Yj].peca.cor) {
-						table[Xi + 1][Yj + 1].atcPossivel = true;
-						casasPossiveis[index] = new Coordenadas(Xi + 1,Yj + 1);
-						index += 1;
+						if(!preveCheck(Xi, Yj, Xi + 1, Yj + 1)) {
+							table[Xi + 1][Yj + 1].atcPossivel = true;
+							casasPossiveis[index] = new Coordenadas(Xi + 1,Yj + 1);
+							index += 1;
+						}
 					}
+				}
 			}
 		}
 		return casasPossiveis;
 	}
 	
 	@Override
-	public Coordenadas[] testaMov(int Xi, int Yj) { 
-		
-		Casa[][] table = Tabuleiro.getTabCasa();
-		
+	public Coordenadas[] testaMov(int Xi, int Yj, Casa[][] table) { 
+				
 		Coordenadas[] casasPossiveis = new Coordenadas[64];
 		int index = 0;
 		

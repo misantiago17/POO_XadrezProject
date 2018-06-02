@@ -168,8 +168,7 @@ public class Rei extends Peca {
 	}
 	
 	@Override
-	public Coordenadas[] testaMov(int Xi, int Yj) {
-		Casa[][] table = Tabuleiro.getTabCasa();
+	public Coordenadas[] testaMov(int Xi, int Yj, Casa[][] table) {
 		
 		Coordenadas[] casasPossiveis = new Coordenadas[64];
 		int index = 0;
