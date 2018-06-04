@@ -42,6 +42,12 @@ public class XadrezFrame extends Interface implements PopupMenuListener, ActionL
 			
 		ctrl = Control.getInstance();
 		fXadrez.getContentPane().add(ctrl.addChess(ALTURA, LARGURA,this));	
+		
+		JButton bSave = criaBotao("Salvar", ctrl.getPanel());
+		// dar um jeito de mover esse botao daqui
+		bSave.setActionCommand("Save");
+		bSave.addActionListener(this);
+		ctrl.getPanel().add(bSave);
 	}
 	
 	public void showPopUpPromocao(Casa casa) {
@@ -84,6 +90,16 @@ public class XadrezFrame extends Interface implements PopupMenuListener, ActionL
 			System.exit(1);
 		}
 	}
+	
+	private void atualizaCasa(Peca pecaSelecionada) {
+		
+		Casa[][] tabuleiro = Tabuleiro.getTabCasa();
+	    tabuleiro[peaoSelecionado.peca.coord.x][peaoSelecionado.peca.coord.y].peca = pecaSelecionada;
+	    Tabuleiro.atualizaTabCasa(tabuleiro);
+	    Control.getInstance().repaintTable();
+	    
+	    popUp.setVisible(false);
+	}
 
 	@Override
 	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {}
@@ -99,46 +115,51 @@ public class XadrezFrame extends Interface implements PopupMenuListener, ActionL
 		
 		JButton button = (JButton) e.getSource();
 	    String command = button.getActionCommand();
-	    Peca peao = peaoSelecionado.peca;
+	    Peca peao = null;
+	    if (peaoSelecionado != null) {
+	    	peao = peaoSelecionado.peca;
+	    }
 	    Peca pecaSelecionada;
 	    
 	    switch (command) {
 	    case "0":
-	    	if (peao.cor == 'P') {
+	    	if (peao != null && peao.cor == 'P') {
 	    		pecaSelecionada = new Torre(peao.cor, peao.posX, peao.posY, "Torre", Tabuleiro._imgs[11], peao.coord);
 	    	} else {
 	    		pecaSelecionada = new Torre(peao.cor, peao.posX, peao.posY, "Torre", Tabuleiro._imgs[5], peao.coord);
 	    	}
+	    	atualizaCasa(pecaSelecionada);
 	    	break;
 	    case "1":
-	    	if (peao.cor == 'P') {
+	    	if (peao != null && peao.cor == 'P') {
 	    		pecaSelecionada = new Cavalo(peao.cor, peao.posX, peao.posY, "Cavalo", Tabuleiro._imgs[8], peao.coord);
 	    	} else {
 	    		pecaSelecionada = new Cavalo(peao.cor, peao.posX, peao.posY, "Cavalo", Tabuleiro._imgs[2], peao.coord);
 	    	}
+	    	atualizaCasa(pecaSelecionada);
 	    	break;
 	    case "2":
-	    	if (peao.cor == 'P') {
+	    	if (peao != null && peao.cor == 'P') {
 	    		pecaSelecionada = new Bispo(peao.cor, peao.posX, peao.posY, "Bispo", Tabuleiro._imgs[6], peao.coord);
 	    	} else {
 	    		pecaSelecionada = new Bispo(peao.cor, peao.posX, peao.posY, "Bispo", Tabuleiro._imgs[0], peao.coord);
 	    	}
+	    	atualizaCasa(pecaSelecionada);
 	    	break;
+	    case "3":
+	    	if (peao != null && peao.cor == 'P') {
+	    		pecaSelecionada = new Rainha(peao.cor, peao.posX, peao.posY, "Rainha", Tabuleiro._imgs[10], peao.coord);
+	    	} else {
+	    		pecaSelecionada = new Rainha(peao.cor, peao.posX, peao.posY, "Rainha", Tabuleiro._imgs[4], peao.coord);
+	    	}
+	    	atualizaCasa(pecaSelecionada);
+    		break;
+    		
 	    	default:
-	    		if (peao.cor == 'P') {
-		    		pecaSelecionada = new Rainha(peao.cor, peao.posX, peao.posY, "Rainha", Tabuleiro._imgs[10], peao.coord);
-		    	} else {
-		    		pecaSelecionada = new Rainha(peao.cor, peao.posX, peao.posY, "Rainha", Tabuleiro._imgs[4], peao.coord);
-		    	}
+	    		System.out.println("SALVA");
 	    		break;
 	    }
 	    
-	    Casa[][] tabuleiro = Tabuleiro.getTabCasa();
-	    tabuleiro[peao.coord.x][peao.coord.y].peca = pecaSelecionada;
-	    Tabuleiro.atualizaTabCasa(tabuleiro);
-	    Control.getInstance().repaintTable();
-	    
-	    popUp.setVisible(false);
 	}
 	
 }

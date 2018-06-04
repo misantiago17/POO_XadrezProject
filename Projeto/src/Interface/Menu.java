@@ -50,7 +50,7 @@ public class Menu extends Interface implements ActionListener {
 			Interface xadrez = new XadrezFrame();
 			xadrez.cria();
 			
-			// fecha a tela anterior
+			// fecha a tela do menu
 			 _f.setVisible(false);
 			 dispose();
 			

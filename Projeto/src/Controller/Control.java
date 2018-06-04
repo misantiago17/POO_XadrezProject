@@ -53,6 +53,10 @@ public class Control implements MouseListener {
 		_dc.repaint();
 	}
 	
+	public JPanel getPanel() {
+		return _dc;
+	}
+	
 	// Verifica se clicou dentro de uma casa
 	private boolean checkMatrix(Casa matrix, float x, float y) {			
 		if (x >= matrix.retangulo.getMinX() && x <= matrix.retangulo.getMaxX()) {
