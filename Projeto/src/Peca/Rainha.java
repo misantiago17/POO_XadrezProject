@@ -39,15 +39,19 @@ public class Rainha extends Peca {
 			
 			if(!encontrouVertBaixo && Yj - i >= 0) {
 				if (table[Xi][Yj - i].peca == null) {
-					table[Xi][Yj - i].movPossivel = true;
-					casasPossiveis[index] = new Coordenadas(Xi,Yj - i);
-					index += 1;
+					if(!preveCheck(Xi, Yj, Xi, Yj - i)) {
+						table[Xi][Yj - i].movPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi,Yj - i);
+						index += 1;
+					}
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi][Yj - i].peca.cor) {
-					table[Xi][Yj - i].atcPossivel = true;
-					encontrouVertBaixo = true;
-					casasPossiveis[index] = new Coordenadas(Xi,Yj - i);
-					index += 1;
+					if(!preveCheck(Xi, Yj, Xi, Yj - i)) {
+						table[Xi][Yj - i].atcPossivel = true;
+						encontrouVertBaixo = true;
+						casasPossiveis[index] = new Coordenadas(Xi,Yj - i);
+						index += 1;
+					}
 				}
 				else 
 					encontrouVertBaixo = true;
@@ -56,15 +60,19 @@ public class Rainha extends Peca {
 			
 			if(!encontrouVertCima && Yj + i < 7) {
 				if (table[Xi][Yj + i].peca == null) {
-					table[Xi][Yj + i].movPossivel = true;
-					casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
-					index += 1;
+					if(!preveCheck(Xi, Yj, Xi, Yj + i)) {
+						table[Xi][Yj + i].movPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
+						index += 1;
+					}
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi][Yj + i].peca.cor) {
-					table[Xi][Yj + i].atcPossivel = true;
-					encontrouVertCima = true;
-					casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
-					index += 1;
+					if(!preveCheck(Xi, Yj, Xi, Yj + i)) {
+						table[Xi][Yj + i].atcPossivel = true;
+						encontrouVertCima = true;
+						casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
+						index += 1;
+					}
 				}
 				else 
 					encontrouVertCima = true;
@@ -75,15 +83,19 @@ public class Rainha extends Peca {
 			// horizontal
 			if(!encontrouHorzDireita && Xi + i < 8) {
 				if (table[Xi + i][Yj].peca == null) {
-					table[Xi + i][Yj].movPossivel = true;
-					casasPossiveis[index] = new Coordenadas(Xi + i,Yj);
-					index += 1;
+					if(!preveCheck(Xi, Yj, Xi + i, Yj)) {
+						table[Xi + i][Yj].movPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi + i,Yj);
+						index += 1;
+					}
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi + i][Yj].peca.cor) {
-					table[Xi + i][Yj].atcPossivel = true;
-					encontrouHorzDireita = true;
-					casasPossiveis[index] = new Coordenadas(Xi + i,Yj);
-					index += 1;
+					if(!preveCheck(Xi, Yj, Xi + i, Yj)) {
+						table[Xi + i][Yj].atcPossivel = true;
+						encontrouHorzDireita = true;
+						casasPossiveis[index] = new Coordenadas(Xi + i,Yj);
+						index += 1;
+					}
 				}
 				else 
 					encontrouHorzDireita = true;
@@ -91,15 +103,19 @@ public class Rainha extends Peca {
 			}
 			if(!encontrouHorzEsquerda && Xi - i >= 0) {
 				if (table[Xi - i][Yj].peca == null) {
-					table[Xi - i][Yj].movPossivel = true;
-					casasPossiveis[index] = new Coordenadas(Xi - i,Yj);
-					index += 1;		
+					if(!preveCheck(Xi, Yj, Xi - i, Yj)) {
+						table[Xi - i][Yj].movPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi - i,Yj);
+						index += 1;		
+					}
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi - i][Yj].peca.cor) {
-					table[Xi - i][Yj].atcPossivel = true;
-					encontrouHorzEsquerda = true;
-					casasPossiveis[index] = new Coordenadas(Xi - i,Yj);
-					index += 1;		
+					if(!preveCheck(Xi, Yj, Xi - i, Yj)) {
+						table[Xi - i][Yj].atcPossivel = true;
+						encontrouHorzEsquerda = true;
+						casasPossiveis[index] = new Coordenadas(Xi - i,Yj);
+						index += 1;		
+					}
 				}
 				else 
 					encontrouHorzEsquerda = true;
@@ -110,15 +126,19 @@ public class Rainha extends Peca {
 			// diagonal
 			if(!encontrouDiagCimaDir && Xi + i < 8 && Yj + i < 8) {
 				if (table[Xi + i][Yj + i].peca == null) {
-					table[Xi + i][Yj + i].movPossivel = true;
-					casasPossiveis[index] = new Coordenadas(Xi + i,Yj + i);
-					index += 1;	
+					if(!preveCheck(Xi, Yj, Xi + i, Yj + i)) {
+						table[Xi + i][Yj + i].movPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi + i,Yj + i);
+						index += 1;	
+					}
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi + i][Yj + i].peca.cor) {
-					table[Xi + i][Yj + i].atcPossivel = true;
-					encontrouDiagCimaDir = true;
-					casasPossiveis[index] = new Coordenadas(Xi + i,Yj + i);
-					index += 1;	
+					if(!preveCheck(Xi, Yj, Xi + i, Yj + i)) {
+						table[Xi + i][Yj + i].atcPossivel = true;
+						encontrouDiagCimaDir = true;
+						casasPossiveis[index] = new Coordenadas(Xi + i,Yj + i);
+						index += 1;	
+					}
 				}
 				else 
 					encontrouDiagCimaDir = true;
@@ -126,15 +146,19 @@ public class Rainha extends Peca {
 			}
 			if(!encontrouDiagBaixoDir && Xi + i < 8 && Yj - i >= 0) {
 				if (table[Xi + i][Yj - i].peca == null) {
-					table[Xi + i][Yj - i].movPossivel = true;
-					casasPossiveis[index] = new Coordenadas(Xi + i,Yj - i);
-					index += 1;	
+					if(!preveCheck(Xi, Yj, Xi + i, Yj - i)) {
+						table[Xi + i][Yj - i].movPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi + i,Yj - i);
+						index += 1;	
+					}
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi + i][Yj - i].peca.cor) {
-					table[Xi + i][Yj - i].atcPossivel = true;
-					encontrouDiagBaixoDir = true;
-					casasPossiveis[index] = new Coordenadas(Xi + i,Yj - i);
-					index += 1;	
+					if(!preveCheck(Xi, Yj, Xi + i, Yj - i)) {
+						table[Xi + i][Yj - i].atcPossivel = true;
+						encontrouDiagBaixoDir = true;
+						casasPossiveis[index] = new Coordenadas(Xi + i,Yj - i);
+						index += 1;	
+					}
 				}
 				else 
 					encontrouDiagBaixoDir = true;
@@ -142,15 +166,19 @@ public class Rainha extends Peca {
 			}
 			if(!encontrouDiagCimaEsq && Xi - i >= 0 && Yj + i < 8) {
 				if (table[Xi - i][Yj + i].peca == null) {
-					table[Xi - i][Yj + i].movPossivel = true;
-					casasPossiveis[index] = new Coordenadas(Xi - i,Yj + i);
-					index += 1;	
+					if(!preveCheck(Xi, Yj, Xi - i, Yj + i)) {
+						table[Xi - i][Yj + i].movPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi - i,Yj + i);
+						index += 1;	
+					}
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi - i][Yj + i].peca.cor) {
-					table[Xi - i][Yj + i].atcPossivel = true;
-					encontrouDiagCimaEsq = true;
-					casasPossiveis[index] = new Coordenadas(Xi - i,Yj + i);
-					index += 1;	
+					if(!preveCheck(Xi, Yj, Xi - i, Yj + i)) {
+						table[Xi - i][Yj + i].atcPossivel = true;
+						encontrouDiagCimaEsq = true;
+						casasPossiveis[index] = new Coordenadas(Xi - i,Yj + i);
+						index += 1;	
+					}
 				}
 				else 
 					encontrouDiagCimaEsq = true;
@@ -158,15 +186,19 @@ public class Rainha extends Peca {
 			}
 			if(!encontrouDiagBaixoEsq && Xi - i >= 0 && Yj - i >= 0) {
 				if (table[Xi- i][Yj - i].peca == null) {
-					table[Xi- i][Yj - i].movPossivel = true;
-					casasPossiveis[index] = new Coordenadas(Xi - i, Yj - i);
-					index += 1;
+					if(!preveCheck(Xi, Yj, Xi - i, Yj - i)) {
+						table[Xi- i][Yj - i].movPossivel = true;
+						casasPossiveis[index] = new Coordenadas(Xi - i, Yj - i);
+						index += 1;
+					}
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi- i][Yj - i].peca.cor) {
-					table[Xi- i][Yj - i].atcPossivel = true;
-					encontrouDiagBaixoEsq = true;
-					casasPossiveis[index] = new Coordenadas(Xi - i, Yj - i);
-					index += 1;
+					if(!preveCheck(Xi, Yj, Xi - i, Yj - i)) {
+						table[Xi- i][Yj - i].atcPossivel = true;
+						encontrouDiagBaixoEsq = true;
+						casasPossiveis[index] = new Coordenadas(Xi - i, Yj - i);
+						index += 1;
+					}
 				}
 				else 
 					encontrouDiagBaixoEsq = true;
@@ -198,8 +230,8 @@ public class Rainha extends Peca {
 			// vertical
 			if(!encontrouVertCima && Yj + i < 8) {
 				if (table[Xi][Yj + i].peca == null) {
-						casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
-						index += 1;
+					casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
+					index += 1;
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi][Yj + i].peca.cor) {
 					encontrouVertCima = true;
@@ -278,6 +310,8 @@ public class Rainha extends Peca {
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi + i][Yj - i].peca.cor) {
 					encontrouDiagBaixoDir = true;
+					casasPossiveis[index] = new Coordenadas(Xi + i,Yj - i);
+					index += 1;	
 				}
 				else 
 					encontrouDiagBaixoDir = true;
@@ -290,6 +324,8 @@ public class Rainha extends Peca {
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi - i][Yj + i].peca.cor) {
 					encontrouDiagCimaEsq = true;
+					casasPossiveis[index] = new Coordenadas(Xi - i,Yj + i);
+					index += 1;	
 				}
 				else 
 					encontrouDiagCimaEsq = true;
