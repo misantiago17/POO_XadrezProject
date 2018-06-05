@@ -41,13 +41,15 @@ public class XadrezFrame extends Interface implements PopupMenuListener, ActionL
 		JFrame fXadrez = criaJanela(ALTURA,LARGURA,NOME);	
 			
 		ctrl = Control.getInstance();
-		fXadrez.getContentPane().add(ctrl.addChess(ALTURA, LARGURA,this));	
-		
+		fXadrez.getContentPane().add(ctrl.addChess(ALTURA, LARGURA,this), BorderLayout.CENTER);	
+				
 		JButton bSave = criaBotao("Salvar", ctrl.getPanel());
-		// dar um jeito de mover esse botao daqui
+	
 		bSave.setActionCommand("Save");
 		bSave.addActionListener(this);
+		
 		ctrl.getPanel().add(bSave);
+		
 	}
 	
 	public void showPopUpPromocao(Casa casa) {
@@ -56,22 +58,32 @@ public class XadrezFrame extends Interface implements PopupMenuListener, ActionL
 		
 		popUp = criaPopUpPromocao();
 		
-		popUp.setLayout(new BoxLayout(popUp,BoxLayout.Y_AXIS));
+		popUp.setLayout(new BoxLayout(popUp,BoxLayout.PAGE_AXIS));
+		popUp.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
 		
-		JLabel l = new JLabel("   Escolha a peça da promoção do peão   ");
+		JLabel l = new JLabel("Escolha a peça da promoção do peão");
+		l.setFont(new Font("Dialog", Font.BOLD, 15));
 		l.setAlignmentX(Component.CENTER_ALIGNMENT);
 		popUp.add(l);
+		
+		popUp.add(Box.createRigidArea(new Dimension(0,10)));
 		
 		for (int i=0; i<4;i++) {
 			String stringCommand = Integer.toString(i);
 			JButton b = criaBotao(pecas[i], popUp);
 			b.setAlignmentX(Component.CENTER_ALIGNMENT);
+			b.setMaximumSize(new Dimension(100,30));
 			b.setActionCommand(stringCommand);
 			b.addActionListener(this);
 			popUp.add(b);
+			
+			popUp.add(Box.createRigidArea(new Dimension(0,5)));
+
 		}
 		
-		popUp.show(null, LARGURA/2, ALTURA/2);
+		int [] pos = pegaMeioMonitor(LARGURA, ALTURA);
+		popUp.show(null, pos[0] + LARGURA/3 + 10, pos[1] + ALTURA/3);
+		ctrl.popUpAberto(true);
 	}
 	
 	private void carregaImagem() {
@@ -96,16 +108,19 @@ public class XadrezFrame extends Interface implements PopupMenuListener, ActionL
 		Casa[][] tabuleiro = Tabuleiro.getTabCasa();
 	    tabuleiro[peaoSelecionado.peca.coord.x][peaoSelecionado.peca.coord.y].peca = pecaSelecionada;
 	    Tabuleiro.atualizaTabCasa(tabuleiro);
-	    Control.getInstance().repaintTable();
+	    ctrl.repaintTable();
 	    
 	    popUp.setVisible(false);
+	    ctrl.popUpAberto(false);
 	}
 
 	@Override
-	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {}
+	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+	}
 
 	@Override
-	public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {}
+	public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+	}
 
 	@Override
 	public void popupMenuCanceled(PopupMenuEvent e) {}
@@ -156,7 +171,9 @@ public class XadrezFrame extends Interface implements PopupMenuListener, ActionL
     		break;
     		
 	    	default:
-	    		System.out.println("SALVA");
+	    		if (!ctrl.isPopUpAberto()) {
+	    			System.out.println("SALVA");
+	    		}
 	    		break;
 	    }
 	    

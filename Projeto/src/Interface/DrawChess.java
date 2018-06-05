@@ -35,6 +35,8 @@ public final class DrawChess extends JPanel {
 		_offSetX = (_largura - 64*8)/2;
 		_offSetY = (_altura - 64*8)/2;
 		
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		this.addMouseListener(Control.getInstance());
 	}
 	
