@@ -54,7 +54,7 @@ public class Rainha extends Peca {
 				
 			}
 			
-			if(!encontrouVertCima && Yj + i < 7) {
+			if(!encontrouVertCima && Yj + i < 8) {
 				if (table[Xi][Yj + i].peca == null) {
 					if(!preveCheck(Xi, Yj, Xi, Yj + i, cor)) {
 						table[Xi][Yj + i].movPossivel = true;

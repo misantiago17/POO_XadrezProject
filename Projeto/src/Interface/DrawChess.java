@@ -56,18 +56,40 @@ public final class DrawChess extends JPanel implements ObservadorTabuleiro {
 		
 		// Desenha as peças do tabuleiro
 		drawPecas(g2d);
-				
-		// Cria uma frase indicando qual o jogador atual da partida
+		
+		// Cria uma frase indicando qual o jogador atual da partida e o estado da  partida como check, checkmate e empate
 		g2d.setColor(Color.WHITE);
-		g2d.setFont(new Font("Helvetica", Font.PLAIN, 18)); 
-		if (_ctrl.turnoBranco) {
-			g2d.drawString("Turno do Player 1 (Branco)", (float)(_offSetX + 64*2), (float) (_offSetY + 64*8.5));
-			g2d.drawString("Rei Branco em check", (float)(_offSetX + 64*6), (float) (_offSetY + 64*8.5));
+		g2d.setFont(new Font("Helvetica", Font.PLAIN, 18)); 	
+		
+		if (Control.turnoBranco) {
+			if(Control.whiteKingCheckMate) {
+				g2d.drawString("Rei Branco em checkmate", (float)(_offSetX + 64*2), (float) (_offSetY + 64*4));
+				g2d.drawString("Player 2 (Preto) Venceu!!", (float)(_offSetX + 64*2), (float) (_offSetY + 64*4.5));
+			}
+			else if(Control.empate) {
+				g2d.drawString("Branco nao tem jogadas validas, mas nao esta em check", (float)(_offSetX + 64*0.35), (float) (_offSetY + 64*4));
+				g2d.drawString("Empate!", (float)(_offSetX + 64*3), (float) (_offSetY + 64*4.5));
+			}
+			else
+				g2d.drawString("Turno do Player 1 (Branco)", (float)(_offSetX + 64*2), (float) (_offSetY + 64*8.5));			
 		} else {
-			g2d.drawString("Turno do Player 2 (Preto)", (float)(_offSetX + 64*2), (float) (_offSetY - 64*0.35));
-			g2d.drawString("Rei Preto em check", (float)(_offSetX + 64*6), (float) (_offSetY - 64*0.35));
+			if(Control.whiteKingCheckMate) {
+				g2d.drawString("Rei Preto em checkmate", (float)(_offSetX + 64*2), (float) (_offSetY + 64*4));
+				g2d.drawString("Player 1 (Branco) Venceu!!", (float)(_offSetX + 64*2), (float) (_offSetY + 64*4.5));
+			}
+			else if(Control.empate) {
+				g2d.drawString("Preto nao tem jogadas validas, mas nao esta em check", (float)(_offSetX + 64*0.35), (float) (_offSetY + 64*4));
+				g2d.drawString("Empate!", (float)(_offSetX + 64*3), (float) (_offSetY + 64*4.5));
+			}
+			else
+				g2d.drawString("Turno do Player 2 (Preto)", (float)(_offSetX + 64*2), (float) (_offSetY - 64*0.35));
+			
 		}
 		
+		if(Control.blackKingCheck)
+			g2d.drawString("Rei Preto em check", (float)(_offSetX + 64*6), (float) (_offSetY - 64*0.35));
+		else if(Control.whiteKingCheck)
+			g2d.drawString("Rei Branco em check", (float)(_offSetX + 64*6), (float) (_offSetY + 64*8.5));
 		
 	}
 	

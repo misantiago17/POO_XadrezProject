@@ -32,7 +32,7 @@ public abstract class Peca implements ObservadorTabuleiro {
 	public abstract Coordenadas[] getMovPossiveis(int Xi, int Yj);
 	public abstract Coordenadas[] testaMov(int Xi, int Yj, Casa[][] table);
 
-	static boolean verificaCheck(Casa[][] table, char cor){
+	public static boolean verificaCheck(Casa[][] table, char cor){
 	
 		Coordenadas coordRei = new Coordenadas();
 		boolean isInCheck = false;
@@ -77,22 +77,28 @@ public abstract class Peca implements ObservadorTabuleiro {
 		return verificaCheck(table, cor);
 	}
 
-	static boolean verificaExisteMovPossiveis(char cor){
-		Coordenadas[] casasPos = new Coordenadas[64];
+	public static boolean verificaExisteMovPossiveis(char cor){
+		Coordenadas[] casasPos;
 
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
-				if(table[i][j] != null) {
+				if(table[i][j].peca != null) {
 					if(table[i][j].peca.cor == cor) {
 						casasPos = table[i][j].peca.testaMov(i, j, table);
-						if(casasPos != null)
-							return false;
-					}
+						
+						int k = 0;
+						while(casasPos[k] != null) {
+							if(!preveCheck(i , j, casasPos[k].x, casasPos[k].y, cor))
+								return true;
+							k++;
+						}
+										
+					}					
 				}
 			}
 		}
 			
-		return true;
+		return false;
 	}
 
 

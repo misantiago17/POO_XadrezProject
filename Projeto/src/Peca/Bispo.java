@@ -160,6 +160,8 @@ public class Bispo extends Peca {
 				}
 				else if(table[Xi][Yj].peca.cor != table[Xi - i][Yj + i].peca.cor) {
 					encontrouDiagCimaEsq = true;
+					casasPossiveis[index] = new Coordenadas(Xi - i,Yj + i);
+					index += 1;	
 				}
 				else 
 					encontrouDiagCimaEsq = true;

@@ -35,6 +35,11 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	
 	public static boolean turnoBranco = true;
 	
+	public static boolean blackKingCheckMate = false;
+	public static boolean whiteKingCheckMate = false;
+	public static boolean blackKingCheck = false;
+	public static boolean whiteKingCheck = false;
+	public static boolean empate = false;
 	// --------------- Public --------------------
 	
 	private Control() {
