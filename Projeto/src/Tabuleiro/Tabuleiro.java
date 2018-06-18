@@ -81,7 +81,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 	
 	private void carregaImagem() {
 		
-		File pasta = new File("./Projeto/resources");
+		File pasta = new File("./resources");
 		File[] listaArquivos = pasta.listFiles();
 				
 		try {

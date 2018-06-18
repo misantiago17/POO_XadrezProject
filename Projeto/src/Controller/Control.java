@@ -190,9 +190,13 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
+		// Pode mover apenas se o popUp não está aberto
 		if (!popupAberto) {
+			
 			for (int i=0;i<8;i++) {
 				for (int j=0;j<8;j++) {
+					
+					// Verifica se clicou em alguma casa do tabuleiro
 					if (checkMatrix(_tabuleiro[i][j], e.getX(), e.getY())) {
 						
 							// Verifica se há uma peça na casa clicada
@@ -283,7 +287,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 										}
 									}
 								}
-							}  else {
+							} else {
 							
 								// Se não há peças no lugar e há uma peça selecionada
 								if (_selecioneiPeca) {
@@ -313,12 +317,10 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 									}
 								}
 							}
-						}
-					
-				}
+					}
+				}	
 			}
 		}
-		
 	}
 
 	// Ações do MouseListener
