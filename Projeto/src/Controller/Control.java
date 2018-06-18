@@ -30,8 +30,10 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	// Casa que a peça selecionada pode se mover/atacar
 	private Coordenadas[] _casasPossiveis = new Coordenadas[64];
 	
-	private boolean popupAberto = false;
-	private Casa peaoSelecionado;
+	private boolean _popupAberto = false;
+	private Casa _peaoSelecionado;
+	
+	private String _vencedor;
 	
 	public static boolean turnoBranco = true;
 	
@@ -78,7 +80,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	
 	// Salva jogo
 	public void salvaJogo() {
-		if (!popupAberto) {
+		if (!_popupAberto) {
 			System.out.println("SALVA");
 		}
 	}
@@ -90,8 +92,8 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	
 	// mostra o popUp da promoção do peão em questão
 	public void promocaoPeao(Casa tab) {
-		peaoSelecionado = tab;
-		popupAberto = true;
+		_peaoSelecionado = tab;
+		_popupAberto = true;
 		_j.criaPopUp();
 	}
 	
@@ -99,8 +101,8 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	public void promovePeao(String pecaEscolhida) {
 		
 		Peca peao = null;
-	    if (peaoSelecionado != null) {
-	    	peao = peaoSelecionado.peca;
+	    if (_peaoSelecionado != null) {
+	    	peao = _peaoSelecionado.peca;
 	    }
 	    Peca pecaSelecionada;
 	    
@@ -144,8 +146,15 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		
 	}
 	
+	// Mostra atela de vitória
+	public void Vitoria(String vencedor) {
+		_vencedor = vencedor;
+		_j.exibeVitoria();
+	}
+	
+	// pega o nome do vencedor do jogo
 	public String pegaVencedor() {
-		return "INSIRA_VENCEDOR_AQUI";
+		return _vencedor;
 	}
 	
 	// --------------- Private --------------------
@@ -153,12 +162,12 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	// Atualiza no tabuleiro para a peça que promoveu o peão
 	private void atualizaPeao(Peca pecaSelecionada) {
 		
-		_tabuleiro[peaoSelecionado.peca.coord.x][peaoSelecionado.peca.coord.y].peca = pecaSelecionada;
+		_tabuleiro[_peaoSelecionado.peca.coord.x][_peaoSelecionado.peca.coord.y].peca = pecaSelecionada;
 	    _t.atualizaTabCasa(_tabuleiro);
 	    repaintTable();
 	    
 	    Jogo.getInstance().fechaPopUp();
-	    popupAberto = false;
+	    _popupAberto = false;
 	}
 	
 	// Verifica se clicou dentro de uma casa
@@ -198,7 +207,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	public void mouseClicked(MouseEvent e) {
 		
 		// Pode mover apenas se o popUp não está aberto
-		if (!popupAberto) {
+		if (!_popupAberto) {
 			
 			for (int i=0;i<8;i++) {
 				for (int j=0;j<8;j++) {

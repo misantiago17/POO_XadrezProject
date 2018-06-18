@@ -178,11 +178,13 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 			testaCor = 'P';
 		if(Peca.verificaCheck(_tabuleiroCasa, testaCor) && !roque) {
 			if(!Peca.verificaExisteMovPossiveis(testaCor)) {
-				if(testaCor == 'P')
+				if(testaCor == 'P') {
 					Control.blackKingCheckMate = true;
-				else
+					Control.getInstance().Vitoria("branco");
+				} else {
 					Control.whiteKingCheckMate = true;
-				System.out.println("teste?");
+					Control.getInstance().Vitoria("preto");
+				}
 			}
 			else {
 				if(testaCor == 'P')
@@ -193,6 +195,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		}
 		else if(!Peca.verificaExisteMovPossiveis(testaCor) && !roque) {
 			Control.empate = true;
+			Control.getInstance().Vitoria("");
 		}
 		else {
 			Control.blackKingCheck = false;
