@@ -182,7 +182,6 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 					Control.blackKingCheckMate = true;
 				else
 					Control.whiteKingCheckMate = true;
-				System.out.println("teste?");
 			}
 			else {
 				if(testaCor == 'P')
