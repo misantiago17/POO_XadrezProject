@@ -16,25 +16,27 @@ import Tabuleiro.*;
 
 public class Control implements MouseListener, ObservadorTabuleiro {
 	
-	// Observer, quando mudar o tabuleiro troca ele na classe tabuleiro tbm
-	
+	private static Control _instance;
+
 	private DrawChess _dc;
 	private Jogo _j;
 	private Tabuleiro _t;
 	
-	private Casa[][] _tabuleiro;
+	private Casa[][] _tabuleiro;	// O tabuleiro
 	
+	// --------------------------------------------------------------------------------------------
 	private boolean _selecioneiPeca = false;
 	private Coordenadas _pecaSelecionada;
-	
-	private static Control _instance;
-	
+		
 	private Coordenadas[] casasPos = new Coordenadas[64];
 	
 	private boolean popupAberto = false;
 	private Casa peaoSelecionado;
 	
 	public static boolean turnoBranco = true;
+	
+	// --------------------------------------------------------------------------------------------
+
 	
 	private Control() {
 		_t = new Tabuleiro();
@@ -60,36 +62,35 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		return _dc;
 	}
 	
+	// Redesenha o tabuleiro
+	public void repaintTable() {
+		_dc.repaint();
+	}
+	
+	// Preenche o tabuleiro com as peças e suas casas
+	public void preencheTabuleiro(int x, int y, Rectangle2D[][] ret, Color[][] cor) {
+		_t.FillTabuleiro(ret, cor, x, y);	
+	}
+	
+	// Salva jogo
+	public void salvaJogo() {
+		if (popupAberto) {
+			System.out.println("SALVA");
+		}
+	}
+	
+	// Carrega jogo salvo
+	public void carregaJogo() {
+		System.out.println("CARREGA");
+	}
+	
+	
 	public void promocaoPeao(Casa tab) {
 		peaoSelecionado = tab;
 		popupAberto = true;
 		_j.criaPopUp();
 	}
 	
-	
-	public void preencheTabuleiro(int x, int y, Rectangle2D[][] ret, Color[][] cor) {
-		_t.FillTabuleiro(ret, cor, x, y);	
-	}
-	
-	public void atualizaTabuleiro() {
-		_t.atualiza();
-	}
-	
-	public void repaintTable() {
-		_dc.repaint();
-	}
-	
-	public JPanel getPanel() {
-		return _dc;
-	}
-	
-	public void popUpAberto(boolean state) {
-		popupAberto = state;
-	}
-	
-	public boolean isPopUpAberto () {
-		return popupAberto;
-	}
 	// Verifica se clicou dentro de uma casa
 	private boolean checkMatrix(Casa matrix, float x, float y) {			
 		if (x >= matrix.retangulo.getMinX() && x <= matrix.retangulo.getMaxX()) {
@@ -205,7 +206,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 											
 											tiraCor(-1,-1);
 											
-											_dc.repaint();
+											repaintTable();
 											break;
 										} else if (!_tabuleiro[i][j].peca.selecionada) { // Clicou numa peça que não estava selecionada
 											_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
@@ -230,7 +231,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 												p += 1;
 											}
 											
-											_dc.repaint();
+											repaintTable();
 											break;
 										}
 										
@@ -256,7 +257,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 												p += 1;
 											}
 											
-											_dc.repaint();
+											repaintTable();
 											break;
 									}
 									
@@ -271,7 +272,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 											_t.atacaPeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
 											tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
 																											
-											_dc.repaint();
+											repaintTable();
 											break;
 																	
 										}
@@ -290,7 +291,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 									
 										tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
 																										
-										_dc.repaint();
+										repaintTable();
 										break;
 										
 									} else {	// Deseleciona peça
@@ -302,7 +303,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 										
 										tiraCor(-1,-1);
 										
-										_dc.repaint();
+										repaintTable();
 										break;
 									}
 								}

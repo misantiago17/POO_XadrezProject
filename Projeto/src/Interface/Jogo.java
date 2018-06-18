@@ -49,15 +49,6 @@ public class Jogo extends Interface {
 		_jogo.add(_saveButton);		
 	}
 	
-	
-	
-	// Salva o jogo atual
-	public void salvaJogo() {
-		if (!_ctrl.isPopUpAberto()) {
-			System.out.println("SALVA");
-		}
-	}
-	
 	// Abre o popUp de promoção do peão
 	public void criaPopUp() {
 		

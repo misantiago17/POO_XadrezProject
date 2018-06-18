@@ -71,10 +71,5 @@ public class Menu extends Interface {
 		_f.setVisible(false);
 		dispose();
 	}
-	
-	// Carrega o jogo salvo
-	public void carregaJogo() {
-		System.out.println("Carrega Jogo");
-	}
 
 }

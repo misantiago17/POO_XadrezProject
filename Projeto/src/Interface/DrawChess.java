@@ -3,8 +3,7 @@ package Interface;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.*;
-import Peca.*;
-import Tabuleiro.*;
+import Tabuleiro.Casa;
 import Controller.Control;
 import Observers.*;
 
@@ -22,7 +21,6 @@ public final class DrawChess extends JPanel implements ObservadorTabuleiro {
 		
 	private boolean _comecou = false;	// caso falso é a primeira vez criando o tabuleiro
 
-	
 	public DrawChess(int largura, int altura){	
 		
 		_largura = largura;
@@ -95,7 +93,6 @@ public final class DrawChess extends JPanel implements ObservadorTabuleiro {
 		}
 		
 		_ctrl.preencheTabuleiro((int)(_offSetX), (int)(_offSetY), _ret, _cor);
-		_ctrl.atualizaTabuleiro();
 	}
 	
 	// Atualiza o tabuleiro conforme o clique

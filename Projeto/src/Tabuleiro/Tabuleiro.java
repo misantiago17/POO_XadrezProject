@@ -76,6 +76,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		_tabuleiroCasa[6][0] = new Casa(ret[6][0], new Cavalo('P', 64*6 + x, 64*0 + y, "Cavalo", imagens[8], new Coordenadas (6,0)),cor[6][0]);
 		_tabuleiroCasa[7][0] = new Casa(ret[7][0], new Torre('P', 64*7 + x, 64*0 + y, "Torre", imagens[11], new Coordenadas (7,0)),cor[7][0]);
 		
+		atualiza();
 	}
 	
 	private void carregaImagem() {

@@ -107,12 +107,12 @@ public abstract class Interface extends JFrame implements ActionListener, PopupM
 	    
 	    // Carrega o jogo salvo
 	    case "Carregar Jogo":
-	    	Menu.getInstance().carregaJogo();
+	    	Control.getInstance().carregaJogo();
 	    	break;
 	    
 	    // Salva o jogo atual
 	    case "Salvar":
-	    	Jogo.getInstance().salvaJogo();
+	    	Control.getInstance().salvaJogo();
 	    	break;
 	    	
 	    // Escolhas da troca da promoção do peão
