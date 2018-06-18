@@ -24,19 +24,17 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	
 	private Casa[][] _tabuleiro;	// O tabuleiro
 	
-	// --------------------------------------------------------------------------------------------
 	private boolean _selecioneiPeca = false;
 	private Coordenadas _pecaSelecionada;
 		
-	private Coordenadas[] casasPos = new Coordenadas[64];
+	// Casa que a peça selecionada pode se mover/atacar
+	private Coordenadas[] _casasPossiveis = new Coordenadas[64];
 	
 	private boolean popupAberto = false;
 	private Casa peaoSelecionado;
 	
 	public static boolean turnoBranco = true;
 	
-	// --------------------------------------------------------------------------------------------
-
 	// --------------- Public --------------------
 	
 	private Control() {
@@ -168,19 +166,19 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	private void tiraCor(int i, int j) {
 		
 		int p = 0;
-		while (casasPos[p] != null) {
+		while (_casasPossiveis[p] != null) {
 			if (i == -1 && j == -1) {
-				_tabuleiro[casasPos[p].x][casasPos[p].y].cor = _tabuleiro[casasPos[p].x][casasPos[p].y].corOriginal;
+				_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = _tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].corOriginal;
 			} else {
 				_tabuleiro[i][j].cor = _tabuleiro[i][j].corOriginal;
 			}
-			_tabuleiro[casasPos[p].x][casasPos[p].y].cor = _tabuleiro[casasPos[p].x][casasPos[p].y].corOriginal;
-			if (_tabuleiro[casasPos[p].x][casasPos[p].y].atcPossivel) {
-				_tabuleiro[casasPos[p].x][casasPos[p].y].atcPossivel = false;
-			} else if (_tabuleiro[casasPos[p].x][casasPos[p].y].movPossivel) {
-				_tabuleiro[casasPos[p].x][casasPos[p].y].movPossivel = false;
+			_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = _tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].corOriginal;
+			if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].atcPossivel) {
+				_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].atcPossivel = false;
+			} else if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].movPossivel) {
+				_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].movPossivel = false;
 			} 
-			casasPos[p] = null;
+			_casasPossiveis[p] = null;
 			p += 1;
 		}
 		_pecaSelecionada = null;
@@ -199,75 +197,74 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 					// Verifica se clicou em alguma casa do tabuleiro
 					if (checkMatrix(_tabuleiro[i][j], e.getX(), e.getY())) {
 						
-							// Verifica se há uma peça na casa clicada
-							if (_tabuleiro[i][j].peca != null) {
+						// Verifica se há uma peça na casa clicada
+						if (_tabuleiro[i][j].peca != null) {
 								
-								if ((turnoBranco && _tabuleiro[i][j].peca.cor == 'B') || (turnoBranco == false && _tabuleiro[i][j].peca.cor == 'P')) {
-									// Verifica se está movendo/atacando ou está selecionando uma peça
-									if (_selecioneiPeca) {
+							if ((turnoBranco && _tabuleiro[i][j].peca.cor == 'B') || (turnoBranco == false && _tabuleiro[i][j].peca.cor == 'P')) {
+								// Verifica se está movendo/atacando ou está selecionando uma peça
+								if (_selecioneiPeca) {
 										
-										if (_tabuleiro[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
-											_pecaSelecionada = null;
-											_tabuleiro[i][j].cor = _tabuleiro[i][j].corOriginal;
+									if (_tabuleiro[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
+										_pecaSelecionada = null;
+										_tabuleiro[i][j].cor = _tabuleiro[i][j].corOriginal;
 											
-											_selecioneiPeca = false;
-											_tabuleiro[i][j].peca.selecionada = false;
+										_selecioneiPeca = false;
+										_tabuleiro[i][j].peca.selecionada = false;
 											
-											tiraCor(-1,-1);
+										tiraCor(-1,-1);
 											
-											repaintTable();
-											break;
-										} else if (!_tabuleiro[i][j].peca.selecionada) { // Clicou numa peça que não estava selecionada
-											_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
-											_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].cor = _tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
+										repaintTable();
+										break;
+									} else if (!_tabuleiro[i][j].peca.selecionada) { // Clicou numa peça que não estava selecionada
+										_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
+										_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].cor = _tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
 											
-											tiraCor(-1,-1);
+										tiraCor(-1,-1);
 											
-											_pecaSelecionada = new Coordenadas(i,j);
-											_tabuleiro[i][j].peca.selecionada = true;
+										_pecaSelecionada = new Coordenadas(i,j);
+										_tabuleiro[i][j].peca.selecionada = true;
 											
-											_tabuleiro[i][j].cor = Color.BLUE;
+										_tabuleiro[i][j].cor = Color.BLUE;
 											
-											casasPos = _tabuleiro[i][j].peca.getMovPossiveis(i,j);
+										_casasPossiveis = _tabuleiro[i][j].peca.getMovPossiveis(i,j);
 											
-											int p = 0;
-											while (casasPos[p] != null) {
-												if (_tabuleiro[casasPos[p].x][casasPos[p].y].atcPossivel) {
-													_tabuleiro[casasPos[p].x][casasPos[p].y].cor = Color.RED;
-												} else if (_tabuleiro[casasPos[p].x][casasPos[p].y].movPossivel) {
-													_tabuleiro[casasPos[p].x][casasPos[p].y].cor = Color.GREEN;
-												}
-												p += 1;
+										int p = 0;
+										while (_casasPossiveis[p] != null) {
+											if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].atcPossivel) {
+												_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.RED;
+											} else if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].movPossivel) {
+												_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.GREEN;
 											}
-											
-											repaintTable();
-											break;
+											p += 1;
 										}
+											
+										repaintTable();
+										break;
+									}
 										
-									} else {
+								} else {
 											
-										if (_tabuleiro[i][j].peca.selecionada == false)
-											_selecioneiPeca = true;
-											_pecaSelecionada = new Coordenadas(i,j);
-											_tabuleiro[i][j].peca.selecionada = true;
-											_tabuleiro[i][j].cor = Color.BLUE;
+									if (_tabuleiro[i][j].peca.selecionada == false)
+										_selecioneiPeca = true;
+										_pecaSelecionada = new Coordenadas(i,j);
+										_tabuleiro[i][j].peca.selecionada = true;
+										_tabuleiro[i][j].cor = Color.BLUE;
+										
+										_casasPossiveis = _tabuleiro[i][j].peca.getMovPossiveis(i,j);
 											
+										int p = 0;
 											
-											casasPos = _tabuleiro[i][j].peca.getMovPossiveis(i,j);
-											
-											int p = 0;
-											
-											while (casasPos[p] != null) {
-												if (_tabuleiro[casasPos[p].x][casasPos[p].y].atcPossivel) {
-													_tabuleiro[casasPos[p].x][casasPos[p].y].cor = Color.RED;
-												} else if (_tabuleiro[casasPos[p].x][casasPos[p].y].movPossivel) {
-													_tabuleiro[casasPos[p].x][casasPos[p].y].cor = Color.GREEN;
-												}
-												p += 1;
+										while (_casasPossiveis[p] != null) {
+											if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].atcPossivel) {
+												_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.RED;
+											} else if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].movPossivel) {
+												_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.GREEN;
 											}
+											p += 1;
+										}
 											
-											repaintTable();
-											break;
+										repaintTable();
+										break;
 									}
 									
 								} else {
@@ -287,36 +284,36 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 										}
 									}
 								}
-							} else {
+						} else {
 							
-								// Se não há peças no lugar e há uma peça selecionada
-								if (_selecioneiPeca) {
-									if (_tabuleiro[i][j].movPossivel) {
+							// Se não há peças no lugar e há uma peça selecionada
+							if (_selecioneiPeca) {
+								if (_tabuleiro[i][j].movPossivel) {
 									
-										_selecioneiPeca = false;
-										_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
+									_selecioneiPeca = false;
+									_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
 									
-										_t.movePeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
+									_t.movePeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
 									
-										tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
+									tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
 																										
-										repaintTable();
-										break;
+									repaintTable();
+									break;
 										
-									} else {	// Deseleciona peça
-										_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
-										_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].cor = _tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
+								} else {	// Deseleciona peça
+									_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
+									_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].cor = _tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
 										
-										_pecaSelecionada = null;
-										_selecioneiPeca = false;
+									_pecaSelecionada = null;
+									_selecioneiPeca = false;
+									
+									tiraCor(-1,-1);
 										
-										tiraCor(-1,-1);
-										
-										repaintTable();
-										break;
-									}
+									repaintTable();
+									break;
 								}
 							}
+						}
 					}
 				}	
 			}
