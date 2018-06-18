@@ -1,78 +1,80 @@
 package Interface;
 
 import javax.swing.*;
-import javax.swing.event.PopupMenuListener;
-
-import com.sun.glass.events.WindowEvent;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 //Primeiro menu do jogo
-public class Menu extends Interface implements ActionListener {
-	
+public class Menu extends Interface {
+		
 	private final int LARGURA = 400;
 	private final int ALTURA = 400;
 	private final String NOME = "MENU";
 	
-	private JFrame _f;
+	private static Menu _instance;
 	
-	public void cria() {
-		_f = criaJanela(ALTURA,LARGURA,NOME);
-		JPanel p = criaPainel(Color.WHITE,_f);
-		
-		p.setLayout(new BoxLayout(p,BoxLayout.PAGE_AXIS));
-		p.setBorder(BorderFactory.createEmptyBorder(LARGURA/8, 10, 10, 10));
-		
-		JLabel l = new JLabel("Xadrez");
-		l.setFont(new Font("Courier", Font.BOLD, 60));
-		l.setAlignmentX(Component.CENTER_ALIGNMENT);
-		p.add(l);
-		
-		p.add(Box.createRigidArea(new Dimension(0,60)));
-
-		
-		JButton b1 = criaBotao("Jogar", p);	
-		b1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		b1.setMaximumSize(new Dimension(120,30));
-		b1.setActionCommand("Jogar");
-		b1.addActionListener(this);
-		
-		p.add(Box.createRigidArea(new Dimension(0,10)));
-
-		JButton b2 = criaBotao("Carregar Jogo", p);
-		b2.setAlignmentX(Component.CENTER_ALIGNMENT);
-		b2.setMaximumSize(new Dimension(120,30));
-		b2.setActionCommand("Load");
-		b2.addActionListener(this);
-		
-				
+	private JFrame _f;
+	private JPanel _p;
+	private JLabel _xadrezLabel;
+	private JButton _playButton;
+	private JButton _loadButton;
+	
+	private Menu() {}
+	
+	public static Menu getInstance() {
+		if (_instance == null) {
+			_instance = new Menu();
+		}
+		return _instance;
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
+	
+	// Cria o menu inicial do jogo
+	public void cria() {
 		
-		JButton button = (JButton) e.getSource();
-	    String command = button.getActionCommand();
-	    
-	    if (command == "Jogar") {
-	    	
-	    	// Inicializa Xadrez
-			Interface xadrez = new XadrezFrame();
-			xadrez.cria();
-			
-			// fecha a tela do menu
-			 _f.setVisible(false);
-			 dispose();
-			
-	    	
-	    } else {
-	    	// Carrega jogo salvo
-	    }
+		// Cria o Frame
+		_f = criaJanela(ALTURA,LARGURA,NOME);
+		
+		// Cria o Panel
+		_p = criaPainel(Color.WHITE,_f);
+		_p.setLayout(new BoxLayout(_p,BoxLayout.PAGE_AXIS));
+		_p.setBorder(BorderFactory.createEmptyBorder(LARGURA/8, 10, 10, 10));
+		
+		// Cria o título do jogo
+		_xadrezLabel = criaLabel("Xadrez", Font.BOLD, "Courier", 60);
+		_xadrezLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		_p.add(_xadrezLabel);
+		
+		// Adiciona um espaçamento entre o título do jogo e os botões
+		_p.add(Box.createRigidArea(new Dimension(0,60)));
+		
+		// Cria botão de Jogar
+		_playButton = criaBotao("Jogar", 120, 30, _p);	
+		_playButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		// Adiciona um espaçamento entre os botões
+		_p.add(Box.createRigidArea(new Dimension(0,10)));
+
+		_loadButton = criaBotao("Carregar Jogo", 120, 30, _p);
+		_loadButton.setAlignmentX(Component.CENTER_ALIGNMENT);				
+	}
+	
+	// Inicia o jogo
+	public void iniciaJogo() {
+		
+		// Inicializa Jogo
+		Jogo.getInstance().cria();
+					
+		// fecha a tela do menu
+		_f.setVisible(false);
+		dispose();
+	}
+	
+	// Carrega o jogo salvo
+	public void carregaJogo() {
+		System.out.println("Carrega Jogo");
 	}
 
 }

@@ -5,18 +5,24 @@ import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
 import javax.swing.*;
 import Interface.DrawChess;
-import Interface.XadrezFrame;
+import Interface.Jogo;
+import Observers.*;
+import Peca.Bispo;
+import Peca.Cavalo;
 import Peca.Peca;
+import Peca.Rainha;
+import Peca.Torre;
 import Tabuleiro.*;
 
-public class Control implements MouseListener {
+public class Control implements MouseListener, ObservadorTabuleiro {
 	
 	// Observer, quando mudar o tabuleiro troca ele na classe tabuleiro tbm
 	
 	private DrawChess _dc;
-	private XadrezFrame _xf;
+	private Jogo _j;
+	private Tabuleiro _t;
 	
-	private Casa[][] _matrix;
+	private Casa[][] _tabuleiro;
 	
 	private boolean _selecioneiPeca = false;
 	private Coordenadas _pecaSelecionada;
@@ -26,11 +32,13 @@ public class Control implements MouseListener {
 	private Coordenadas[] casasPos = new Coordenadas[64];
 	
 	private boolean popupAberto = false;
+	private Casa peaoSelecionado;
 	
 	public static boolean turnoBranco = true;
 	
 	private Control() {
-
+		_t = new Tabuleiro();
+		registra(this);
 	}
 	
 	public static Control getInstance() {
@@ -40,15 +48,31 @@ public class Control implements MouseListener {
 		return _instance;
 	}
 	
+	// adiciona observadores ao tabuleiro
+	public void registra (ObservadorTabuleiro o) {
+		_t.add(o);	
+	}
+
 	// Adiciona o tabuleiro desenhado ao frame
-	public JPanel addChess(int alt, int larg, XadrezFrame xf) {
-		_xf = xf;
+	public JPanel addChess(int alt, int larg, Jogo j) {
+		_j = j;
 		_dc = new DrawChess(larg,alt);
 		return _dc;
 	}
 	
 	public void promocaoPeao(Casa tab) {
-		_xf.showPopUpPromocao(tab);
+		peaoSelecionado = tab;
+		popupAberto = true;
+		_j.criaPopUp();
+	}
+	
+	
+	public void preencheTabuleiro(int x, int y, Rectangle2D[][] ret, Color[][] cor) {
+		_t.FillTabuleiro(ret, cor, x, y);	
+	}
+	
+	public void atualizaTabuleiro() {
+		_t.atualiza();
 	}
 	
 	public void repaintTable() {
@@ -81,15 +105,15 @@ public class Control implements MouseListener {
 		int p = 0;
 		while (casasPos[p] != null) {
 			if (i == -1 && j == -1) {
-				_matrix[casasPos[p].x][casasPos[p].y].cor = _matrix[casasPos[p].x][casasPos[p].y].corOriginal;
+				_tabuleiro[casasPos[p].x][casasPos[p].y].cor = _tabuleiro[casasPos[p].x][casasPos[p].y].corOriginal;
 			} else {
-				_matrix[i][j].cor = _matrix[i][j].corOriginal;
+				_tabuleiro[i][j].cor = _tabuleiro[i][j].corOriginal;
 			}
-			_matrix[casasPos[p].x][casasPos[p].y].cor = _matrix[casasPos[p].x][casasPos[p].y].corOriginal;
-			if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
-				_matrix[casasPos[p].x][casasPos[p].y].atcPossivel = false;
-			} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
-				_matrix[casasPos[p].x][casasPos[p].y].movPossivel = false;
+			_tabuleiro[casasPos[p].x][casasPos[p].y].cor = _tabuleiro[casasPos[p].x][casasPos[p].y].corOriginal;
+			if (_tabuleiro[casasPos[p].x][casasPos[p].y].atcPossivel) {
+				_tabuleiro[casasPos[p].x][casasPos[p].y].atcPossivel = false;
+			} else if (_tabuleiro[casasPos[p].x][casasPos[p].y].movPossivel) {
+				_tabuleiro[casasPos[p].x][casasPos[p].y].movPossivel = false;
 			} 
 			casasPos[p] = null;
 			p += 1;
@@ -97,53 +121,111 @@ public class Control implements MouseListener {
 		_pecaSelecionada = null;
 	}
 	
+	private void atualizaCasa(Peca pecaSelecionada) {
+		
+		_tabuleiro[peaoSelecionado.peca.coord.x][peaoSelecionado.peca.coord.y].peca = pecaSelecionada;
+	    _t.atualizaTabCasa(_tabuleiro);
+	    repaintTable();
+	    
+	    Jogo.getInstance().fechaPopUp();
+	    popupAberto = false;
+	}
+	
+	public void promovePeao(String pecaEscolhida) {
+		
+		Peca peao = null;
+	    if (peaoSelecionado != null) {
+	    	peao = peaoSelecionado.peca;
+	    }
+	    Peca pecaSelecionada;
+	    
+	    switch (pecaEscolhida) {
+	    case "Torre":
+	    	if (peao != null && peao.cor == 'P') {
+	    		pecaSelecionada = new Torre(peao.cor, peao.posX, peao.posY, "Torre", Tabuleiro.imagens[11], peao.coord);
+	    	} else {
+	    		pecaSelecionada = new Torre(peao.cor, peao.posX, peao.posY, "Torre", Tabuleiro.imagens[5], peao.coord);
+	    	}
+	    	atualizaCasa(pecaSelecionada);
+	    	break;
+	    case "Cavalo":
+	    	if (peao != null && peao.cor == 'P') {
+	    		pecaSelecionada = new Cavalo(peao.cor, peao.posX, peao.posY, "Cavalo", Tabuleiro.imagens[8], peao.coord);
+	    	} else {
+	    		pecaSelecionada = new Cavalo(peao.cor, peao.posX, peao.posY, "Cavalo", Tabuleiro.imagens[2], peao.coord);
+	    	}
+	    	atualizaCasa(pecaSelecionada);
+	    	break;
+	    case "Bispo":
+	    	if (peao != null && peao.cor == 'P') {
+	    		pecaSelecionada = new Bispo(peao.cor, peao.posX, peao.posY, "Bispo", Tabuleiro.imagens[6], peao.coord);
+	    	} else {
+	    		pecaSelecionada = new Bispo(peao.cor, peao.posX, peao.posY, "Bispo", Tabuleiro.imagens[0], peao.coord);
+	    	}
+	    	atualizaCasa(pecaSelecionada);
+	    	break;
+	    case "Rainha":
+	    	if (peao != null && peao.cor == 'P') {
+	    		pecaSelecionada = new Rainha(peao.cor, peao.posX, peao.posY, "Rainha", Tabuleiro.imagens[10], peao.coord);
+	    	} else {
+	    		pecaSelecionada = new Rainha(peao.cor, peao.posX, peao.posY, "Rainha", Tabuleiro.imagens[4], peao.coord);
+	    	}
+	    	atualizaCasa(pecaSelecionada);
+    		break;
+    		
+	    	default:
+	    		break;
+	    }
+		
+	}
+	
+	
 	// Action events do mouse
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		_matrix = Tabuleiro.getTabCasa();
 		
 		if (!popupAberto) {
 			for (int i=0;i<8;i++) {
 				for (int j=0;j<8;j++) {
-					if (checkMatrix(_matrix[i][j], e.getX(), e.getY())) {
+					if (checkMatrix(_tabuleiro[i][j], e.getX(), e.getY())) {
 						
 							// Verifica se há uma peça na casa clicada
-							if (_matrix[i][j].peca != null) {
+							if (_tabuleiro[i][j].peca != null) {
 								
-								if ((turnoBranco == true && _matrix[i][j].peca.cor == 'B') || (turnoBranco == false && _matrix[i][j].peca.cor == 'P')) {
+								if ((turnoBranco && _tabuleiro[i][j].peca.cor == 'B') || (turnoBranco == false && _tabuleiro[i][j].peca.cor == 'P')) {
 									// Verifica se está movendo/atacando ou está selecionando uma peça
 									if (_selecioneiPeca) {
 										
-										if (_matrix[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
+										if (_tabuleiro[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
 											_pecaSelecionada = null;
-											_matrix[i][j].cor = _matrix[i][j].corOriginal;
+											_tabuleiro[i][j].cor = _tabuleiro[i][j].corOriginal;
 											
 											_selecioneiPeca = false;
-											_matrix[i][j].peca.selecionada = false;
+											_tabuleiro[i][j].peca.selecionada = false;
 											
 											tiraCor(-1,-1);
 											
 											_dc.repaint();
 											break;
-										} else if (!_matrix[i][j].peca.selecionada) { // Clicou numa peça que não estava selecionada
-											_matrix[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
-											_matrix[_pecaSelecionada.x][_pecaSelecionada.y].cor = _matrix[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
+										} else if (!_tabuleiro[i][j].peca.selecionada) { // Clicou numa peça que não estava selecionada
+											_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
+											_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].cor = _tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
 											
 											tiraCor(-1,-1);
 											
 											_pecaSelecionada = new Coordenadas(i,j);
-											_matrix[i][j].peca.selecionada = true;
+											_tabuleiro[i][j].peca.selecionada = true;
 											
-											_matrix[i][j].cor = Color.BLUE;
+											_tabuleiro[i][j].cor = Color.BLUE;
 											
-											casasPos = _matrix[i][j].peca.getMovPossiveis(i,j);
+											casasPos = _tabuleiro[i][j].peca.getMovPossiveis(i,j);
 											
 											int p = 0;
 											while (casasPos[p] != null) {
-												if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
-													_matrix[casasPos[p].x][casasPos[p].y].cor = Color.RED;
-												} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
-													_matrix[casasPos[p].x][casasPos[p].y].cor = Color.GREEN;
+												if (_tabuleiro[casasPos[p].x][casasPos[p].y].atcPossivel) {
+													_tabuleiro[casasPos[p].x][casasPos[p].y].cor = Color.RED;
+												} else if (_tabuleiro[casasPos[p].x][casasPos[p].y].movPossivel) {
+													_tabuleiro[casasPos[p].x][casasPos[p].y].cor = Color.GREEN;
 												}
 												p += 1;
 											}
@@ -154,22 +236,22 @@ public class Control implements MouseListener {
 										
 									} else {
 											
-										if (_matrix[i][j].peca.selecionada == false)
+										if (_tabuleiro[i][j].peca.selecionada == false)
 											_selecioneiPeca = true;
 											_pecaSelecionada = new Coordenadas(i,j);
-											_matrix[i][j].peca.selecionada = true;
-											_matrix[i][j].cor = Color.BLUE;
+											_tabuleiro[i][j].peca.selecionada = true;
+											_tabuleiro[i][j].cor = Color.BLUE;
 											
 											
-											casasPos = _matrix[i][j].peca.getMovPossiveis(i,j);
+											casasPos = _tabuleiro[i][j].peca.getMovPossiveis(i,j);
 											
 											int p = 0;
 											
 											while (casasPos[p] != null) {
-												if (_matrix[casasPos[p].x][casasPos[p].y].atcPossivel) {
-													_matrix[casasPos[p].x][casasPos[p].y].cor = Color.RED;
-												} else if (_matrix[casasPos[p].x][casasPos[p].y].movPossivel) {
-													_matrix[casasPos[p].x][casasPos[p].y].cor = Color.GREEN;
+												if (_tabuleiro[casasPos[p].x][casasPos[p].y].atcPossivel) {
+													_tabuleiro[casasPos[p].x][casasPos[p].y].cor = Color.RED;
+												} else if (_tabuleiro[casasPos[p].x][casasPos[p].y].movPossivel) {
+													_tabuleiro[casasPos[p].x][casasPos[p].y].cor = Color.GREEN;
 												}
 												p += 1;
 											}
@@ -181,12 +263,12 @@ public class Control implements MouseListener {
 								} else {
 									// Verifica se o local escolhido é válido para ataque
 									if (_selecioneiPeca) {
-										if (_matrix[i][j].atcPossivel) {
+										if (_tabuleiro[i][j].atcPossivel) {
 											
 											_selecioneiPeca = false;
-											_matrix[i][j].peca.selecionada = false;
+											_tabuleiro[i][j].peca.selecionada = false;
 											
-											Tabuleiro.atacaPeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
+											_t.atacaPeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
 											tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
 																											
 											_dc.repaint();
@@ -199,12 +281,12 @@ public class Control implements MouseListener {
 							
 								// Se não há peças no lugar e há uma peça selecionada
 								if (_selecioneiPeca) {
-									if (_matrix[i][j].movPossivel) {
+									if (_tabuleiro[i][j].movPossivel) {
 									
 										_selecioneiPeca = false;
-										_matrix[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
+										_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
 									
-										Tabuleiro.movePeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
+										_t.movePeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
 									
 										tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
 																										
@@ -212,8 +294,8 @@ public class Control implements MouseListener {
 										break;
 										
 									} else {	// Deseleciona peça
-										_matrix[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
-										_matrix[_pecaSelecionada.x][_pecaSelecionada.y].cor = _matrix[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
+										_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
+										_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].cor = _tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
 										
 										_pecaSelecionada = null;
 										_selecioneiPeca = false;
@@ -233,27 +315,19 @@ public class Control implements MouseListener {
 		
 	}
 
+	// Ações do MouseListener
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mousePressed(MouseEvent e) {}
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	@Override
+	public void mouseExited(MouseEvent e) {}
 
+	// Observador do tabuleiro
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void notify(ObservadoTabuleiro o) {
+		_tabuleiro = o.get();
 	}
 }

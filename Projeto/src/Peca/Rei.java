@@ -1,7 +1,6 @@
 package Peca;
 
 import java.awt.Image;
-import Interface.XadrezFrame;
 import Tabuleiro.*;
 
 public class Rei extends Peca {
@@ -17,9 +16,7 @@ public class Rei extends Peca {
 	}
 	
 	@Override
-	public Coordenadas[] getMovPossiveis(int Xi, int Yj) {
-		Casa[][] table = Tabuleiro.getTabCasa();
-		
+	public Coordenadas[] getMovPossiveis(int Xi, int Yj) {	
 		Coordenadas[] casasPossiveis = new Coordenadas[64];
 		int index = 0;
 		
@@ -205,7 +202,6 @@ public class Rei extends Peca {
 	
 	@Override
 	public Coordenadas[] testaMov(int Xi, int Yj, Casa[][] table) {
-		
 		Coordenadas[] casasPossiveis = new Coordenadas[64];
 		int index = 0;
 		
