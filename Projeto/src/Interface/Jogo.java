@@ -87,4 +87,14 @@ public class Jogo extends Interface {
 		 _popUp.setVisible(false);
 	}
 	
+	// Exige a tela do vencedor
+	public void exibeVitoria() {
+		
+		// Inicializa Jogo
+		Vitoria.getInstance().cria();
+								
+		// fecha a tela do menu
+		_f.setVisible(false);
+		dispose();
+	}
 }

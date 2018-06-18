@@ -57,6 +57,7 @@ public class Menu extends Interface {
 		// Adiciona um espaçamento entre os botões
 		_p.add(Box.createRigidArea(new Dimension(0,10)));
 
+		// Cria o botão de carregar um jogo
 		_loadButton = criaBotao("Carregar Jogo", 120, 30, _p);
 		_loadButton.setAlignmentX(Component.CENTER_ALIGNMENT);				
 	}

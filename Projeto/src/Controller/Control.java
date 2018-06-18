@@ -139,6 +139,10 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		
 	}
 	
+	public String pegaVencedor() {
+		return "INSIRA_VENCEDOR_AQUI";
+	}
+	
 	// --------------- Private --------------------
 	
 	// Atualiza no tabuleiro para a peça que promoveu o peão
