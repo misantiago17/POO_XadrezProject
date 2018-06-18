@@ -164,9 +164,9 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 
 		_tabuleiroCasa[originX][originY].peca = null;
 		
-		// Se não for peão trocando de peça, troca a vez do oponente
 		if (Control.turnoBranco && !roque) {
 			Control.turnoBranco = false;
+			//if()
 		} else if(!Control.turnoBranco && !roque){
 			Control.turnoBranco = true;
 		}

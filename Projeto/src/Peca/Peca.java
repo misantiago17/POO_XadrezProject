@@ -9,7 +9,7 @@ import Tabuleiro.*;
 
 public abstract class Peca implements ObservadorTabuleiro {
 	
-	public Casa[][] table;
+	public static Casa[][] table;
 	
 	public int posX, posY;
 	public char cor;
@@ -32,7 +32,7 @@ public abstract class Peca implements ObservadorTabuleiro {
 	public abstract Coordenadas[] getMovPossiveis(int Xi, int Yj);
 	public abstract Coordenadas[] testaMov(int Xi, int Yj, Casa[][] table);
 
-	boolean verificaCheck(Casa[][] table){
+	static boolean verificaCheck(Casa[][] table, char cor){
 	
 		Coordenadas coordRei = new Coordenadas();
 		boolean isInCheck = false;
@@ -40,7 +40,7 @@ public abstract class Peca implements ObservadorTabuleiro {
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
 				if(table[i][j].peca != null) {
-					if(table[i][j].peca.nome == "Rei" && table[i][j].peca.cor == this.cor) {
+					if(table[i][j].peca.nome == "Rei" && table[i][j].peca.cor == cor) {
 						coordRei = new Coordenadas(i, j);
 					}
 				}
@@ -56,12 +56,8 @@ public abstract class Peca implements ObservadorTabuleiro {
 						casasPos = table[i][j].peca.testaMov(i, j, table);
 						int k =0;
 						while (casasPos[k] != null) {
-							if(table[i][j].peca.nome == "Rainha") {
-								System.out.println("Rainha " + casasPos[k].x + casasPos[k].y);
-							}
 							if(casasPos[k].x == coordRei.x && casasPos[k].y == coordRei.y) {
 								isInCheck = true;
-								System.out.println("CHECK PORRA");
 							}
 							k++;
 						}
@@ -73,40 +69,30 @@ public abstract class Peca implements ObservadorTabuleiro {
 	}
 
 	//Verifica se uma movimentacao causaria um check no proprio rei -> movimento invalido
-	boolean preveCheck(int posX,  int posY, int novoX, int novoY) {
+	static boolean preveCheck(int posX,  int posY, int novoX, int novoY, char cor) {
 		Casa[][] table = null;
 
 		table = simulaMovimento(posX, posY, novoX, novoY);
 
-		return verificaCheck(table);
+		return verificaCheck(table, cor);
 	}
 
-	boolean verificaCheckMate(){
-		boolean isInCheckMate = false;
+	static boolean verificaExisteMovPossiveis(char cor){
 		Coordenadas[] casasPos = new Coordenadas[64];
 
-		if(verificaCheck(table)) {
-
-			isInCheckMate = true;
-
-			for(int i = 0; i < 8; i++) {
-				for(int j = 0; j < 8; j++) {
-
-					if(table[i][j].peca != null) {
-						if(table[i][j].peca.cor == cor) {
-							casasPos = table[i][j].peca.testaMov(i, j, table);
-							for(Coordenadas c: casasPos) {
-								if(isInCheckMate)
-									isInCheckMate = preveCheck(i, j, c.x, c.y);
-							}
-						}
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				if(table[i][j] != null) {
+					if(table[i][j].peca.cor == cor) {
+						casasPos = table[i][j].peca.testaMov(i, j, table);
+						if(casasPos != null)
+							return false;
 					}
-
 				}
 			}
-
 		}
-		return isInCheckMate;
+			
+		return true;
 	}
 
 
@@ -130,7 +116,7 @@ public abstract class Peca implements ObservadorTabuleiro {
 		return null;
 	}*/
 
-	public Casa[][] simulaMovimento(int originX, int originY, int destX, int destY) {
+	static public Casa[][] simulaMovimento(int originX, int originY, int destX, int destY) {
 		Casa tableSim[][] = new Casa[8][8];
 
 		for(int i = 0; i < 8; i++) {

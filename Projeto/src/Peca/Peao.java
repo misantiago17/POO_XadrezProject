@@ -31,7 +31,7 @@ public class Peao extends Peca {
 		for(int i = 1; i <= maxMov; i++){
 			if(Yj > 0 && table[Xi][Yj].peca.cor == 'B' && !encontrou) {
 				if(table[Xi][Yj - i].peca == null) {
-					if(!preveCheck(Xi, Yj, Xi, Yj - i)) {
+					if(!preveCheck(Xi, Yj, Xi, Yj - i, cor)) {
 						table[Xi][Yj - i].movPossivel = true;
 						casasPossiveis[index] = new Coordenadas(Xi,Yj - i);
 						index += 1;
@@ -44,7 +44,7 @@ public class Peao extends Peca {
 			}
 			else if(Yj < 8 && table[Xi][Yj].peca.cor == 'P' && !encontrou) {
 				if(table[Xi][Yj + i].peca == null) {
-					if(!preveCheck(Xi, Yj, Xi, Yj + i)) {
+					if(!preveCheck(Xi, Yj, Xi, Yj + i, cor)) {
 						table[Xi][Yj + i].movPossivel = true;
 						casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
 						index += 1;
@@ -61,7 +61,7 @@ public class Peao extends Peca {
 			if(Xi > 0 && Yj > 0) {
 				if(table[Xi - 1][Yj - 1].peca != null) {
 					if(table[Xi - 1][Yj - 1].peca. cor != table[Xi][Yj].peca.cor) {
-						if(!preveCheck(Xi, Yj, Xi - 1, Yj - 1)) {
+						if(!preveCheck(Xi, Yj, Xi - 1, Yj - 1, cor)) {
 							table[Xi - 1][Yj - 1].atcPossivel = true;
 							casasPossiveis[index] = new Coordenadas(Xi - 1,Yj - 1);
 							index += 1;
@@ -72,7 +72,7 @@ public class Peao extends Peca {
 			if(Xi < 7 && Yj > 0) {
 				if(table[Xi + 1][Yj - 1].peca != null) {
 					if(table[Xi + 1][Yj - 1].peca. cor != table[Xi][Yj].peca.cor) {
-						if(!preveCheck(Xi, Yj, Xi + 1, Yj - 1)) {
+						if(!preveCheck(Xi, Yj, Xi + 1, Yj - 1, cor)) {
 							table[Xi + 1][Yj - 1].atcPossivel = true;
 							casasPossiveis[index] = new Coordenadas(Xi + 1,Yj - 1);
 							index += 1;
@@ -85,7 +85,7 @@ public class Peao extends Peca {
 			if(Xi > 0 && Yj < 7) {
 				if(table[Xi - 1][Yj + 1].peca != null) {
 					if(table[Xi - 1][Yj + 1].peca. cor != table[Xi][Yj].peca.cor) {
-						if(!preveCheck(Xi, Yj, Xi - 1, Yj + 1)) {
+						if(!preveCheck(Xi, Yj, Xi - 1, Yj + 1, cor)) {
 							table[Xi - 1][Yj + 1].atcPossivel = true;
 							casasPossiveis[index] = new Coordenadas(Xi - 1,Yj + 1);
 							index += 1;
@@ -96,7 +96,7 @@ public class Peao extends Peca {
 			if(Xi < 7 && Yj < 7) {
 				if(table[Xi + 1][Yj + 1].peca != null) {
 					if(table[Xi + 1][Yj + 1].peca. cor != table[Xi][Yj].peca.cor) {
-						if(!preveCheck(Xi, Yj, Xi + 1, Yj + 1)) {
+						if(!preveCheck(Xi, Yj, Xi + 1, Yj + 1, cor)) {
 							table[Xi + 1][Yj + 1].atcPossivel = true;
 							casasPossiveis[index] = new Coordenadas(Xi + 1,Yj + 1);
 							index += 1;

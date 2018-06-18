@@ -21,14 +21,14 @@ public class Cavalo extends Peca {
 		
 		if(Xi - 2 >= 0 && Yj - 1 >= 0) {
 			if(table[Xi - 2][Yj - 1].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi - 2, Yj - 1)) {
+				if(!preveCheck(Xi, Yj, Xi - 2, Yj - 1, cor)) {
 					table[Xi - 2][Yj - 1].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 2, Yj - 1);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi - 2][Yj -1].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi - 2, Yj - 1)) {
+				if(!preveCheck(Xi, Yj, Xi - 2, Yj - 1, cor)) {
 					table[Xi - 2][Yj - 1].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 2, Yj - 1);
 					index += 1;
@@ -38,14 +38,14 @@ public class Cavalo extends Peca {
 		}
 		if(Xi - 2 >= 0 && Yj + 1 < 8) {
 			if(table[Xi - 2][Yj + 1].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi - 2, Yj + 1)) {
+				if(!preveCheck(Xi, Yj, Xi - 2, Yj + 1, cor)) {
 					table[Xi - 2][Yj + 1].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 2, Yj + 1);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi - 2][Yj + 1].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi - 2, Yj + 1)) {
+				if(!preveCheck(Xi, Yj, Xi - 2, Yj + 1, cor)) {
 					table[Xi - 2][Yj + 1].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 2, Yj + 1);
 					index += 1;
@@ -55,14 +55,14 @@ public class Cavalo extends Peca {
 		}
 		if(Xi + 2 < 8 && Yj - 1 >= 0) {
 			if(table[Xi + 2][Yj - 1].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi + 2, Yj - 1)) {
+				if(!preveCheck(Xi, Yj, Xi + 2, Yj - 1, cor)) {
 					table[Xi + 2][Yj - 1].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 2, Yj - 1);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi + 2][Yj - 1].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi + 2, Yj - 1)) {
+				if(!preveCheck(Xi, Yj, Xi + 2, Yj - 1, cor)) {
 					table[Xi + 2][Yj - 1].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 2, Yj - 1);
 					index += 1;
@@ -72,14 +72,14 @@ public class Cavalo extends Peca {
 		}
 		if(Xi + 2 < 8 && Yj + 1 < 8) {
 			if(table[Xi + 2][Yj + 1].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi + 2, Yj + 1)) {
+				if(!preveCheck(Xi, Yj, Xi + 2, Yj + 1, cor)) {
 					table[Xi + 2][Yj + 1].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 2, Yj + 1);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi + 2][Yj + 1].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi + 2, Yj + 1)) {
+				if(!preveCheck(Xi, Yj, Xi + 2, Yj + 1, cor)) {
 					table[Xi + 2][Yj + 1].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 2, Yj + 1);
 					index += 1;
@@ -91,14 +91,14 @@ public class Cavalo extends Peca {
 
 		if(Xi - 1 >= 0 && Yj - 2 >= 0) {
 			if(table[Xi - 1][Yj - 2].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi - 1, Yj - 2)) {
+				if(!preveCheck(Xi, Yj, Xi - 1, Yj - 2, cor)) {
 					table[Xi - 1][Yj - 2].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 1, Yj - 2);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi - 1][Yj - 2].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi - 1, Yj - 2)) {
+				if(!preveCheck(Xi, Yj, Xi - 1, Yj - 2, cor)) {
 					table[Xi - 1][Yj - 2].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 1, Yj - 2);
 					index += 1;
@@ -108,14 +108,14 @@ public class Cavalo extends Peca {
 		}
 		if(Xi - 1 >= 0 && Yj + 2 < 8) {
 			if(table[Xi - 1][Yj + 2].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi - 1, Yj + 2)) {
+				if(!preveCheck(Xi, Yj, Xi - 1, Yj + 2, cor)) {
 					table[Xi - 1][Yj + 2].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 1, Yj + 2);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi - 1][Yj + 2].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi - 1, Yj + 2)) {
+				if(!preveCheck(Xi, Yj, Xi - 1, Yj + 2, cor)) {
 					table[Xi - 1][Yj + 2].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 1, Yj + 2);
 					index += 1;
@@ -125,14 +125,14 @@ public class Cavalo extends Peca {
 		}
 		if(Xi + 1 < 8 && Yj - 2 >= 0) {
 			if(table[Xi + 1][Yj - 2].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi + 1, Yj - 2)) {
+				if(!preveCheck(Xi, Yj, Xi + 1, Yj - 2, cor)) {
 					table[Xi + 1][Yj - 2].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 1, Yj - 2);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi + 1][Yj - 2].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi + 1, Yj - 2)) {
+				if(!preveCheck(Xi, Yj, Xi + 1, Yj - 2, cor)) {
 					table[Xi + 1][Yj - 2].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 1, Yj - 2);
 					index += 1;
@@ -142,14 +142,14 @@ public class Cavalo extends Peca {
 		}
 		if(Xi + 1 < 8 && Yj + 2 < 8) {
 			if(table[Xi + 1][Yj + 2].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi + 1, Yj + 2)) {
+				if(!preveCheck(Xi, Yj, Xi + 1, Yj + 2, cor)) {
 					table[Xi + 1][Yj + 2].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 1, Yj + 2);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi + 1][Yj + 2].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi + 1, Yj + 2)) {
+				if(!preveCheck(Xi, Yj, Xi + 1, Yj + 2, cor)) {
 					table[Xi + 1][Yj + 2].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 1, Yj + 2);
 					index += 1;

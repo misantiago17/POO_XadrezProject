@@ -23,14 +23,14 @@ public class Rei extends Peca {
 		//Movimento vertical
 		if(Yj > 0) {
 			if(table[Xi][Yj - 1].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi, Yj - 1)) {
+				if(!preveCheck(Xi, Yj, Xi, Yj - 1, cor)) {
 					table[Xi][Yj - 1].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi,Yj - 1);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi][Yj - 1].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi, Yj - 1)) {
+				if(!preveCheck(Xi, Yj, Xi, Yj - 1, cor)) {
 					table[Xi][Yj - 1].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi,Yj - 1);
 					index += 1;
@@ -42,14 +42,14 @@ public class Rei extends Peca {
 		
 		if(Yj < 7) {
 			if(table[Xi][Yj + 1].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi, Yj + 1)) {
+				if(!preveCheck(Xi, Yj, Xi, Yj + 1, cor)) {
 					table[Xi][Yj + 1].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi,Yj+1);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi][Yj + 1].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi, Yj + 1)) {
+				if(!preveCheck(Xi, Yj, Xi, Yj + 1, cor)) {
 					table[Xi][Yj + 1].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi,Yj+1);
 					index += 1;
@@ -62,14 +62,14 @@ public class Rei extends Peca {
 		//movimento horizontal
 		if(Xi > 0) {
 			if(table[Xi - 1][Yj].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi - 1, Yj)) {
+				if(!preveCheck(Xi, Yj, Xi - 1, Yj, cor)) {
 					table[Xi - 1][Yj].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 1, Yj);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi - 1][Yj].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi - 1, Yj)) {
+				if(!preveCheck(Xi, Yj, Xi - 1, Yj, cor)) {
 					table[Xi - 1][Yj].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 1, Yj);
 					index += 1;
@@ -81,14 +81,14 @@ public class Rei extends Peca {
 		
 		if(Xi < 7) {
 			if(table[Xi + 1][Yj].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi + 1, Yj)) {
+				if(!preveCheck(Xi, Yj, Xi + 1, Yj, cor)) {
 					table[Xi + 1][Yj].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 1, Yj);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi + 1][Yj].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi + 1, Yj)) {
+				if(!preveCheck(Xi, Yj, Xi + 1, Yj, cor)) {
 					table[Xi + 1][Yj].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 1, Yj);
 					index += 1;
@@ -104,7 +104,7 @@ public class Rei extends Peca {
 				if(Torre.class.isInstance(table[0][Yj].peca)) {
 					Torre temp = (Torre)table[0][Yj].peca;
 					if(!temp.hasMoved) {
-						if(!preveCheck(Xi, Yj, Xi - 2, Yj)) {
+						if(!preveCheck(Xi, Yj, Xi - 2, Yj, cor)) {
 							table[Xi - 2][Yj].movPossivel = true;
 							casasPossiveis[index] = new Coordenadas(Xi - 2, Yj);
 							index += 1;
@@ -117,7 +117,7 @@ public class Rei extends Peca {
 				if(Torre.class.isInstance(table[7][Yj].peca)) {
 					Torre temp = (Torre)table[7][Yj].peca;
 					if(!temp.hasMoved) {
-						if(!preveCheck(Xi, Yj, Xi + 2, Yj)) {
+						if(!preveCheck(Xi, Yj, Xi + 2, Yj, cor)) {
 							table[Xi + 2][Yj].movPossivel = true;
 							casasPossiveis[index] = new Coordenadas(Xi + 2, Yj);
 							index += 1;
@@ -131,14 +131,14 @@ public class Rei extends Peca {
 		//diagonal
 		if(Xi > 0 && Yj > 0) {
 			if(table[Xi - 1][Yj - 1].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi - 1, Yj - 1)) {
+				if(!preveCheck(Xi, Yj, Xi - 1, Yj - 1, cor)) {
 					table[Xi - 1][Yj - 1].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 1, Yj - 1);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi - 1][Yj - 1].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi - 1, Yj - 1)) {
+				if(!preveCheck(Xi, Yj, Xi - 1, Yj - 1, cor)) {
 					table[Xi - 1][Yj - 1].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 1, Yj - 1);
 					index += 1;
@@ -148,14 +148,14 @@ public class Rei extends Peca {
 		}
 		if(Xi > 0 && Yj < 7) {
 			if(table[Xi - 1][Yj + 1].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi - 1, Yj + 1)) {
+				if(!preveCheck(Xi, Yj, Xi - 1, Yj + 1, cor)) {
 					table[Xi - 1][Yj + 1].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 1, Yj + 1);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi - 1][Yj + 1].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi - 1, Yj + 1)) {
+				if(!preveCheck(Xi, Yj, Xi - 1, Yj + 1, cor)) {
 					table[Xi - 1][Yj + 1].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi - 1, Yj + 1);
 					index += 1;
@@ -165,14 +165,14 @@ public class Rei extends Peca {
 		}
 		if(Xi < 7 && Yj > 0) {
 			if(table[Xi + 1][Yj - 1].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi + 1, Yj - 1)) {
+				if(!preveCheck(Xi, Yj, Xi + 1, Yj - 1, cor)) {
 					table[Xi + 1][Yj - 1].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 1, Yj - 1);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi + 1][Yj - 1].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi + 1, Yj - 1)) {
+				if(!preveCheck(Xi, Yj, Xi + 1, Yj - 1, cor)) {
 					table[Xi + 1][Yj - 1].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 1, Yj - 1);
 					index += 1;
@@ -182,14 +182,14 @@ public class Rei extends Peca {
 		}
 		if(Xi < 7 && Yj <  7) {
 			if(table[Xi + 1][Yj + 1].peca == null) {
-				if(!preveCheck(Xi, Yj, Xi + 1, Yj + 1)) {
+				if(!preveCheck(Xi, Yj, Xi + 1, Yj + 1, cor)) {
 					table[Xi + 1][Yj + 1].movPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 1, Yj + 1);
 					index += 1;
 				}
 			}
 			else if(table[Xi][Yj].peca.cor != table[Xi + 1][Yj + 1].peca.cor) {
-				if(!preveCheck(Xi, Yj, Xi + 1, Yj + 1)) {
+				if(!preveCheck(Xi, Yj, Xi + 1, Yj + 1, cor)) {
 					table[Xi + 1][Yj + 1].atcPossivel = true;
 					casasPossiveis[index] = new Coordenadas(Xi + 1, Yj + 1);
 					index += 1;
