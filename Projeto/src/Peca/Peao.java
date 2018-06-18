@@ -132,7 +132,7 @@ public class Peao extends Peca {
 				
 				
 			}
-			else if(Yj < 8 && table[Xi][Yj].peca.cor == 'P' && !encontrou) {
+			else if(Yj < 7 && table[Xi][Yj].peca.cor == 'P' && !encontrou) {
 				if(table[Xi][Yj + i].peca == null) {
 					casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
 					index += 1;

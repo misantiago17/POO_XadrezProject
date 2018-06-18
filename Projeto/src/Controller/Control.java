@@ -22,7 +22,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	private Jogo _j;
 	private Tabuleiro _t;
 	
-	private Casa[][] _tabuleiro;	// O tabuleiro
+	private static Casa[][] _tabuleiro;	// O tabuleiro
 	
 	private boolean _selecioneiPeca = false;
 	private Coordenadas _pecaSelecionada;
@@ -141,6 +141,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	    	default:
 	    		break;
 	    }
+	    testaCheck(peao.cor, false);
 		
 	}
 	
@@ -328,7 +329,37 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 			}
 		}
 	}
-
+	
+	public static void testaCheck(char cor, boolean roque) {
+		char testaCor;
+		if(cor == 'P')
+			testaCor = 'B';
+		else
+			testaCor = 'P';
+		if(Peca.verificaCheck(_tabuleiro, testaCor) && !roque) {
+			if(!Peca.verificaExisteMovPossiveis(testaCor)) {
+				if(testaCor == 'P')
+					Control.blackKingCheckMate = true;
+				else
+					Control.whiteKingCheckMate = true;
+			}
+			else {
+				if(testaCor == 'P')
+					Control.blackKingCheck = true;
+				else
+					Control.whiteKingCheck = true;
+			}
+		}
+		else if(!Peca.verificaExisteMovPossiveis(testaCor) && !roque) {
+			Control.empate = true;
+		}
+		else {
+			Control.blackKingCheck = false;
+			Control.whiteKingCheck = false;
+					
+		}
+	}
+	
 	// Ações do MouseListener
 	@Override
 	public void mousePressed(MouseEvent e) {}

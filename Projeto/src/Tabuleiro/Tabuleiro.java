@@ -171,34 +171,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		}
 		
 		//Verifica  se ocorreu um check, checkmate ou empate
-		char testaCor;
-		if(p.cor == 'P')
-			testaCor = 'B';
-		else
-			testaCor = 'P';
-		if(Peca.verificaCheck(_tabuleiroCasa, testaCor) && !roque) {
-			if(!Peca.verificaExisteMovPossiveis(testaCor)) {
-				if(testaCor == 'P')
-					Control.blackKingCheckMate = true;
-				else
-					Control.whiteKingCheckMate = true;
-				System.out.println("teste?");
-			}
-			else {
-				if(testaCor == 'P')
-					Control.blackKingCheck = true;
-				else
-					Control.whiteKingCheck = true;
-			}
-		}
-		else if(!Peca.verificaExisteMovPossiveis(testaCor) && !roque) {
-			Control.empate = true;
-		}
-		else {
-			Control.blackKingCheck = false;
-			Control.whiteKingCheck = false;
-					
-		}
+		Control.testaCheck(p.cor, roque);
 		
 		
 		atualiza();

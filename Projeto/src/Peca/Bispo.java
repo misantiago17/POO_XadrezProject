@@ -38,10 +38,10 @@ public class Bispo extends Peca {
 				else if(table[Xi][Yj].peca.cor != table[Xi + i][Yj + i].peca.cor) {
 					if(!preveCheck(Xi, Yj, Xi + i, Yj + i, cor)) {
 						table[Xi + i][Yj + i].atcPossivel = true;
-						encontrouDiagCimaDir = true;
 						casasPossiveis[index] = new Coordenadas(Xi + i,Yj + i);
 						index += 1;	
 					}
+					encontrouDiagCimaDir = true;
 				}
 				else 
 					encontrouDiagCimaDir = true;
@@ -59,10 +59,10 @@ public class Bispo extends Peca {
 				else if(table[Xi][Yj].peca.cor != table[Xi + i][Yj - i].peca.cor) {
 					if(!preveCheck(Xi, Yj, Xi + i, Yj - i, cor)) {
 						table[Xi + i][Yj - i].atcPossivel = true;
-						encontrouDiagBaixoDir = true;
 						casasPossiveis[index] = new Coordenadas(Xi + i,Yj - i);
 						index += 1;	
 					}
+					encontrouDiagBaixoDir = true;
 				}
 				else 
 					encontrouDiagBaixoDir = true;
@@ -79,10 +79,10 @@ public class Bispo extends Peca {
 				else if(table[Xi][Yj].peca.cor != table[Xi - i][Yj + i].peca.cor) {
 					if(!preveCheck(Xi, Yj, Xi - i, Yj + i, cor)) {
 						table[Xi - i][Yj + i].atcPossivel = true;
-						encontrouDiagCimaEsq = true;
 						casasPossiveis[index] = new Coordenadas(Xi - i,Yj + i);
 						index += 1;	
 					}
+					encontrouDiagCimaEsq = true;
 				}
 				else 
 					encontrouDiagCimaEsq = true;
@@ -99,10 +99,10 @@ public class Bispo extends Peca {
 				else if(table[Xi][Yj].peca.cor != table[Xi- i][Yj - i].peca.cor) {
 					if(!preveCheck(Xi, Yj, Xi - i, Yj - i, cor)) {
 						table[Xi- i][Yj - i].atcPossivel = true;
-						encontrouDiagBaixoEsq = true;
 						casasPossiveis[index] = new Coordenadas(Xi - i, Yj - i);
 						index += 1;
 					}
+					encontrouDiagBaixoEsq = true;
 				}
 				else 
 					encontrouDiagBaixoEsq = true;

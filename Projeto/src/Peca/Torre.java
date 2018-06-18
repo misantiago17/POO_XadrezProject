@@ -41,10 +41,10 @@ public class Torre extends Peca {
 				else if(table[Xi][Yj].peca.cor != table[Xi][Yj + i].peca.cor) {
 					if(!preveCheck(Xi, Yj, Xi, Yj + i, cor)) {
 						table[Xi][Yj + i].atcPossivel = true;
-						encontrouVertCima = true;
 						casasPossiveis[index] = new Coordenadas(Xi,Yj + i);
 						index += 1;
 					}
+					encontrouVertCima = true;
 				}
 				else
 					encontrouVertCima = true;				
@@ -60,10 +60,10 @@ public class Torre extends Peca {
 				else if(table[Xi][Yj].peca.cor != table[Xi][Yj - i].peca.cor) {
 					if(!preveCheck(Xi, Yj, Xi, Yj - i, cor)) {
 						table[Xi][Yj - i].atcPossivel = true;
-						encontrouVertBaixo = true;
 						casasPossiveis[index] = new Coordenadas(Xi,Yj - i);
 						index += 1;
 					}
+					encontrouVertBaixo = true;
 				}
 				else 
 					encontrouVertBaixo = true;
@@ -83,10 +83,10 @@ public class Torre extends Peca {
 				else if(table[Xi][Yj].peca.cor != table[Xi + i][Yj].peca.cor) {
 					if(!preveCheck(Xi, Yj, Xi + i, Yj, cor)) {
 						table[Xi + i][Yj].atcPossivel = true;
-						encontrouHorzDireita = true;
 						casasPossiveis[index] = new Coordenadas(Xi + i,Yj);
 						index += 1;
 					}
+					encontrouHorzDireita = true;
 				}
 				else 
 					encontrouHorzDireita = true;
@@ -103,10 +103,10 @@ public class Torre extends Peca {
 				else if(table[Xi][Yj].peca.cor != table[Xi - i][Yj].peca.cor) {
 					if(!preveCheck(Xi, Yj, Xi - i, Yj, cor)) {
 						table[Xi - i][Yj].atcPossivel = true;
-						encontrouHorzEsquerda = true;
 						casasPossiveis[index] = new Coordenadas(Xi - i,Yj);
 						index += 1;		
 					}
+					encontrouHorzEsquerda = true;
 				}
 				else 
 					encontrouHorzEsquerda = true;
