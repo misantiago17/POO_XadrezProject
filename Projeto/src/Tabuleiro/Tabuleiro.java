@@ -20,27 +20,24 @@ import Peca.*;
 
 public final class Tabuleiro implements ObservadoTabuleiro {
 	
-	public static Tabuleiro INSTANCE;
-	
+	// Lista de observadores do tabuleiro
 	private List<ObservadorTabuleiro> lst = new ArrayList<ObservadorTabuleiro>();	
-	public Casa _tabuleiroCasa[][] = new Casa[8][8];
+	private Casa _tabuleiroCasa[][] = new Casa[8][8];	// O tabuleiro observado
 		
-	public static Peca[] pecasPerdidas = new Peca[64];
+	private Peca[] pecasPerdidas = new Peca[64];
 	
-	public static Image[] imagens = new Image[12];
+	public static Image[] imagens;
+	public static int offsetX;
+	public static int offsetY;
 	
-	public static int _offsetX;
-	public static int _offsetY;
+	public Tabuleiro() {}
 	
-	public Tabuleiro() {
-		
-	}
-	
+	// Completa o tabuleiro com suas peças
 	public void FillTabuleiro(Rectangle2D[][] ret, Color[][] cor, int x, int y) {
 		
-		_offsetX = x;
-		_offsetY = y;
-		carregaImagem();
+		offsetX = x;
+		offsetY = y;
+		imagens = carregaImagem();
 		 // CyanB, CyanK,  CyanN,  CyanP,  CyanQ,  CyanR, 
 		// PurpleB, PurpleK, PurpleN, PurpleP, PurpleQ, PurpleR  
 				
@@ -79,7 +76,9 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		atualiza();
 	}
 	
-	private void carregaImagem() {
+	// Carrega as imagens das peças dentro do arquivo
+	private Image[] carregaImagem() {
+		Image[] img = new Image[12];
 		
 		File pasta = new File("./resources");
 		File[] listaArquivos = pasta.listFiles();
@@ -87,7 +86,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		try {
 			for (int i=0; i<listaArquivos.length;i++) {
 				if (listaArquivos[i].isFile()) {					
-					imagens[i] = ImageIO.read(listaArquivos[i]);
+					img[i] = ImageIO.read(listaArquivos[i]);
 				}
 			}		
 		}
@@ -95,6 +94,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
+		return img;
 	}
 	
 	public void atualizaTabCasa(Casa[][] tab){
@@ -105,8 +105,8 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 	// Move a peça até o local marcado
 	public void movePeca(int originX, int originY, int destX, int destY) {
 		Peca p = _tabuleiroCasa[originX][originY].peca;
-		int newPosX = 64*destX + _offsetX;
-		int newPosY = 64*destY + _offsetY;
+		int newPosX = 64*destX + offsetX;
+		int newPosY = 64*destY + offsetY;
 		
 		boolean roque = false;
 		

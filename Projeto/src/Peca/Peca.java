@@ -61,7 +61,7 @@ public abstract class Peca implements ObservadorTabuleiro {
 							}
 							if(casasPos[k].x == coordRei.x && casasPos[k].y == coordRei.y) {
 								isInCheck = true;
-								System.out.println("CHECK PORRA");
+								System.out.println("CHECK");
 							}
 							k++;
 						}
@@ -121,15 +121,6 @@ public abstract class Peca implements ObservadorTabuleiro {
 		return mat;
 	}
 
-	/*protected Image buscaNomeImg(String nome) {		
-		for(int i = 0 ; i < XadrezFrame.nomeImagens.length; i++) {
-			if(XadrezFrame.nomeImagens[i].equals(nome)) {
-				return XadrezFrame.imagens[i];
-			}
-		}
-		return null;
-	}*/
-
 	public Casa[][] simulaMovimento(int originX, int originY, int destX, int destY) {
 		Casa tableSim[][] = new Casa[8][8];
 
@@ -140,8 +131,8 @@ public abstract class Peca implements ObservadorTabuleiro {
 		}
 
 		Peca p = tableSim[originX][originY].peca;
-		int newPosX = 64*destX + Tabuleiro._offsetX;
-		int newPosY = 64*destY + Tabuleiro._offsetY;
+		int newPosX = 64*destX + Tabuleiro.offsetX;
+		int newPosY = 64*destY + Tabuleiro.offsetY;
 
 		switch (p.nome) {
 		case "Torre":
