@@ -37,6 +37,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	
 	// --------------------------------------------------------------------------------------------
 
+	// --------------- Public --------------------
 	
 	private Control() {
 		_t = new Tabuleiro();
@@ -74,7 +75,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	
 	// Salva jogo
 	public void salvaJogo() {
-		if (popupAberto) {
+		if (!popupAberto) {
 			System.out.println("SALVA");
 		}
 	}
@@ -84,11 +85,73 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		System.out.println("CARREGA");
 	}
 	
-	
+	// mostra o popUp da promoção do peão em questão
 	public void promocaoPeao(Casa tab) {
 		peaoSelecionado = tab;
 		popupAberto = true;
 		_j.criaPopUp();
+	}
+	
+	// Executa a troca do peão pela peça selecionada na promoção
+	public void promovePeao(String pecaEscolhida) {
+		
+		Peca peao = null;
+	    if (peaoSelecionado != null) {
+	    	peao = peaoSelecionado.peca;
+	    }
+	    Peca pecaSelecionada;
+	    
+	    switch (pecaEscolhida) {
+	    case "Torre":
+	    	if (peao != null && peao.cor == 'P') {
+	    		pecaSelecionada = new Torre(peao.cor, peao.posX, peao.posY, "Torre", Tabuleiro.imagens[11], peao.coord);
+	    	} else {
+	    		pecaSelecionada = new Torre(peao.cor, peao.posX, peao.posY, "Torre", Tabuleiro.imagens[5], peao.coord);
+	    	}
+	    	atualizaPeao(pecaSelecionada);
+	    	break;
+	    case "Cavalo":
+	    	if (peao != null && peao.cor == 'P') {
+	    		pecaSelecionada = new Cavalo(peao.cor, peao.posX, peao.posY, "Cavalo", Tabuleiro.imagens[8], peao.coord);
+	    	} else {
+	    		pecaSelecionada = new Cavalo(peao.cor, peao.posX, peao.posY, "Cavalo", Tabuleiro.imagens[2], peao.coord);
+	    	}
+	    	atualizaPeao(pecaSelecionada);
+	    	break;
+	    case "Bispo":
+	    	if (peao != null && peao.cor == 'P') {
+	    		pecaSelecionada = new Bispo(peao.cor, peao.posX, peao.posY, "Bispo", Tabuleiro.imagens[6], peao.coord);
+	    	} else {
+	    		pecaSelecionada = new Bispo(peao.cor, peao.posX, peao.posY, "Bispo", Tabuleiro.imagens[0], peao.coord);
+	    	}
+	    	atualizaPeao(pecaSelecionada);
+	    	break;
+	    case "Rainha":
+	    	if (peao != null && peao.cor == 'P') {
+	    		pecaSelecionada = new Rainha(peao.cor, peao.posX, peao.posY, "Rainha", Tabuleiro.imagens[10], peao.coord);
+	    	} else {
+	    		pecaSelecionada = new Rainha(peao.cor, peao.posX, peao.posY, "Rainha", Tabuleiro.imagens[4], peao.coord);
+	    	}
+	    	atualizaPeao(pecaSelecionada);
+    		break;
+    		
+	    	default:
+	    		break;
+	    }
+		
+	}
+	
+	// --------------- Private --------------------
+	
+	// Atualiza no tabuleiro para a peça que promoveu o peão
+	private void atualizaPeao(Peca pecaSelecionada) {
+		
+		_tabuleiro[peaoSelecionado.peca.coord.x][peaoSelecionado.peca.coord.y].peca = pecaSelecionada;
+	    _t.atualizaTabCasa(_tabuleiro);
+	    repaintTable();
+	    
+	    Jogo.getInstance().fechaPopUp();
+	    popupAberto = false;
 	}
 	
 	// Verifica se clicou dentro de uma casa
@@ -101,6 +164,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		return false;		
 	}
 	
+	// Tira o highlight das casas de movimenção e ataque de uma peça
 	private void tiraCor(int i, int j) {
 		
 		int p = 0;
@@ -121,65 +185,6 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		}
 		_pecaSelecionada = null;
 	}
-	
-	private void atualizaCasa(Peca pecaSelecionada) {
-		
-		_tabuleiro[peaoSelecionado.peca.coord.x][peaoSelecionado.peca.coord.y].peca = pecaSelecionada;
-	    _t.atualizaTabCasa(_tabuleiro);
-	    repaintTable();
-	    
-	    Jogo.getInstance().fechaPopUp();
-	    popupAberto = false;
-	}
-	
-	public void promovePeao(String pecaEscolhida) {
-		
-		Peca peao = null;
-	    if (peaoSelecionado != null) {
-	    	peao = peaoSelecionado.peca;
-	    }
-	    Peca pecaSelecionada;
-	    
-	    switch (pecaEscolhida) {
-	    case "Torre":
-	    	if (peao != null && peao.cor == 'P') {
-	    		pecaSelecionada = new Torre(peao.cor, peao.posX, peao.posY, "Torre", Tabuleiro.imagens[11], peao.coord);
-	    	} else {
-	    		pecaSelecionada = new Torre(peao.cor, peao.posX, peao.posY, "Torre", Tabuleiro.imagens[5], peao.coord);
-	    	}
-	    	atualizaCasa(pecaSelecionada);
-	    	break;
-	    case "Cavalo":
-	    	if (peao != null && peao.cor == 'P') {
-	    		pecaSelecionada = new Cavalo(peao.cor, peao.posX, peao.posY, "Cavalo", Tabuleiro.imagens[8], peao.coord);
-	    	} else {
-	    		pecaSelecionada = new Cavalo(peao.cor, peao.posX, peao.posY, "Cavalo", Tabuleiro.imagens[2], peao.coord);
-	    	}
-	    	atualizaCasa(pecaSelecionada);
-	    	break;
-	    case "Bispo":
-	    	if (peao != null && peao.cor == 'P') {
-	    		pecaSelecionada = new Bispo(peao.cor, peao.posX, peao.posY, "Bispo", Tabuleiro.imagens[6], peao.coord);
-	    	} else {
-	    		pecaSelecionada = new Bispo(peao.cor, peao.posX, peao.posY, "Bispo", Tabuleiro.imagens[0], peao.coord);
-	    	}
-	    	atualizaCasa(pecaSelecionada);
-	    	break;
-	    case "Rainha":
-	    	if (peao != null && peao.cor == 'P') {
-	    		pecaSelecionada = new Rainha(peao.cor, peao.posX, peao.posY, "Rainha", Tabuleiro.imagens[10], peao.coord);
-	    	} else {
-	    		pecaSelecionada = new Rainha(peao.cor, peao.posX, peao.posY, "Rainha", Tabuleiro.imagens[4], peao.coord);
-	    	}
-	    	atualizaCasa(pecaSelecionada);
-    		break;
-    		
-	    	default:
-	    		break;
-	    }
-		
-	}
-	
 	
 	// Action events do mouse
 	@Override
