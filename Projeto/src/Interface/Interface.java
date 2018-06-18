@@ -128,6 +128,16 @@ public abstract class Interface extends JFrame implements ActionListener, PopupM
 	    case "Rainha":
 	    	Control.getInstance().promovePeao("Rainha");
 	    	break;
+	    
+	    // Reinicia a partida
+	    case "Jogar Novamente":
+	    	Vitoria.getInstance().iniciaJogo();
+	    	break;
+	    
+	    // Volta ao menu inicial
+	    case "Voltar ao menu":
+	    	Vitoria.getInstance().voltaMenu();
+	    	break;
 	    	
 	    	default:
 	    		System.out.println("Opção inválida");
