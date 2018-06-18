@@ -58,7 +58,7 @@ public class Vitoria extends Interface {
 			_p.add(Box.createRigidArea(new Dimension(0,30)));
 			
 			// Diz o nome do vencedor
-			_vencedorLabel = criaLabel("O jogador " + Control.getInstance().pegaVencedor() + " venceu.", Font.BOLD, "Courier", 25);
+			_vencedorLabel = criaLabel("O jogador " + Control.getInstance().pegaVencedor() + " venceu.", Font.BOLD, "Courier", 20);
 			_vencedorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 			_p.add(_vencedorLabel);
 			
@@ -75,7 +75,7 @@ public class Vitoria extends Interface {
 		_p.add(Box.createRigidArea(new Dimension(0,30)));
 		
 		// Cria botão de Jogar
-		_playButton = criaBotao("Jogar Novamente", 120, 30, _p);	
+		_playButton = criaBotao("Reiniciar", 120, 30, _p);	
 		_playButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		// Adiciona um espaçamento entre os botões

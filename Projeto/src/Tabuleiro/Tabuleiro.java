@@ -173,7 +173,6 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		//Verifica  se ocorreu um check, checkmate ou empate
 		Control.testaCheck(p.cor, roque);
 		
-		
 		atualiza();
 		printTabuleiro();
 	}
