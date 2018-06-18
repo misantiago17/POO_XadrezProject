@@ -107,6 +107,7 @@ public abstract class Peca implements ObservadorTabuleiro {
 		return mat;
 	}
 
+
 	/*protected Image buscaNomeImg(String nome) {		
 		for(int i = 0 ; i < XadrezFrame.nomeImagens.length; i++) {
 			if(XadrezFrame.nomeImagens[i].equals(nome)) {
@@ -116,7 +117,9 @@ public abstract class Peca implements ObservadorTabuleiro {
 		return null;
 	}*/
 
-	static public Casa[][] simulaMovimento(int originX, int originY, int destX, int destY) {
+
+	public static Casa[][] simulaMovimento(int originX, int originY, int destX, int destY) {
+
 		Casa tableSim[][] = new Casa[8][8];
 
 		for(int i = 0; i < 8; i++) {
@@ -126,8 +129,8 @@ public abstract class Peca implements ObservadorTabuleiro {
 		}
 
 		Peca p = tableSim[originX][originY].peca;
-		int newPosX = 64*destX + Tabuleiro._offsetX;
-		int newPosY = 64*destY + Tabuleiro._offsetY;
+		int newPosX = 64*destX + Tabuleiro.offsetX;
+		int newPosY = 64*destY + Tabuleiro.offsetY;
 
 		switch (p.nome) {
 		case "Torre":
