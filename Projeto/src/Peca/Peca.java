@@ -88,10 +88,8 @@ public abstract class Peca implements ObservadorTabuleiro {
 						
 						int k = 0;
 						while(casasPos[k] != null) {
-							if(!preveCheck(i , j, casasPos[k].x, casasPos[k].y, cor)) {
-								System.out.println(i + ", " + j + "// " + casasPos[k].x  + ", " + casasPos[k].y);
+							if(!preveCheck(i , j, casasPos[k].x, casasPos[k].y, cor))
 								return true;
-							}
 							k++;
 						}
 										
