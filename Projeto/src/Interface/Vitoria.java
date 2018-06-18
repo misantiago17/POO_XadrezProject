@@ -75,7 +75,7 @@ public class Vitoria extends Interface {
 		_p.add(Box.createRigidArea(new Dimension(0,30)));
 		
 		// Cria botão de Jogar
-		_playButton = criaBotao("Jogar Novamente", 170, 30, _p);	
+		_playButton = criaBotao("Reiniciar", 120, 30, _p);	
 		_playButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		// Adiciona um espaçamento entre os botões
