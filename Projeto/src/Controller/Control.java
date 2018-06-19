@@ -3,7 +3,15 @@ package Controller;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import Interface.DrawChess;
 import Interface.Jogo;
 import Observers.*;
@@ -214,136 +222,40 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		
 		// Pode mover apenas se o popUp não está aberto
 		if (!_popupAberto) {
-			
-			for (int i=0;i<8;i++) {
-				for (int j=0;j<8;j++) {
-					
-					// Verifica se clicou em alguma casa do tabuleiro
-					if (checkMatrix(_tabuleiro[i][j], e.getX(), e.getY())) {
-						
-						// Verifica se há uma peça na casa clicada
-						if (_tabuleiro[i][j].peca != null) {
-								
-							if ((turnoBranco && _tabuleiro[i][j].peca.cor == 'B') || (turnoBranco == false && _tabuleiro[i][j].peca.cor == 'P')) {
-								// Verifica se está movendo/atacando ou está selecionando uma peça
-								if (_selecioneiPeca) {
-										
-									if (_tabuleiro[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
-										_pecaSelecionada = null;
-										_tabuleiro[i][j].cor = _tabuleiro[i][j].corOriginal;
-											
-										_selecioneiPeca = false;
-										_tabuleiro[i][j].peca.selecionada = false;
-											
-										tiraCor(-1,-1);
-											
-										repaintTable();
-										break;
-									} else if (!_tabuleiro[i][j].peca.selecionada) { // Clicou numa peça que não estava selecionada
-										_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
-										_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].cor = _tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
-											
-										tiraCor(-1,-1);
-											
-										_pecaSelecionada = new Coordenadas(i,j);
-										_tabuleiro[i][j].peca.selecionada = true;
-											
-										_tabuleiro[i][j].cor = Color.BLUE;
-											
-										_casasPossiveis = _tabuleiro[i][j].peca.getMovPossiveis(i,j);
-											
-										int p = 0;
-										while (_casasPossiveis[p] != null) {
-											if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].atcPossivel) {
-												_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.RED;
-											} else if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].movPossivel) {
-												_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.GREEN;
-											}
-											p += 1;
-										}
-											
-										repaintTable();
-										break;
-									}
-										
-								} else {
-											
-									if (_tabuleiro[i][j].peca.selecionada == false)
-										_selecioneiPeca = true;
-										_pecaSelecionada = new Coordenadas(i,j);
-										_tabuleiro[i][j].peca.selecionada = true;
-										_tabuleiro[i][j].cor = Color.BLUE;
-										
-										_casasPossiveis = _tabuleiro[i][j].peca.getMovPossiveis(i,j);
-											
-										int p = 0;
-											
-										while (_casasPossiveis[p] != null) {
-											if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].atcPossivel) {
-												_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.RED;
-											} else if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].movPossivel) {
-												_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.GREEN;
-											}
-											p += 1;
-										}
-											
-										repaintTable();
-										break;
-									}
-									
-								} else {
-									// Verifica se o local escolhido é válido para ataque
-									if (_selecioneiPeca) {
-										if (_tabuleiro[i][j].atcPossivel) {
-											
-											_selecioneiPeca = false;
-											_tabuleiro[i][j].peca.selecionada = false;
-											
-											_t.atacaPeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
-											tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
-																											
-											repaintTable();
-											break;
-																	
-										}
-									}
-								}
-						} else {
-							
-							// Se não há peças no lugar e há uma peça selecionada
-							if (_selecioneiPeca) {
-								if (_tabuleiro[i][j].movPossivel) {
-									
-									_selecioneiPeca = false;
-									_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
-									
-									_t.movePeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
-									
-									tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
-																										
-									repaintTable();
-									break;
-										
-								} else {	// Deseleciona peça
-									_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
-									_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].cor = _tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
-										
-									_pecaSelecionada = null;
-									_selecioneiPeca = false;
-									
-									tiraCor(-1,-1);
-										
-									repaintTable();
-									break;
-								}
-							}
-						}
-					}
-				}	
+			if(SwingUtilities.isLeftMouseButton(e))
+				leftClick(e);
+			else if(SwingUtilities.isRightMouseButton(e)){
+				save();
 			}
 		}
 	}
-	
+	private void load() {
+		JFileChooser chooser = new JFileChooser();
+	    FileNameExtensionFilter filter = new FileNameExtensionFilter("Text document", "txt");
+	    chooser.setFileFilter(filter);
+	    int returnVal = chooser.showOpenDialog(null);
+	    if(returnVal == JFileChooser.APPROVE_OPTION) {
+	       System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
+	    }
+	}
+	private void save() {
+		JFrame parentFrame = new JFrame();
+		 
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setDialogTitle("Specify a file to save");   
+		 
+		int userSelection = fileChooser.showSaveDialog(parentFrame);
+		 
+		if (userSelection == JFileChooser.APPROVE_OPTION) {
+		    File fileToSave = fileChooser.getSelectedFile();
+		    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+		  //  try (BufferedWriter writer = Files.newBufferedWriter(fileToSave.getAbsolutePath())) {
+		     //   writer.write(s, 0, s.length());
+		   // } catch (IOException x) {
+		   //     System.err.format("IOException: %s%n", x);
+		   // }
+		}
+	}
 	public static void testaCheck(char cor, boolean roque) {
 		char testaCor;
 		if(cor == 'P')
@@ -351,25 +263,30 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		else
 			testaCor = 'P';
 		if(Peca.verificaCheck(_tabuleiro, testaCor) && !roque) {
+			System.out.println("Teste1");
 			if(!Peca.verificaExisteMovPossiveis(testaCor)) {
 				if(testaCor == 'P')
-					Control.blackKingCheckMate = true;
+					blackKingCheckMate = true;
 				else
-					Control.whiteKingCheckMate = true;
+					whiteKingCheckMate = true;
+				System.out.println("teste2  " + testaCor);
 			}
 			else {
 				if(testaCor == 'P')
-					Control.blackKingCheck = true;
+					blackKingCheck = true;
 				else
-					Control.whiteKingCheck = true;
+					whiteKingCheck = true;
+				System.out.println("teste3");
 			}
 		}
 		else if(!Peca.verificaExisteMovPossiveis(testaCor) && !roque) {
-			Control.empate = true;
+			empate = true;
+			System.out.println("teste4");
 		}
 		else {
-			Control.blackKingCheck = false;
-			Control.whiteKingCheck = false;
+			blackKingCheck = false;
+			whiteKingCheck = false;
+			System.out.println("teste5");
 					
 		}
 	}
@@ -383,7 +300,136 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	public void mouseEntered(MouseEvent e) {}
 	@Override
 	public void mouseExited(MouseEvent e) {}
+	
+	private void leftClick(MouseEvent e) {
+		for (int i=0;i<8;i++) {
+			for (int j=0;j<8;j++) {
+				
+				// Verifica se clicou em alguma casa do tabuleiro
+				if (checkMatrix(_tabuleiro[i][j], e.getX(), e.getY())) {
+					
+					// Verifica se há uma peça na casa clicada
+					if (_tabuleiro[i][j].peca != null) {
+							
+						if ((turnoBranco && _tabuleiro[i][j].peca.cor == 'B') || (turnoBranco == false && _tabuleiro[i][j].peca.cor == 'P')) {
+							// Verifica se está movendo/atacando ou está selecionando uma peça
+							if (_selecioneiPeca) {
+									
+								if (_tabuleiro[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
+									_pecaSelecionada = null;
+									_tabuleiro[i][j].cor = _tabuleiro[i][j].corOriginal;
+										
+									_selecioneiPeca = false;
+									_tabuleiro[i][j].peca.selecionada = false;
+										
+									tiraCor(-1,-1);
+										
+									repaintTable();
+									break;
+								} else if (!_tabuleiro[i][j].peca.selecionada) { // Clicou numa peça que não estava selecionada
+									_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
+									_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].cor = _tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
+										
+									tiraCor(-1,-1);
+										
+									_pecaSelecionada = new Coordenadas(i,j);
+									_tabuleiro[i][j].peca.selecionada = true;
+										
+									_tabuleiro[i][j].cor = Color.BLUE;
+										
+									_casasPossiveis = _tabuleiro[i][j].peca.getMovPossiveis(i,j);
+										
+									int p = 0;
+									while (_casasPossiveis[p] != null) {
+										if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].atcPossivel) {
+											_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.RED;
+										} else if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].movPossivel) {
+											_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.GREEN;
+										}
+										p += 1;
+									}
+										
+									repaintTable();
+									break;
+								}
+									
+							} else {
+										
+								if (_tabuleiro[i][j].peca.selecionada == false)
+									_selecioneiPeca = true;
+									_pecaSelecionada = new Coordenadas(i,j);
+									_tabuleiro[i][j].peca.selecionada = true;
+									_tabuleiro[i][j].cor = Color.BLUE;
+									
+									_casasPossiveis = _tabuleiro[i][j].peca.getMovPossiveis(i,j);
+										
+									int p = 0;
+										
+									while (_casasPossiveis[p] != null) {
+										if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].atcPossivel) {
+											_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.RED;
+										} else if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].movPossivel) {
+											_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.GREEN;
+										}
+										p += 1;
+									}
+										
+									repaintTable();
+									break;
+								}
+								
+							} else {
+								// Verifica se o local escolhido é válido para ataque
+								if (_selecioneiPeca) {
+									if (_tabuleiro[i][j].atcPossivel) {
+										
+										_selecioneiPeca = false;
+										_tabuleiro[i][j].peca.selecionada = false;
+										
+										_t.atacaPeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
+										tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
+																										
+										repaintTable();
+										break;
+																
+									}
+								}
+							}
+					} else {
+						
+						// Se não há peças no lugar e há uma peça selecionada
+						if (_selecioneiPeca) {
+							if (_tabuleiro[i][j].movPossivel) {
+								
+								_selecioneiPeca = false;
+								_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
+								
+								_t.movePeca (_pecaSelecionada.x, _pecaSelecionada.y, i, j);
+								
+								tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
+																									
+								repaintTable();
+								break;
+									
+							} else {	// Deseleciona peça
+								_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
+								_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].cor = _tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
+									
+								_pecaSelecionada = null;
+								_selecioneiPeca = false;
+								
+								tiraCor(-1,-1);
+									
+								repaintTable();
+								break;
+							}
+						}
+					}
+				}
+			}	
+		}
 
+	}
 	// Observador do tabuleiro
 	@Override
 	public void notify(ObservadoTabuleiro o) {

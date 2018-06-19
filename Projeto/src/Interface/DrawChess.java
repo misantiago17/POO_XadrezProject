@@ -73,7 +73,7 @@ public final class DrawChess extends JPanel implements ObservadorTabuleiro {
 			else
 				g2d.drawString("Turno do Player 1 (Branco)", (float)(_offSetX + 64*2), (float) (_offSetY + 64*8.5));			
 		} else {
-			if(Control.whiteKingCheckMate) {
+			if(Control.blackKingCheckMate) {
 				g2d.drawString("Rei Preto em checkmate", (float)(_offSetX + 64*2), (float) (_offSetY + 64*4));
 				g2d.drawString("Player 1 (Branco) Venceu!!", (float)(_offSetX + 64*2), (float) (_offSetY + 64*4.5));
 			}
