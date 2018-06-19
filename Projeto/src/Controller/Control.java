@@ -12,14 +12,10 @@ import java.nio.file.Files;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import Interface.DrawChess;
-import Interface.Jogo;
+
+import Interface.*;
 import Observers.*;
-import Peca.Bispo;
-import Peca.Cavalo;
-import Peca.Peca;
-import Peca.Rainha;
-import Peca.Torre;
+import Peca.*;
 import Tabuleiro.*;
 
 public class Control implements MouseListener, ObservadorTabuleiro {

@@ -3,8 +3,7 @@ package Peca;
 import java.awt.Image;
 
 import Controller.Control;
-import Observers.ObservadoTabuleiro;
-import Observers.ObservadorTabuleiro;
+import Observers.*;
 import Tabuleiro.*;
 
 public abstract class Peca implements ObservadorTabuleiro {

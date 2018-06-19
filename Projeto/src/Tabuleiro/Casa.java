@@ -3,7 +3,7 @@ package Tabuleiro;
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
-import Peca.Peca;
+import Peca.*;
 
 public class Casa {
 	

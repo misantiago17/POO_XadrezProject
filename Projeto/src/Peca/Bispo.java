@@ -1,7 +1,6 @@
 package Peca;
 
 import java.awt.Image;
-
 import Tabuleiro.*;
 
 public class Bispo extends Peca {
