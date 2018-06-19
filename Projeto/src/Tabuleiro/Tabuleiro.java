@@ -9,12 +9,9 @@ import java.util.*;
 
 import javax.imageio.ImageIO;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.ListIterator;
 
 //import com.sun.prism.Image;
 import Controller.Control;
-import Interface.DrawChess;
-import Interface.Jogo;
 import Observers.*;
 import Peca.*;
 
@@ -22,7 +19,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 	
 	// Lista de observadores do tabuleiro
 	private List<ObservadorTabuleiro> lst = new ArrayList<ObservadorTabuleiro>();	
-	private Casa _tabuleiroCasa[][] = new Casa[8][8];	// O tabuleiro observado
+	private Casa[][] _tabuleiroCasa = new Casa[8][8];	// O tabuleiro observado
 		
 	private Peca[] pecasPerdidas = new Peca[64];
 	
@@ -33,7 +30,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 	public Tabuleiro() {}
 	
 	// Completa o tabuleiro com suas peças
-	public void FillTabuleiro(Rectangle2D[][] ret, Color[][] cor, int x, int y) {
+	public void fillTabuleiro(Rectangle2D[][] ret, Color[][] cor, int x, int y) {
 		
 		offsetX = x;
 		offsetY = y;
@@ -97,6 +94,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		return img;
 	}
 	
+	// atualiza o tabuleiro
 	public void atualizaTabCasa(Casa[][] tab){
 		_tabuleiroCasa = tab;
 		atualiza();		

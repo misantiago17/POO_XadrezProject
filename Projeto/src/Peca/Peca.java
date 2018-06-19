@@ -117,16 +117,6 @@ public abstract class Peca implements ObservadorTabuleiro {
 	}
 
 
-	/*protected Image buscaNomeImg(String nome) {		
-		for(int i = 0 ; i < XadrezFrame.nomeImagens.length; i++) {
-			if(XadrezFrame.nomeImagens[i].equals(nome)) {
-				return XadrezFrame.imagens[i];
-			}
-		}
-		return null;
-	}*/
-
-
 	public static Casa[][] simulaMovimento(int originX, int originY, int destX, int destY) {
 
 		Casa tableSim[][] = new Casa[8][8];

@@ -80,7 +80,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	
 	// Preenche o tabuleiro com as peças e suas casas
 	public void preencheTabuleiro(int x, int y, Rectangle2D[][] ret, Color[][] cor) {
-		_t.FillTabuleiro(ret, cor, x, y);	
+		_t.fillTabuleiro(ret, cor, x, y);	
 	}
 	
 	// Salva jogo

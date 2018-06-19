@@ -3,15 +3,9 @@ package Tabuleiro;
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
-import Peca.Bispo;
-import Peca.Cavalo;
-import Peca.Peao;
 import Peca.Peca;
-import Peca.Rainha;
-import Peca.Rei;
-import Peca.Torre;
 
-public class Casa{
+public class Casa {
 	
 	public Rectangle2D retangulo;
 	public Peca peca;
