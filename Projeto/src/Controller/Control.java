@@ -250,7 +250,9 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		try {
 		
 				PrintWriter salva = new PrintWriter(new File(path + ".txt"));
+				salva.println(turnoBranco);
 				salvaTabuleiro(salva);
+				salva.flush();
 		}
 		catch(IOException ioe){ 
 			System.out.println("Erro ao salvar o arquivo");
@@ -261,9 +263,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	private void salvaTabuleiro(PrintWriter salva) {
 			int current = 0;
 			
-			System.out.println(" ");
-			System.out.println("|----------------------- ");
-			
+						
 			for (int i=0;i<8;i++) {
 				for (int j=0;j<8;j++) {
 					
@@ -322,11 +322,11 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 					
 					
 					if (i == current) {
-						salva.println(" " + letra + " ");
+						salva.print(" " + letra + " ");
 					} else {
 						current = i;
-						salva.println(" ");
-						salva.println(" " + letra + " ");
+						salva.println("");
+						salva.print(" " + letra + " ");
 					}
 					
 				}
