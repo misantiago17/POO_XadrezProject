@@ -6,6 +6,7 @@ import java.awt.geom.Rectangle2D;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 
@@ -235,22 +236,103 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	    }
 	}
 	private void save() {
-		JFrame parentFrame = new JFrame();
-		 
-		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setDialogTitle("Specify a file to save");   
-		 
-		int userSelection = fileChooser.showSaveDialog(parentFrame);
-		 
-		if (userSelection == JFileChooser.APPROVE_OPTION) {
-		    File fileToSave = fileChooser.getSelectedFile();
-		    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
-		  //  try (BufferedWriter writer = Files.newBufferedWriter(fileToSave.getAbsolutePath())) {
-		     //   writer.write(s, 0, s.length());
-		   // } catch (IOException x) {
-		   //     System.err.format("IOException: %s%n", x);
-		   // }
+		String path = null;
+		
+		JFileChooser fs = new JFileChooser();	
+		int returnVal = fs.showSaveDialog(fs);	
+		if(returnVal == JFileChooser.APPROVE_OPTION)
+			{
+				path = fs.getSelectedFile().getAbsolutePath();
+			}
+		else
+			System.out.print("Nenhum arquivo foi escolhido");
+		
+		try {
+		
+				PrintWriter salva = new PrintWriter(new File(path + ".txt"));
+				salvaTabuleiro(salva);
 		}
+		catch(IOException ioe){ 
+			System.out.println("Erro ao salvar o arquivo");
+		
+		}
+	}
+	
+	private void salvaTabuleiro(PrintWriter salva) {
+			int current = 0;
+			
+			System.out.println(" ");
+			System.out.println("|----------------------- ");
+			
+			for (int i=0;i<8;i++) {
+				for (int j=0;j<8;j++) {
+					
+					char letra;
+					
+					if (_tabuleiro[j][i].peca != null) {
+						String peca = _tabuleiro[j][i].peca.nome;
+						switch (peca){
+						case "Torre":
+							if (_tabuleiro[j][i].peca.cor == 'P') {
+								letra = 'T';
+							} else {
+								letra = 't';
+							}
+							break;
+						case "Cavalo":
+							if (_tabuleiro[j][i].peca.cor == 'P') {
+								letra = 'C';
+							} else {
+								letra = 'c';
+							}
+							break;
+						case "Bispo":
+							if (_tabuleiro[j][i].peca.cor == 'P') {
+								letra = 'B';
+							} else {
+								letra = 'b';
+							}
+							break;
+						case "Rainha":
+							if (_tabuleiro[j][i].peca.cor == 'P') {
+								letra = 'Q';
+							} else {
+								letra = 'q';
+							}
+							break;
+						case "Rei":
+							if (_tabuleiro[j][i].peca.cor == 'P') {
+								letra = 'K';
+							} else {
+								letra = 'k';
+							}
+						break;
+							default:
+								if (_tabuleiro[j][i].peca.cor == 'P') {
+									letra = 'P';
+								} else {
+									letra = 'p';
+								}
+								break;
+						}
+					} else {
+						letra = 'x';
+					}
+					
+					
+					
+					if (i == current) {
+						salva.println(" " + letra + " ");
+					} else {
+						current = i;
+						salva.println(" ");
+						salva.println(" " + letra + " ");
+					}
+					
+				}
+			}
+			
+		
 	}
 	public static void testaCheck(char cor, boolean roque) {
 		char testaCor;
