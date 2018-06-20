@@ -259,7 +259,66 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		
 		}
 	}
-	
+	/*
+	private void carregaTabuleiro(Rectangle2D[][] ret, Color[][] cor, int x, int y) {
+		int current = 0;
+		Casa[][] tab = new Casa[8][8];
+		Image[] imagens = carregaImagem();
+		
+		for (int i=0;i<8;i++) {
+			for (int j=0;j<8;j++) {
+				
+				char letra;
+				
+				char peca = 't';
+				switch (peca){
+				case 'T':
+					tab[i][j] = new Casa(ret[0][7], new Torre('B', 64*0 + x, 64*7 + y, "Torre", imagens[5], new Coordenadas (0,7)),cor[0][7]);
+					break;
+				case 't':
+					tab[i][j] = new Casa(ret[0][7], new Torre('B', 64*0 + x, 64*7 + y, "Torre", imagens[5], new Coordenadas (0,7)),cor[0][7]);
+					break;
+				case "Cavalo":
+					if (_tabuleiro[j][i].peca.cor == 'P') {
+						letra = 'C';
+					} else {
+						letra = 'c';
+					}
+					break;
+				case "Bispo":
+					if (_tabuleiro[j][i].peca.cor == 'P') {
+						letra = 'B';
+					} else {
+						letra = 'b';
+					}
+					break;
+				case "Rainha":
+					if (_tabuleiro[j][i].peca.cor == 'P') {
+						letra = 'Q';
+					} else {
+						letra = 'q';
+					}
+					break;
+				case "Rei":
+					if (_tabuleiro[j][i].peca.cor == 'P') {
+						letra = 'K';
+					} else {
+						letra = 'k';
+					}
+				break;
+					default:
+						if (_tabuleiro[j][i].peca.cor == 'P') {
+							letra = 'P';
+						} else {
+							letra = 'p';
+						}
+						break;
+				}
+				
+			}
+		}
+	}
+	*/
 	private void salvaTabuleiro(PrintWriter salva) {
 			int current = 0;
 			
