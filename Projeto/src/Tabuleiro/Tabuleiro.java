@@ -5,10 +5,12 @@ import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 import javax.imageio.ImageIO;
-
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 //import com.sun.prism.Image;
 import Controller.Control;
@@ -19,7 +21,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 	
 	// Lista de observadores do tabuleiro
 	private List<ObservadorTabuleiro> lst = new ArrayList<ObservadorTabuleiro>();	
-	private Casa[][] _tabuleiroCasa = new Casa[8][8];	// O tabuleiro observado
+	private static Casa[][] _tabuleiroCasa = new Casa[8][8];	// O tabuleiro observado
 		
 	private Peca[] pecasPerdidas = new Peca[64];
 	
@@ -36,8 +38,11 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		offsetY = y;
 		imagens = carregaImagem();
 		 // CyanB, CyanK,  CyanN,  CyanP,  CyanQ,  CyanR, 
-		// PurpleB, PurpleK, PurpleN, PurpleP, PurpleQ, PurpleR  
-				
+		// PurpleB, PurpleK, PurpleN, PurpleP, PurpleQ, PurpleR 
+		char[][] mat = inicializaMatriz();
+		
+		_tabuleiroCasa = carregaTabuleiro(ret, cor, x, y, mat);
+		/*
 		_tabuleiroCasa[0][7] = new Casa(ret[0][7], new Torre('B', 64*0 + x, 64*7 + y, "Torre", imagens[5], new Coordenadas (0,7)),cor[0][7]);
 		_tabuleiroCasa[1][7] = new Casa(ret[1][7], new Cavalo('B', 64*1 + x, 64*7 + y, "Cavalo", imagens[2], new Coordenadas (1,7)),cor[1][7]);
 		_tabuleiroCasa[2][7] = new Casa(ret[2][7], new Bispo('B', 64*2 + x, 64*7 + y, "Bispo", imagens[0], new Coordenadas (2,7)),cor[2][7]);
@@ -69,12 +74,43 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		_tabuleiroCasa[5][0] = new Casa(ret[5][0], new Bispo('P', 64*5 + x, 64*0 + y, "Bispo", imagens[6], new Coordenadas (5,0)),cor[5][0]);
 		_tabuleiroCasa[6][0] = new Casa(ret[6][0], new Cavalo('P', 64*6 + x, 64*0 + y, "Cavalo", imagens[8], new Coordenadas (6,0)),cor[6][0]);
 		_tabuleiroCasa[7][0] = new Casa(ret[7][0], new Torre('P', 64*7 + x, 64*0 + y, "Torre", imagens[11], new Coordenadas (7,0)),cor[7][0]);
-		
+		*/
 		atualiza();
 	}
 	
+	private char[][] inicializaMatriz(){
+		char[][] mat = new char[8][8];
+		
+		mat[0][7] = mat[7][7] = 't'; 
+		mat[1][7] = mat[6][7] = 'c'; 
+		mat[2][7] = mat[5][7] = 'b'; 
+		mat[3][7] = 'q';
+		mat[4][7] = 'k';
+		
+		for(int i = 0; i < 8; i++) {
+			mat[i][6] = 'p';
+		}
+		
+		for(int i = 0; i < 8; i++) {
+			for(int j = 2; j < 6; j++) {
+				mat[i][j] = 'x';
+			}
+		}
+		
+		for(int i = 0; i < 8; i++) {
+			mat[i][1] = 'P';
+		}
+		
+		mat[0][0] = mat[7][0] = 'T'; 
+		mat[1][0] = mat[6][0] = 'C'; 
+		mat[2][0] = mat[5][0] = 'B'; 
+		mat[3][0] = 'Q';
+		mat[4][0] = 'K';
+				
+		return mat;
+	}
 	// Carrega as imagens das peças dentro do arquivo
-	private Image[] carregaImagem() {
+	public static Image[] carregaImagem() {
 		Image[] img = new Image[12];
 		
 		File pasta = new File("./resources");
@@ -293,5 +329,169 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 	@Override
 	public Casa[][] get() {
 		return _tabuleiroCasa;
+	}
+	
+	public static void load() {
+		JFileChooser chooser = new JFileChooser();
+	    FileNameExtensionFilter filter = new FileNameExtensionFilter("Text document", "txt");
+	    chooser.setFileFilter(filter);
+	    int returnVal = chooser.showOpenDialog(null);
+	    if(returnVal == JFileChooser.APPROVE_OPTION) {
+	       System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
+	    }
+	}
+	public static void save() {
+		String path = null;
+		
+		JFileChooser fs = new JFileChooser();	
+		int returnVal = fs.showSaveDialog(fs);	
+		if(returnVal == JFileChooser.APPROVE_OPTION)
+			{
+				path = fs.getSelectedFile().getAbsolutePath();
+			}
+		else
+			System.out.print("Nenhum arquivo foi escolhido");
+		
+		try {
+		
+				PrintWriter salva = new PrintWriter(new File(path + ".txt"));
+				salva.println(Control.turnoBranco);
+				salvaTabuleiro(salva);
+				salva.flush();
+		}
+		catch(IOException ioe){ 
+			System.out.println("Erro ao salvar o arquivo");
+		
+		}
+	}
+	
+	private static Casa[][] carregaTabuleiro(Rectangle2D[][] ret, Color[][] cor, int x, int y, char[][] mat) {
+		Casa[][] tab = new Casa[8][8];
+		Image[] imagens = carregaImagem();
+		
+		for (int i=0;i<8;i++) {
+			for (int j=0;j<8;j++) {
+								
+				char peca = mat[i][j];
+				switch (peca){
+				case 'T':
+					tab[i][j] = new Casa(ret[0][7], new Torre('P', 64*i + x, 64*j + y, "Torre", imagens[11], new Coordenadas (i,j)),cor[i][j]);
+					break;
+				case 't':
+					tab[i][j] = new Casa(ret[0][7], new Torre('B', 64*i + x, 64*j + y, "Torre", imagens[5], new Coordenadas (i,j)),cor[i][j]);
+					break;
+				case 'C':
+					tab[i][j] = new Casa(ret[1][7], new Cavalo('P', 64*i + x, 64*j + y, "Cavalo", imagens[8], new Coordenadas (i,j)),cor[i][j]);
+					break;
+				case 'c':
+					tab[i][j] = new Casa(ret[1][7], new Cavalo('B', 64*i + x, 64*j + y, "Cavalo", imagens[2], new Coordenadas (i,j)),cor[i][j]);
+					break;
+				case 'B':
+					tab[i][j] = new Casa(ret[2][7], new Bispo('P', 64*i + x, 64*j + y, "Bispo", imagens[6], new Coordenadas (i,j)),cor[i][j]);
+					break;
+				case 'b':
+					tab[i][j] = new Casa(ret[2][7], new Bispo('B', 64*i + x, 64*j + y, "Bispo", imagens[0], new Coordenadas (i,j)),cor[i][j]);
+					break;
+				case 'Q':
+					tab[i][j] = new Casa(ret[4][7], new Rainha('P', 64*i + x, 64*j + y, "Rainha", imagens[10], new Coordenadas (i,j)),cor[i][j]);
+					break;
+				case 'q':
+					tab[i][j] = new Casa(ret[4][7], new Rainha('B', 64*i + x, 64*j + y, "Rainha", imagens[4], new Coordenadas (i,j)),cor[i][j]);
+					break;
+				case 'K':
+					tab[i][j] = new Casa(ret[3][7], new Rei('P', 64*i + x, 64*j + y, "Rei", imagens[7], new Coordenadas (i,j)),cor[i][j]);
+					break;
+				case 'k':
+					tab[i][j] = new Casa(ret[3][7], new Rei('B', 64*i + x, 64*j + y, "Rei", imagens[1], new Coordenadas (i,j)),cor[i][j]);
+					break;
+				case 'P':
+					tab[i][j] = new Casa(ret[i][6], new Peao('P', 64*i + x, 64*j + y, "Peao", imagens[9], new Coordenadas (i,j)),cor[i][j]);
+					break;
+				case 'p':
+					tab[i][j] = new Casa(ret[i][6], new Peao('B', 64*i + x, 64*j + y, "Peao", imagens[3], new Coordenadas (i,j)),cor[i][j]);
+					break;
+				default:
+					tab[i][j] = new Casa(ret[i][j],null,cor[i][j]);
+					break;
+				}
+				
+			}
+		}
+		return tab;
+	}
+	
+	private static void salvaTabuleiro(PrintWriter salva) {
+			int current = 0;
+			
+						
+			for (int i=0;i<8;i++) {
+				for (int j=0;j<8;j++) {
+					
+					char letra;
+					
+					if (_tabuleiroCasa[j][i].peca != null) {
+						String peca = _tabuleiroCasa[j][i].peca.nome;
+						switch (peca){
+						case "Torre":
+							if (_tabuleiroCasa[j][i].peca.cor == 'P') {
+								letra = 'T';
+							} else {
+								letra = 't';
+							}
+							break;
+						case "Cavalo":
+							if (_tabuleiroCasa[j][i].peca.cor == 'P') {
+								letra = 'C';
+							} else {
+								letra = 'c';
+							}
+							break;
+						case "Bispo":
+							if (_tabuleiroCasa[j][i].peca.cor == 'P') {
+								letra = 'B';
+							} else {
+								letra = 'b';
+							}
+							break;
+						case "Rainha":
+							if (_tabuleiroCasa[j][i].peca.cor == 'P') {
+								letra = 'Q';
+							} else {
+								letra = 'q';
+							}
+							break;
+						case "Rei":
+							if (_tabuleiroCasa[j][i].peca.cor == 'P') {
+								letra = 'K';
+							} else {
+								letra = 'k';
+							}
+						break;
+							default:
+								if (_tabuleiroCasa[j][i].peca.cor == 'P') {
+									letra = 'P';
+								} else {
+									letra = 'p';
+								}
+								break;
+						}
+					} else {
+						letra = 'x';
+					}
+					
+					
+					
+					if (i == current) {
+						salva.print(" " + letra + " ");
+					} else {
+						current = i;
+						salva.println("");
+						salva.print(" " + letra + " ");
+					}
+					
+				}
+			}
+			
+		
 	}
 }
