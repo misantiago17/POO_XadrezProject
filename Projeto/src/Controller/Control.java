@@ -310,17 +310,16 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 									verificaVitoria();
 									break;
 								} 
-								else if(_tabuleiro[e.getX()][e.getY()].roquePossivel) {
+								else if(_tabuleiro[i][j].roquePossivel) {
 
-									_t.movePeca(_pecaSelecionada.x, _pecaSelecionada.y, e.getX(), e.getY());
+									_t.movePeca(_pecaSelecionada.x, _pecaSelecionada.y,i,j);
+									tiraCor(_pecaSelecionada.x,_pecaSelecionada.y);
 									
 									_pecaSelecionada = null;
 									_tabuleiro[i][j].cor = _tabuleiro[i][j].corOriginal;
-									
-									
+	
 									_selecioneiPeca = false;
-									_tabuleiro[e.getX()][e.getY()].roquePossivel = false;
-									tiraCor(-1, -1);
+									_tabuleiro[i][j].roquePossivel = false;
 
 									repaintTable();
 									verificaVitoria();
