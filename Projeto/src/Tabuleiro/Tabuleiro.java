@@ -46,47 +46,14 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		imagens = carregaImagem();
 		_cor = cor;
 		_ret = ret;
-		 // CyanB, CyanK,  CyanN,  CyanP,  CyanQ,  CyanR, 
-		// PurpleB, PurpleK, PurpleN, PurpleP, PurpleQ, PurpleR 
+
 		if(newGame)
 			_tabuleiroChar = inicializaMatriz();
 		//else
 			//mat = load();
 		
 		_tabuleiroCasa = carregaTabuleiro(_tabuleiroChar);
-		/*
-		_tabuleiroCasa[0][7] = new Casa(ret[0][7], new Torre('B', 64*0 + x, 64*7 + y, "Torre", imagens[5], new Coordenadas (0,7)),cor[0][7]);
-		_tabuleiroCasa[1][7] = new Casa(ret[1][7], new Cavalo('B', 64*1 + x, 64*7 + y, "Cavalo", imagens[2], new Coordenadas (1,7)),cor[1][7]);
-		_tabuleiroCasa[2][7] = new Casa(ret[2][7], new Bispo('B', 64*2 + x, 64*7 + y, "Bispo", imagens[0], new Coordenadas (2,7)),cor[2][7]);
-		_tabuleiroCasa[3][7] = new Casa(ret[3][7], new Rei('B', 64*3 + x, 64*7 + y, "Rei", imagens[1], new Coordenadas (3,7)),cor[3][7]);
-		_tabuleiroCasa[4][7] = new Casa(ret[4][7], new Rainha('B', 64*4 + x, 64*7 + y, "Rainha", imagens[4], new Coordenadas (4,7)),cor[4][7]);
-		_tabuleiroCasa[5][7] = new Casa(ret[5][7], new Bispo('B', 64*5 + x, 64*7 + y, "Bispo", imagens[0], new Coordenadas (5,7)),cor[5][7]);
-		_tabuleiroCasa[6][7] = new Casa(ret[6][7], new Cavalo('B', 64*6 + x, 64*7 + y, "Cavalo", imagens[2], new Coordenadas (6,7)),cor[6][7]);
-		_tabuleiroCasa[7][7] = new Casa(ret[7][7], new Torre('B', 64*7 + x, 64*7 + y, "Torre", imagens[5], new Coordenadas (7,7)),cor[7][7]);
 		
-		for(int i = 0; i < 8; i++) {
-			_tabuleiroCasa[i][6] = new Casa(ret[i][6], new Peao('B', 64*i + x, 64*6 + y, "Peao", imagens[3], new Coordenadas (i,6)),cor[i][6]);
-		}
-		
-		for(int i = 2; i < 6; i++) {
-			for(int j = 0; j < 8; j++) {
-				_tabuleiroCasa[j][i] = new Casa(ret[j][i],null,cor[j][i]);
-			}
-		}
-		
-		for(int i = 0; i < 8; i++) {
-			_tabuleiroCasa[i][1] = new Casa(ret[i][1], new Peao('P', 64*i + x, 64*1 + y, "Peao", imagens[9], new Coordenadas (i,1)),cor[i][1]);
-		}
-		
-		_tabuleiroCasa[0][0] = new Casa(ret[0][0], new Torre('P', 64*0 + x, 64*0 + y, "Torre", imagens[11], new Coordenadas (0,0)),cor[0][0]);
-		_tabuleiroCasa[1][0] = new Casa(ret[1][0], new Cavalo('P', 64*1 + x, 64*0 + y, "Cavalo", imagens[8], new Coordenadas (1,0)),cor[1][0]);
-		_tabuleiroCasa[2][0] = new Casa(ret[2][0], new Bispo('P', 64*2 + x, 64*0 + y, "Bispo", imagens[6], new Coordenadas (2,0)),cor[2][0]);
-		_tabuleiroCasa[3][0] = new Casa(ret[3][0], new Rei('P', 64*3 + x, 64*0 + y, "Rei", imagens[7], new Coordenadas (3,0)),cor[3][0]);
-		_tabuleiroCasa[4][0] = new Casa(ret[4][0], new Rainha('P', 64*4 + x, 64*0 + y, "Rainha", imagens[10], new Coordenadas (4,0)),cor[4][0]);
-		_tabuleiroCasa[5][0] = new Casa(ret[5][0], new Bispo('P', 64*5 + x, 64*0 + y, "Bispo", imagens[6], new Coordenadas (5,0)),cor[5][0]);
-		_tabuleiroCasa[6][0] = new Casa(ret[6][0], new Cavalo('P', 64*6 + x, 64*0 + y, "Cavalo", imagens[8], new Coordenadas (6,0)),cor[6][0]);
-		_tabuleiroCasa[7][0] = new Casa(ret[7][0], new Torre('P', 64*7 + x, 64*0 + y, "Torre", imagens[11], new Coordenadas (7,0)),cor[7][0]);
-		*/
 		atualiza();
 	}
 	
@@ -96,8 +63,8 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		mat[0][7] = mat[7][7] = 't'; 
 		mat[1][7] = mat[6][7] = 'c'; 
 		mat[2][7] = mat[5][7] = 'b'; 
-		mat[4][7] = 'q';
-		mat[3][7] = 'k';
+		mat[3][7] = 'q';
+		mat[4][7] = 'k';
 		
 		for(int i = 0; i < 8; i++) {
 			mat[i][6] = 'p';
@@ -116,8 +83,8 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		mat[0][0] = mat[7][0] = 'T'; 
 		mat[1][0] = mat[6][0] = 'C'; 
 		mat[2][0] = mat[5][0] = 'B'; 
-		mat[4][0] = 'Q';
-		mat[3][0] = 'K';
+		mat[3][0] = 'Q';
+		mat[4][0] = 'K';
 				
 		return mat;
 	}

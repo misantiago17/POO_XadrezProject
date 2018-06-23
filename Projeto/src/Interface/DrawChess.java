@@ -64,26 +64,18 @@ public final class DrawChess extends JPanel implements ObservadorTabuleiro {
 		if (Control.turnoBranco) {
 			if(Control.whiteKingCheckMate) {
 				Control.getInstance().Vitoria("preto");
-				//g2d.drawString("Rei Branco em checkmate", (float)(_offSetX + 64*2), (float) (_offSetY + 64*4));
-				//g2d.drawString("Player 2 (Preto) Venceu!!", (float)(_offSetX + 64*2), (float) (_offSetY + 64*4.5));
 			}
 			else if(Control.empate) {
 				Control.getInstance().Vitoria("");
-				//g2d.drawString("Branco nao tem jogadas validas, mas nao esta em check", (float)(_offSetX + 64*0.35), (float) (_offSetY + 64*4));
-				//g2d.drawString("Empate!", (float)(_offSetX + 64*3), (float) (_offSetY + 64*4.5));
 			}
 			else
 				g2d.drawString("Turno do Player 1 (Branco)", (float)(_offSetX + 64*2), (float) (_offSetY + 64*8.5));			
 		} else {
 			if(Control.blackKingCheckMate) {
 				Control.getInstance().Vitoria("branco");
-				//g2d.drawString("Rei Preto em checkmate", (float)(_offSetX + 64*2), (float) (_offSetY + 64*4));
-				//g2d.drawString("Player 1 (Branco) Venceu!!", (float)(_offSetX + 64*2), (float) (_offSetY + 64*4.5));
 			}
 			else if(Control.empate) {
 				Control.getInstance().Vitoria("");
-				//g2d.drawString("Preto nao tem jogadas validas, mas nao esta em check", (float)(_offSetX + 64*0.35), (float) (_offSetY + 64*4));
-				//g2d.drawString("Empate!", (float)(_offSetX + 64*3), (float) (_offSetY + 64*4.5));
 			}
 			else
 				g2d.drawString("Turno do Player 2 (Preto)", (float)(_offSetX + 64*2), (float) (_offSetY - 64*0.35));

@@ -241,30 +241,25 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		else
 			testaCor = 'P';
 		if(Peca.verificaCheck(_tabuleiro, testaCor) && !roque) {
-			System.out.println("Teste1");
 			if(!Peca.verificaExisteMovPossiveis(testaCor)) {
 				if(testaCor == 'P')
 					blackKingCheckMate = true;
 				else
 					whiteKingCheckMate = true;
-				System.out.println("teste2  " + testaCor);
 			}
 			else {
 				if(testaCor == 'P')
 					blackKingCheck = true;
 				else
 					whiteKingCheck = true;
-				System.out.println("teste3");
 			}
 		}
 		else if(!Peca.verificaExisteMovPossiveis(testaCor) && !roque) {
 			empate = true;
-			System.out.println("teste4");
 		}
 		else {
 			blackKingCheck = false;
 			whiteKingCheck = false;
-			System.out.println("teste5");
 					
 		}
 	}
