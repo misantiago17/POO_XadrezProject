@@ -335,13 +335,11 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 	    	path = fs.getSelectedFile().getAbsolutePath();
 	       System.out.println("You chose to open this file: " + fs.getSelectedFile().getName());
 	       arquivoEscolhido = true;
-	       // fecha o menu de load
+	       Control.getInstance().iniciaJogo();
 	    }
 	    else {
 	    	System.out.print("Nenhum arquivo foi escolhido");
 	    	arquivoEscolhido = false;
-	    	//Control.resetaJogo();
-	    	//Control.getInstance().iniciaMenuInicial();
 	    }
 		
 	    if (arquivoEscolhido) {

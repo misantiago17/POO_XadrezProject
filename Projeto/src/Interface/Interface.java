@@ -111,7 +111,6 @@ public abstract class Interface extends JFrame implements ActionListener, PopupM
 	    case "Carregar Jogo":
 	    	Tabuleiro.newGame = false;
 	    	Control.getInstance().carregaJogo();
-	    	//Menu.getInstance().iniciaJogo();
 	    	break;
 	    
 	    	

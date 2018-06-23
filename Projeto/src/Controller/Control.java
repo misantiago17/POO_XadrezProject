@@ -63,8 +63,8 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	}
 
 	// reinicia o menu inicial
-	public void iniciaMenuInicial() {
-		Menu.getInstance().cria();
+	public void iniciaJogo() {
+		Menu.getInstance().iniciaJogo();
 	}
 
 	// adiciona observadores ao tabuleiro
@@ -104,7 +104,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	// Carrega jogo salvo
 	public void carregaJogo() {
 		Tabuleiro.load();
-		Menu.getInstance().iniciaJogo();
+		//Menu.getInstance().iniciaJogo();
 	}
 
 	// mostra o popUp da promoção do peão em questão
