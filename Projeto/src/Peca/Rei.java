@@ -261,7 +261,7 @@ public class Rei extends Peca {
 		if(!hasMoved) {
 			
 			if(table[Xi - 1][Yj].peca == null && table[Xi - 2][Yj].peca == null && table[0][Yj].peca != null) {
-				if(Torre.class.isInstance(table[0][Yj].peca)) {
+				if(Torre.class.isInstance(table[0][Yj].peca)/* && table[0][Yj].peca.cor == this.cor*/) {
 					Torre temp = (Torre)table[0][Yj].peca;
 					if(!temp.hasMoved) {
 						casasPossiveis[index] = new Coordenadas(Xi - 2, Yj);
