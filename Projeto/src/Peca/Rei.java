@@ -97,15 +97,15 @@ public class Rei extends Peca {
 		}
 		
 		//Roque
-		if(!hasMoved) {
+		if(!hasMoved && !verificaCheck(table, cor)) {
 			
 			if(table[Xi - 1][Yj].peca == null && table[Xi - 2][Yj].peca == null && table[0][Yj].peca != null) {
 				if(Torre.class.isInstance(table[0][Yj].peca)) {
 					Torre temp = (Torre)table[0][Yj].peca;
 					if(!temp.hasMoved) {
 						if(!preveCheck(Xi, Yj, Xi - 2, Yj, cor)) {
-							table[Xi - 2][Yj].movPossivel = true;
-							casasPossiveis[index] = new Coordenadas(Xi - 2, Yj);
+							table[0][Yj].roquePossivel = true;
+							casasPossiveis[index] = new Coordenadas(0, Yj);
 							index += 1;
 						}
 					}
@@ -117,8 +117,8 @@ public class Rei extends Peca {
 					Torre temp = (Torre)table[7][Yj].peca;
 					if(!temp.hasMoved) {
 						if(!preveCheck(Xi, Yj, Xi + 2, Yj, cor)) {
-							table[Xi + 2][Yj].movPossivel = true;
-							casasPossiveis[index] = new Coordenadas(Xi + 2, Yj);
+							table[7][Yj].roquePossivel = true;
+							casasPossiveis[index] = new Coordenadas(7, Yj);
 							index += 1;
 						}
 					}

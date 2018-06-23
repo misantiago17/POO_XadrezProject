@@ -139,20 +139,32 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 			_tabuleiroCasa[destX][destY].peca = new Rainha(p.cor,newPosX,newPosY,p.nome, p.imagem, new Coordenadas (destX,destY));
 			break;
 		case "Rei":
-
-			Rei rei = new Rei(p.cor,newPosX,newPosY,p.nome, p.imagem, new Coordenadas (destX,destY));
-			rei.hasMoved = true;
-			_tabuleiroCasa[destX][destY].peca = rei;
+			Rei rei;
 			
 			//Roque
 			if(destX > originX + 1) {
+				destX = originX + 2;
+				newPosX = 64*destX + offsetX;
 				movePeca(7, originY, destX - 1, destY);
 				roque = true;
+				rei = new Rei(p.cor,newPosX,newPosY,p.nome, p.imagem, new Coordenadas (destX,destY));
+				_tabuleiroCasa[destX][destY].peca = rei;
 			}
 			else if(destX < originX - 1) {
+				destX = originX - 2;
+				newPosX = 64*destX + offsetX;
 				movePeca(0, originY, destX + 1, destY);
 				roque = true;
+				rei = new Rei(p.cor,newPosX,newPosY,p.nome, p.imagem, new Coordenadas (destX,destY));
+				_tabuleiroCasa[destX][destY].peca = rei;
 			}
+			//Movimento normal
+			else {
+				rei = new Rei(p.cor,newPosX,newPosY,p.nome, p.imagem, new Coordenadas (destX,destY));
+				_tabuleiroCasa[destX][destY].peca = rei;
+			}
+
+			rei.hasMoved = true;
 			
 			break;
 			default:

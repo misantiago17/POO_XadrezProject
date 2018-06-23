@@ -14,6 +14,7 @@ public class Casa {
 
 	public boolean movPossivel = false; 
 	public boolean atcPossivel = false; 
+	public boolean roquePossivel = false;
 	
 	public Casa(Rectangle2D ret, Peca peca, Color cor) {
 		this.retangulo = ret;
