@@ -297,7 +297,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 							// Verifica se está movendo/atacando ou está selecionando uma peça
 							if (_selecioneiPeca) {
 
-								if (_tabuleiro[i][j].peca.selecionada || _tabuleiro[i][j].roquePossivel) { // Verifica se a peça já está selecionada
+								if (_tabuleiro[i][j].peca.selecionada) { // Verifica se a peça já está selecionada
 									_pecaSelecionada = null;
 									_tabuleiro[i][j].cor = _tabuleiro[i][j].corOriginal;
 
@@ -309,7 +309,24 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 									repaintTable();
 									verificaVitoria();
 									break;
-								} else if (!_tabuleiro[i][j].peca.selecionada) { // Clicou numa peça que não estava
+								} 
+								else if(_tabuleiro[e.getX()][e.getY()].roquePossivel) {
+
+									_t.movePeca(_pecaSelecionada.x, _pecaSelecionada.y, e.getX(), e.getY());
+									
+									_pecaSelecionada = null;
+									_tabuleiro[i][j].cor = _tabuleiro[i][j].corOriginal;
+									
+									
+									_selecioneiPeca = false;
+									_tabuleiro[e.getX()][e.getY()].roquePossivel = false;
+									tiraCor(-1, -1);
+
+									repaintTable();
+									verificaVitoria();
+									break;
+								}
+								else if (!_tabuleiro[i][j].peca.selecionada) { // Clicou numa peça que não estava
 																					// selecionada
 									_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
 									_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].cor = _tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].corOriginal;
@@ -357,6 +374,9 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 										_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.RED;
 									} else if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].movPossivel) {
 										_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.GREEN;
+									}
+									else if (_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].roquePossivel) {
+										_tabuleiro[_casasPossiveis[p].x][_casasPossiveis[p].y].cor = Color.YELLOW;
 									}
 									p += 1;
 								}
