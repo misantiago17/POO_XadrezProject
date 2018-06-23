@@ -472,73 +472,71 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		return tab;
 	}
 	
-	private static void salvaTabuleiro(PrintWriter salva) {			
-						
-			for (int i=0;i<8;i++) {
-				for (int j=0;j<8;j++) {
-					
-					char letra;
-					
-					if (_tabuleiroCasa[j][i].peca != null) {
-						String peca = _tabuleiroCasa[j][i].peca.nome;
-						switch (peca){
-						case "Torre":
-							if (_tabuleiroCasa[j][i].peca.cor == 'P') {
-								letra = 'T';
-							} else {
-								letra = 't';
-							}
-							break;
-						case "Cavalo":
-							if (_tabuleiroCasa[j][i].peca.cor == 'P') {
-								letra = 'C';
-							} else {
-								letra = 'c';
-							}
-							break;
-						case "Bispo":
-							if (_tabuleiroCasa[j][i].peca.cor == 'P') {
-								letra = 'B';
-							} else {
-								letra = 'b';
-							}
-							break;
-						case "Rainha":
-							if (_tabuleiroCasa[j][i].peca.cor == 'P') {
-								letra = 'Q';
-							} else {
-								letra = 'q';
-							}
-							break;
-						case "Rei":
-							if (_tabuleiroCasa[j][i].peca.cor == 'P') {
-								letra = 'K';
-							} else {
-								letra = 'k';
-							}
-						break;
-							default:
-								if (_tabuleiroCasa[j][i].peca.cor == 'P') {
-									letra = 'P';
-								} else {
-									letra = 'p';
-								}
-								break;
+	private static void salvaTabuleiro(PrintWriter salva) {
+
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+
+				char letra;
+
+				if (_tabuleiroCasa[j][i].peca != null) {
+					String peca = _tabuleiroCasa[j][i].peca.nome;
+					switch (peca) {
+					case "Torre":
+						if (_tabuleiroCasa[j][i].peca.cor == 'P') {
+							letra = 'T';
+						} else {
+							letra = 't';
 						}
-					} else {
-						letra = 'x';
+						break;
+					case "Cavalo":
+						if (_tabuleiroCasa[j][i].peca.cor == 'P') {
+							letra = 'C';
+						} else {
+							letra = 'c';
+						}
+						break;
+					case "Bispo":
+						if (_tabuleiroCasa[j][i].peca.cor == 'P') {
+							letra = 'B';
+						} else {
+							letra = 'b';
+						}
+						break;
+					case "Rainha":
+						if (_tabuleiroCasa[j][i].peca.cor == 'P') {
+							letra = 'Q';
+						} else {
+							letra = 'q';
+						}
+						break;
+					case "Rei":
+						if (_tabuleiroCasa[j][i].peca.cor == 'P') {
+							letra = 'K';
+						} else {
+							letra = 'k';
+						}
+						break;
+					default:
+						if (_tabuleiroCasa[j][i].peca.cor == 'P') {
+							letra = 'P';
+						} else {
+							letra = 'p';
+						}
+						break;
 					}
-					
-					
-					
-					if (j != 7)
-						salva.print(letra + "-");
-					else 
-						salva.println(letra);
-						
+				} else {
+					letra = 'x';
 				}
+
+				if (j != 7)
+					salva.print(letra + "-");
+				else
+					salva.println(letra);
+
 			}
-			
-		
+		}
 	}
+	
+	
 }

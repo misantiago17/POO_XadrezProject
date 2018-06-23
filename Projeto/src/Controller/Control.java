@@ -39,6 +39,16 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	public static boolean empate = false;
 	// --------------- Public --------------------
 	
+	public static void resetaJogo() {	
+		turnoBranco = true;
+				
+		blackKingCheckMate = false;
+		whiteKingCheckMate = false;
+		blackKingCheck = false;
+		whiteKingCheck = false;
+		empate = false;
+	}
+
 	private Control() {
 		_t = new Tabuleiro();
 		registra(this);

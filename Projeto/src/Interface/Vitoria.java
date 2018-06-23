@@ -39,6 +39,7 @@ public class Vitoria {
 		int resposta = JOptionPane.showConfirmDialog(_p,"Deseja voltar para o menu?", "Sair", JOptionPane.YES_NO_OPTION);
 
 		if (resposta == JOptionPane.YES_OPTION) {
+			Control.resetaJogo();
 			voltaMenu();
 		} else {
 			 System.exit(0);
