@@ -5,6 +5,7 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
 import Controller.Control;
+import Tabuleiro.Tabuleiro;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -102,18 +103,16 @@ public abstract class Interface extends JFrame implements ActionListener, PopupM
 	    
 	    // Inicia o jogo
 	    case "Jogar":
+	    	Tabuleiro._newGame = true;
 	    	Menu.getInstance().iniciaJogo();
 	    	break;
 	    
 	    // Carrega o jogo salvo
 	    case "Carregar Jogo":
-	    	Control.getInstance().carregaJogo();
+	    	Tabuleiro._newGame = false;
+	    	Menu.getInstance().iniciaJogo();
 	    	break;
 	    
-	    // Salva o jogo atual
-	    case "Salvar":
-	    	Control.getInstance().salvaJogo();
-	    	break;
 	    	
 	    // Escolhas da troca da promoção do peão
 	    case "Torre":

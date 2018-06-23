@@ -10,7 +10,6 @@ public class Rei extends Peca {
 	public Rei(char cor, int posicaoX, int posicaoY, String nome, Image img, Coordenadas coord) {
 		super(cor,posicaoX,posicaoY,nome, img, coord);
 		
-		String nomeImg;
 		this.imagem = img;
 		this.nome = nome;
 	}

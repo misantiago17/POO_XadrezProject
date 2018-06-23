@@ -3,17 +3,7 @@ package Controller;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-
 import Interface.*;
 import Observers.*;
 import Peca.*;
@@ -31,7 +21,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	
 	private boolean _selecioneiPeca = false;
 	private Coordenadas _pecaSelecionada;
-		
+	
 	// Casa que a peça selecionada pode se mover/atacar
 	private Coordenadas[] _casasPossiveis = new Coordenadas[64];
 	
@@ -97,7 +87,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	
 	// Carrega jogo salvo
 	public void carregaJogo() {
-		System.out.println("CARREGA");
+		Tabuleiro.load();
 	}
 	
 	// mostra o popUp da promoção do peão em questão

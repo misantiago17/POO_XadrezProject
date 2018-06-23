@@ -3,7 +3,9 @@ package Tabuleiro;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -28,6 +30,10 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 	public static Image[] imagens;
 	public static int offsetX;
 	public static int offsetY;
+	private static Color[][] _cor;
+	private static Rectangle2D[][] _ret;
+	
+	public static boolean _newGame;
 	
 	public Tabuleiro() {}
 	
@@ -37,11 +43,17 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		offsetX = x;
 		offsetY = y;
 		imagens = carregaImagem();
+		_cor = cor;
+		_ret = ret;
 		 // CyanB, CyanK,  CyanN,  CyanP,  CyanQ,  CyanR, 
 		// PurpleB, PurpleK, PurpleN, PurpleP, PurpleQ, PurpleR 
-		char[][] mat = inicializaMatriz();
+		char[][] mat;
+		if(_newGame)
+			mat = inicializaMatriz();
+		else
+			mat = load();
 		
-		_tabuleiroCasa = carregaTabuleiro(ret, cor, x, y, mat);
+		_tabuleiroCasa = carregaTabuleiro(mat);
 		/*
 		_tabuleiroCasa[0][7] = new Casa(ret[0][7], new Torre('B', 64*0 + x, 64*7 + y, "Torre", imagens[5], new Coordenadas (0,7)),cor[0][7]);
 		_tabuleiroCasa[1][7] = new Casa(ret[1][7], new Cavalo('B', 64*1 + x, 64*7 + y, "Cavalo", imagens[2], new Coordenadas (1,7)),cor[1][7]);
@@ -331,15 +343,55 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		return _tabuleiroCasa;
 	}
 	
-	public static void load() {
-		JFileChooser chooser = new JFileChooser();
+	
+	public static char[][] load() {
+		String path = null;
+		
+		JFileChooser fs = new JFileChooser();
 	    FileNameExtensionFilter filter = new FileNameExtensionFilter("Text document", "txt");
-	    chooser.setFileFilter(filter);
-	    int returnVal = chooser.showOpenDialog(null);
+	    fs.setFileFilter(filter);
+	    int returnVal = fs.showOpenDialog(fs);
 	    if(returnVal == JFileChooser.APPROVE_OPTION) {
-	       System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
+	    	path = fs.getSelectedFile().getAbsolutePath();
+	       System.out.println("You chose to open this file: " + fs.getSelectedFile().getName());
 	    }
+	    else
+			System.out.print("Nenhum arquivo foi escolhido");
+
+		char[][] mat = new char[8][8];
+		
+	    try {
+			String leitura;
+			
+	    	FileReader arq = new FileReader(new File(path));
+	    	BufferedReader carrega = new BufferedReader(arq);
+			leitura = carrega.readLine();
+			if(leitura.compareTo("true") >= 0)
+				Control.turnoBranco = true;
+			else
+				Control.turnoBranco = false;
+			
+			for(int i = 0; i < 8; i++) {
+				System.out.println("Linha " + i);
+				leitura = carrega.readLine();
+				System.out.println(leitura);
+				String[] partes = leitura.split("-");
+
+				for(int j = 0, k = 0; j < 8; k++, j++) {
+					if(partes[k].charAt(0) == ' ')
+						k++;
+					mat[j][i] = partes[k].charAt(0);
+				}
+			}
+			
+			carrega.close();
+	    }
+	    catch(IOException ioe){ 
+	    	System.out.println("Erro ao abrir o arquivo");
+	    }
+	    return mat;
 	}
+	
 	public static void save() {
 		String path = null;
 		
@@ -365,7 +417,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		}
 	}
 	
-	private static Casa[][] carregaTabuleiro(Rectangle2D[][] ret, Color[][] cor, int x, int y, char[][] mat) {
+	private static Casa[][] carregaTabuleiro(char[][] mat) {
 		Casa[][] tab = new Casa[8][8];
 		Image[] imagens = carregaImagem();
 		
@@ -375,43 +427,43 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 				char peca = mat[i][j];
 				switch (peca){
 				case 'T':
-					tab[i][j] = new Casa(ret[0][7], new Torre('P', 64*i + x, 64*j + y, "Torre", imagens[11], new Coordenadas (i,j)),cor[i][j]);
+					tab[i][j] = new Casa(_ret[i][j], new Torre('P', 64*i + offsetX, 64*j + offsetY, "Torre", imagens[11], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				case 't':
-					tab[i][j] = new Casa(ret[0][7], new Torre('B', 64*i + x, 64*j + y, "Torre", imagens[5], new Coordenadas (i,j)),cor[i][j]);
+					tab[i][j] = new Casa(_ret[i][j], new Torre('B', 64*i + offsetX, 64*j + offsetY, "Torre", imagens[5], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				case 'C':
-					tab[i][j] = new Casa(ret[1][7], new Cavalo('P', 64*i + x, 64*j + y, "Cavalo", imagens[8], new Coordenadas (i,j)),cor[i][j]);
+					tab[i][j] = new Casa(_ret[i][j], new Cavalo('P', 64*i + offsetX, 64*j + offsetY, "Cavalo", imagens[8], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				case 'c':
-					tab[i][j] = new Casa(ret[1][7], new Cavalo('B', 64*i + x, 64*j + y, "Cavalo", imagens[2], new Coordenadas (i,j)),cor[i][j]);
+					tab[i][j] = new Casa(_ret[i][j], new Cavalo('B', 64*i + offsetX, 64*j + offsetY, "Cavalo", imagens[2], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				case 'B':
-					tab[i][j] = new Casa(ret[2][7], new Bispo('P', 64*i + x, 64*j + y, "Bispo", imagens[6], new Coordenadas (i,j)),cor[i][j]);
+					tab[i][j] = new Casa(_ret[i][j], new Bispo('P', 64*i + offsetX, 64*j + offsetY, "Bispo", imagens[6], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				case 'b':
-					tab[i][j] = new Casa(ret[2][7], new Bispo('B', 64*i + x, 64*j + y, "Bispo", imagens[0], new Coordenadas (i,j)),cor[i][j]);
+					tab[i][j] = new Casa(_ret[i][j], new Bispo('B', 64*i + offsetX, 64*j + offsetY, "Bispo", imagens[0], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				case 'Q':
-					tab[i][j] = new Casa(ret[4][7], new Rainha('P', 64*i + x, 64*j + y, "Rainha", imagens[10], new Coordenadas (i,j)),cor[i][j]);
+					tab[i][j] = new Casa(_ret[i][j], new Rainha('P', 64*i + offsetX, 64*j + offsetY, "Rainha", imagens[10], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				case 'q':
-					tab[i][j] = new Casa(ret[4][7], new Rainha('B', 64*i + x, 64*j + y, "Rainha", imagens[4], new Coordenadas (i,j)),cor[i][j]);
+					tab[i][j] = new Casa(_ret[i][j], new Rainha('B', 64*i + offsetX, 64*j + offsetY, "Rainha", imagens[4], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				case 'K':
-					tab[i][j] = new Casa(ret[3][7], new Rei('P', 64*i + x, 64*j + y, "Rei", imagens[7], new Coordenadas (i,j)),cor[i][j]);
+					tab[i][j] = new Casa(_ret[i][j], new Rei('P', 64*i + offsetX, 64*j + offsetY, "Rei", imagens[7], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				case 'k':
-					tab[i][j] = new Casa(ret[3][7], new Rei('B', 64*i + x, 64*j + y, "Rei", imagens[1], new Coordenadas (i,j)),cor[i][j]);
+					tab[i][j] = new Casa(_ret[i][j], new Rei('B', 64*i + offsetX, 64*j + offsetY, "Rei", imagens[1], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				case 'P':
-					tab[i][j] = new Casa(ret[i][6], new Peao('P', 64*i + x, 64*j + y, "Peao", imagens[9], new Coordenadas (i,j)),cor[i][j]);
+					tab[i][j] = new Casa(_ret[i][j], new Peao('P', 64*i + offsetX, 64*j + offsetY, "Peao", imagens[9], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				case 'p':
-					tab[i][j] = new Casa(ret[i][6], new Peao('B', 64*i + x, 64*j + y, "Peao", imagens[3], new Coordenadas (i,j)),cor[i][j]);
+					tab[i][j] = new Casa(_ret[i][j], new Peao('B', 64*i + offsetX, 64*j + offsetY, "Peao", imagens[3], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				default:
-					tab[i][j] = new Casa(ret[i][j],null,cor[i][j]);
+					tab[i][j] = new Casa(_ret[i][j],null,_cor[i][j]);
 					break;
 				}
 				
@@ -420,9 +472,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		return tab;
 	}
 	
-	private static void salvaTabuleiro(PrintWriter salva) {
-			int current = 0;
-			
+	private static void salvaTabuleiro(PrintWriter salva) {			
 						
 			for (int i=0;i<8;i++) {
 				for (int j=0;j<8;j++) {
@@ -481,14 +531,11 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 					
 					
 					
-					if (i == current) {
-						salva.print(" " + letra + " ");
-					} else {
-						current = i;
-						salva.println("");
-						salva.print(" " + letra + " ");
-					}
-					
+					if (j != 7)
+						salva.print(letra + "-");
+					else 
+						salva.println(letra);
+						
 				}
 			}
 			

@@ -18,7 +18,6 @@ public class Jogo extends Interface {
 	
 	private JFrame _f;
 	private JPanel _jogo;
-	private JButton _saveButton;
 	private JPopupMenu _popUp;
 	
 	private Jogo() {}
@@ -43,10 +42,7 @@ public class Jogo extends Interface {
 		_jogo.setLayout(new BoxLayout(_jogo, BoxLayout.PAGE_AXIS));
 		_jogo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		_f.getContentPane().add(_jogo, BorderLayout.CENTER);	
-				
-		// Cria um botão para salvar o jogo
-		_saveButton = criaBotao("Salvar", 0, 0, _jogo);
-		_jogo.add(_saveButton);		
+						
 	}
 	
 	// Abre o popUp de promoção do peão

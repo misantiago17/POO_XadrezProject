@@ -103,19 +103,6 @@ public abstract class Peca implements ObservadorTabuleiro {
 		return false;
 	}
 
-
-	protected char[][] iniciaPosMov() {
-		char mat[][] = new char[8][8];
-
-		for(int i=0; i< mat.length; i++) {
-			for(int j=0; j< mat[i].length; j++) {
-				mat[i][j] = 'x';
-			}
-		}
-		return mat;
-	}
-
-
 	public static Casa[][] simulaMovimento(int originX, int originY, int destX, int destY) {
 
 		Casa tableSim[][] = new Casa[8][8];
