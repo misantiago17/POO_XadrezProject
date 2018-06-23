@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-//import com.sun.prism.Image;
 import Controller.Control;
 import Observers.*;
 import Peca.*;
@@ -23,7 +22,9 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 	
 	// Lista de observadores do tabuleiro
 	private List<ObservadorTabuleiro> lst = new ArrayList<ObservadorTabuleiro>();	
+	
 	private static Casa[][] _tabuleiroCasa = new Casa[8][8];	// O tabuleiro observado
+	private static char[][] _tabuleiroChar = new char[8][8];
 		
 	private Peca[] pecasPerdidas = new Peca[64];
 	
@@ -33,7 +34,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 	private static Color[][] _cor;
 	private static Rectangle2D[][] _ret;
 	
-	public static boolean _newGame;
+	public static boolean newGame;
 	
 	public Tabuleiro() {}
 	
@@ -47,13 +48,12 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		_ret = ret;
 		 // CyanB, CyanK,  CyanN,  CyanP,  CyanQ,  CyanR, 
 		// PurpleB, PurpleK, PurpleN, PurpleP, PurpleQ, PurpleR 
-		char[][] mat;
-		if(_newGame)
-			mat = inicializaMatriz();
-		else
-			mat = load();
+		if(newGame)
+			_tabuleiroChar = inicializaMatriz();
+		//else
+			//mat = load();
 		
-		_tabuleiroCasa = carregaTabuleiro(mat);
+		_tabuleiroCasa = carregaTabuleiro(_tabuleiroChar);
 		/*
 		_tabuleiroCasa[0][7] = new Casa(ret[0][7], new Torre('B', 64*0 + x, 64*7 + y, "Torre", imagens[5], new Coordenadas (0,7)),cor[0][7]);
 		_tabuleiroCasa[1][7] = new Casa(ret[1][7], new Cavalo('B', 64*1 + x, 64*7 + y, "Cavalo", imagens[2], new Coordenadas (1,7)),cor[1][7]);
@@ -96,8 +96,8 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		mat[0][7] = mat[7][7] = 't'; 
 		mat[1][7] = mat[6][7] = 'c'; 
 		mat[2][7] = mat[5][7] = 'b'; 
-		mat[3][7] = 'q';
-		mat[4][7] = 'k';
+		mat[4][7] = 'q';
+		mat[3][7] = 'k';
 		
 		for(int i = 0; i < 8; i++) {
 			mat[i][6] = 'p';
@@ -116,8 +116,8 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		mat[0][0] = mat[7][0] = 'T'; 
 		mat[1][0] = mat[6][0] = 'C'; 
 		mat[2][0] = mat[5][0] = 'B'; 
-		mat[3][0] = 'Q';
-		mat[4][0] = 'K';
+		mat[4][0] = 'Q';
+		mat[3][0] = 'K';
 				
 		return mat;
 	}
@@ -344,8 +344,9 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 	}
 	
 	
-	public static char[][] load() {
+	public static void load() {
 		String path = null;
+		boolean arquivoEscolhido = false;
 		
 		JFileChooser fs = new JFileChooser();
 	    FileNameExtensionFilter filter = new FileNameExtensionFilter("Text document", "txt");
@@ -354,42 +355,52 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 	    if(returnVal == JFileChooser.APPROVE_OPTION) {
 	    	path = fs.getSelectedFile().getAbsolutePath();
 	       System.out.println("You chose to open this file: " + fs.getSelectedFile().getName());
+	       arquivoEscolhido = true;
+	       // fecha o menu de load
 	    }
-	    else
-			System.out.print("Nenhum arquivo foi escolhido");
-
-		char[][] mat = new char[8][8];
+	    else {
+	    	System.out.print("Nenhum arquivo foi escolhido");
+	    	arquivoEscolhido = false;
+	    	//Control.resetaJogo();
+	    	//Control.getInstance().iniciaMenuInicial();
+	    }
 		
-	    try {
-			String leitura;
+	    if (arquivoEscolhido) {
+	    	
+	    	char[][] mat = new char[8][8];
 			
-	    	FileReader arq = new FileReader(new File(path));
-	    	BufferedReader carrega = new BufferedReader(arq);
-			leitura = carrega.readLine();
-			if(leitura.compareTo("true") >= 0)
-				Control.turnoBranco = true;
-			else
-				Control.turnoBranco = false;
-			
-			for(int i = 0; i < 8; i++) {
-				System.out.println("Linha " + i);
+		    try {
+				String leitura;
+				
+		    	FileReader arq = new FileReader(new File(path));
+		    	BufferedReader carrega = new BufferedReader(arq);
 				leitura = carrega.readLine();
-				System.out.println(leitura);
-				String[] partes = leitura.split("-");
+				if(leitura.compareTo("true") >= 0)
+					Control.turnoBranco = true;
+				else
+					Control.turnoBranco = false;
+				
+				for(int i = 0; i < 8; i++) {
+					System.out.println("Linha " + i);
+					leitura = carrega.readLine();
+					System.out.println(leitura);
+					String[] partes = leitura.split("-");
 
-				for(int j = 0, k = 0; j < 8; k++, j++) {
-					if(partes[k].charAt(0) == ' ')
-						k++;
-					mat[j][i] = partes[k].charAt(0);
+					for(int j = 0, k = 0; j < 8; k++, j++) {
+						if(partes[k].charAt(0) == ' ')
+							k++;
+						mat[j][i] = partes[k].charAt(0);
+					}
 				}
-			}
-			
-			carrega.close();
+				
+				carrega.close();
+		    }
+		    catch(IOException ioe){ 
+		    	System.out.println("Erro ao abrir o arquivo");
+		    }
+		    _tabuleiroChar = mat;
 	    }
-	    catch(IOException ioe){ 
-	    	System.out.println("Erro ao abrir o arquivo");
-	    }
-	    return mat;
+
 	}
 	
 	public static void save() {

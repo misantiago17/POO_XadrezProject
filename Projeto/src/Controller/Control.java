@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
 import javax.swing.*;
 import Interface.*;
+import Interface.Menu;
 import Observers.*;
 import Peca.*;
 import Tabuleiro.*;
@@ -61,6 +62,11 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		return _instance;
 	}
 	
+	// reinicia o menu inicial
+	public void iniciaMenuInicial() {
+		Menu.getInstance().cria();
+	}
+	
 	// adiciona observadores ao tabuleiro
 	public void registra (ObservadorTabuleiro o) {
 		_t.add(o);	
@@ -98,6 +104,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	// Carrega jogo salvo
 	public void carregaJogo() {
 		Tabuleiro.load();
+		Menu.getInstance().iniciaJogo();
 	}
 	
 	// mostra o popUp da promoção do peão em questão
