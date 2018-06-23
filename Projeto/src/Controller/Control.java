@@ -183,7 +183,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		_tabuleiro[_peaoSelecionado.peca.coord.x][_peaoSelecionado.peca.coord.y].peca = pecaSelecionada;
 	    _t.atualizaTabCasa(_tabuleiro);
 	    repaintTable();
-	    
+	    verificaVitoria();
 	    Jogo.getInstance().fechaPopUp();
 	    _popupAberto = false;
 	}
@@ -298,6 +298,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 									tiraCor(-1,-1);
 										
 									repaintTable();
+									verificaVitoria();
 									break;
 								} else if (!_tabuleiro[i][j].peca.selecionada) { // Clicou numa peça que não estava selecionada
 									_tabuleiro[_pecaSelecionada.x][_pecaSelecionada.y].peca.selecionada = false;
@@ -323,6 +324,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 									}
 										
 									repaintTable();
+									verificaVitoria();
 									break;
 								}
 									
@@ -348,6 +350,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 									}
 										
 									repaintTable();
+									verificaVitoria();
 									break;
 								}
 								
@@ -363,6 +366,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 										tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
 																										
 										repaintTable();
+										verificaVitoria();
 										break;
 																
 									}
@@ -382,6 +386,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 								tiraCor(_pecaSelecionada.x, _pecaSelecionada.y);
 																									
 								repaintTable();
+								verificaVitoria();
 								break;
 									
 							} else {	// Deseleciona peça
@@ -394,6 +399,8 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 								tiraCor(-1,-1);
 									
 								repaintTable();
+								
+								verificaVitoria();
 								break;
 							}
 						}
@@ -407,5 +414,17 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	@Override
 	public void notify(ObservadoTabuleiro o) {
 		_tabuleiro = o.get();
+	}
+	
+	private void verificaVitoria() {
+		if(Control.whiteKingCheckMate) {
+			Control.getInstance().Vitoria("preto");
+		}
+		else if(Control.empate) {
+			Control.getInstance().Vitoria("");
+		}
+		else if(Control.blackKingCheckMate) {
+			Control.getInstance().Vitoria("branco");
+		}
 	}
 }

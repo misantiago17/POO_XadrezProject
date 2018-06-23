@@ -62,23 +62,9 @@ public final class DrawChess extends JPanel implements ObservadorTabuleiro {
 		g2d.setFont(new Font("Helvetica", Font.PLAIN, 18)); 	
 		
 		if (Control.turnoBranco) {
-			if(Control.whiteKingCheckMate) {
-				Control.getInstance().Vitoria("preto");
-			}
-			else if(Control.empate) {
-				Control.getInstance().Vitoria("");
-			}
-			else
-				g2d.drawString("Turno do Player 1 (Branco)", (float)(_offSetX + 64*2), (float) (_offSetY + 64*8.5));			
+			g2d.drawString("Turno do Player 1 (Branco)", (float)(_offSetX + 64*2), (float) (_offSetY + 64*8.5));			
 		} else {
-			if(Control.blackKingCheckMate) {
-				Control.getInstance().Vitoria("branco");
-			}
-			else if(Control.empate) {
-				Control.getInstance().Vitoria("");
-			}
-			else
-				g2d.drawString("Turno do Player 2 (Preto)", (float)(_offSetX + 64*2), (float) (_offSetY - 64*0.35));
+			g2d.drawString("Turno do Player 2 (Preto)", (float)(_offSetX + 64*2), (float) (_offSetY - 64*0.35));
 			
 		}
 		

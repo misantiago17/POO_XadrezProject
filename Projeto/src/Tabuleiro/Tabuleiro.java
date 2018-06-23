@@ -182,11 +182,11 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		} else if(!Control.turnoBranco && !roque){
 			Control.turnoBranco = true;
 		}
-		
+
 		//Verifica  se ocorreu um check, checkmate ou empate
 		Control.testaCheck(p.cor, roque);
 		
-		atualiza();
+		atualiza();		
 		printTabuleiro();
 	}
 	
