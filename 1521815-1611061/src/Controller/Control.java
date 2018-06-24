@@ -48,6 +48,7 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 		blackKingCheck = false;
 		whiteKingCheck = false;
 		empate = false;
+		
 	}
 
 	private Control() {
@@ -92,13 +93,6 @@ public class Control implements MouseListener, ObservadorTabuleiro {
 	// Preenche o tabuleiro com as peças e suas casas
 	public void preencheTabuleiro(int x, int y, Rectangle2D[][] ret, Color[][] cor) {
 		_t.fillTabuleiro(ret, cor, x, y);
-	}
-
-	// Salva jogo
-	public void salvaJogo() {
-		if (!_popupAberto) {
-			System.out.println("SALVA");
-		}
 	}
 
 	// Carrega jogo salvo

@@ -2,6 +2,7 @@ package Interface;
 
 import javax.swing.*;
 import Controller.Control;
+import Tabuleiro.Tabuleiro;
 
 public class Vitoria {
 	
@@ -40,6 +41,7 @@ public class Vitoria {
 
 		if (resposta == JOptionPane.YES_OPTION) {
 			Control.resetaJogo();
+			Tabuleiro.resetaJogo();
 			voltaMenu();
 		} else {
 			 System.exit(0);

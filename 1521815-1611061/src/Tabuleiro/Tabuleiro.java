@@ -350,30 +350,61 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 		    	FileReader arq = new FileReader(new File(path));
 		    	BufferedReader carrega = new BufferedReader(arq);
 				leitura = carrega.readLine();
-				if(leitura.compareTo("true") >= 0)
+				if(leitura.compareTo("true") == 0)
 					Control.turnoBranco = true;
 				else
 					Control.turnoBranco = false;
 				
+				
 				for(int i = 0; i < 8; i++) {
-					//System.out.println("Linha " + i);
 					leitura = carrega.readLine();
-					System.out.println(leitura);
 					String[] partes = leitura.split("-");
 
-					for(int j = 0, k = 0; j < 8; k++, j++) {
-						if(partes[k].charAt(0) == ' ')
-							k++;
-						mat[j][i] = partes[k].charAt(0);
+					for(int j = 0; j < 8; j++) {
+						
+						mat[j][i] = partes[j].charAt(0);
 					}
 				}
+				
+			    _tabuleiroChar = mat;
+			   			    
+				leitura = carrega.readLine();
+				while(leitura.compareTo("----------") != 0) {
+					
+					String[] partes = leitura.split("-");
+
+					int i = Integer.parseInt(partes[1]);
+					int j = Integer.parseInt(partes[2]);
+					
+					
+					if(partes[0].charAt(0) == 'p') {
+						Peao p = new Peao(' ', 0, 0, "Peao", null, new Coordenadas (i,j));
+						p.hasMoved = true;
+						_tabuleiroCasa[i][j] = new Casa(null,null,null);
+						_tabuleiroCasa[i][j].peca = p;
+					}
+					else if(partes[0].charAt(0) == 'r') {
+						Rei r = new Rei(' ', 0, 0, "Rei", null, new Coordenadas (i,j));
+						r.hasMoved = true;
+						_tabuleiroCasa[i][j] = new Casa(null,null,null);
+						_tabuleiroCasa[i][j].peca = r;
+					}
+					else if(partes[0].charAt(0) == 't') {
+						Torre t = new Torre(' ', 0, 0, "Torre", null, new Coordenadas (i,j));
+						t.hasMoved = true;
+						_tabuleiroCasa[i][j] = new Casa(null,null,null);
+						_tabuleiroCasa[i][j].peca = t;
+					}
+						
+					leitura = carrega.readLine();
+				}
+				
 				
 				carrega.close();
 		    }
 		    catch(IOException ioe){ 
 		    	System.out.println("Erro ao abrir o arquivo");
 		    }
-		    _tabuleiroChar = mat;
 	    }
 
 	}
@@ -411,24 +442,25 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 			for (int j=0;j<8;j++) {
 								
 				char peca = mat[i][j];
+				Torre tempT = null;
+				Rei tempR = null;
+				Peao tempP = null;
 				switch (peca){
 				case 'T':
+					if(_tabuleiroCasa[i][j] != null)
+						tempT = (Torre)_tabuleiroCasa[i][j].peca;
 					Torre T =  new Torre('P', 64*i + offsetX, 64*j + offsetY, "Torre", imagens[11], new Coordenadas (i,j));
 					tab[i][j] = new Casa(_ret[i][j], T,_cor[i][j]);
-					if (i != 7 || i != 0) {
-						if (j != 0) {
-							T.hasMoved = true;
-						}
-					}
+					if(_tabuleiroCasa[i][j] != null)
+						T.hasMoved = tempT.hasMoved;
 					break;
 				case 't':
+					if(_tabuleiroCasa[i][j] != null)
+						tempT = (Torre)_tabuleiroCasa[i][j].peca;
 					Torre t = new Torre('B', 64*i + offsetX, 64*j + offsetY, "Torre", imagens[5], new Coordenadas (i,j));
 					tab[i][j] = new Casa(_ret[i][j], t ,_cor[i][j]);
-					if (i != 7 || i != 0) {
-						if (j != 7) {
-							t.hasMoved = true;
-						}
-					}
+					if(_tabuleiroCasa[i][j] != null)
+						t.hasMoved = tempT.hasMoved;
 					break;
 				case 'C':
 					tab[i][j] = new Casa(_ret[i][j], new Cavalo('P', 64*i + offsetX, 64*j + offsetY, "Cavalo", imagens[8], new Coordenadas (i,j)),_cor[i][j]);
@@ -449,28 +481,36 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 					tab[i][j] = new Casa(_ret[i][j], new Rainha('B', 64*i + offsetX, 64*j + offsetY, "Rainha", imagens[4], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				case 'K':
+					if(_tabuleiroCasa[i][j] != null)
+						tempR = (Rei)_tabuleiroCasa[i][j].peca;
 					Rei K = new Rei('P', 64*i + offsetX, 64*j + offsetY, "Rei", imagens[7], new Coordenadas (i,j));
 					tab[i][j] = new Casa(_ret[i][j], K,_cor[i][j]);
-					if (i != 4) {
-						if (j != 0) {
-							K.hasMoved = true;
-						}
-					}
+					if(_tabuleiroCasa[i][j] != null)
+						K.hasMoved = tempR.hasMoved;
 					break;
 				case 'k':
+					if(_tabuleiroCasa[i][j] != null)
+						tempR = (Rei)_tabuleiroCasa[i][j].peca;
 					Rei k = new Rei('B', 64*i + offsetX, 64*j + offsetY, "Rei", imagens[1], new Coordenadas (i,j));
 					tab[i][j] = new Casa(_ret[i][j], k,_cor[i][j]);
-					if (i != 4) {
-						if (j != 7) {
-							k.hasMoved = true;
-						}
-					}
+					if(_tabuleiroCasa[i][j] != null)
+						k.hasMoved = tempR.hasMoved;
 					break;
 				case 'P':
-					tab[i][j] = new Casa(_ret[i][j], new Peao('P', 64*i + offsetX, 64*j + offsetY, "Peao", imagens[9], new Coordenadas (i,j)),_cor[i][j]);
+					if(_tabuleiroCasa[i][j] != null)
+						tempP = (Peao)_tabuleiroCasa[i][j].peca;
+					Peao P =  new Peao('P', 64*i + offsetX, 64*j + offsetY, "Peao", imagens[9], new Coordenadas (i,j));
+					tab[i][j] = new Casa(_ret[i][j], P,_cor[i][j]);
+					if(_tabuleiroCasa[i][j] != null)
+						P.hasMoved = tempP.hasMoved;
 					break;
 				case 'p':
-					tab[i][j] = new Casa(_ret[i][j], new Peao('B', 64*i + offsetX, 64*j + offsetY, "Peao", imagens[3], new Coordenadas (i,j)),_cor[i][j]);
+					if(_tabuleiroCasa[i][j] != null)
+						tempP = (Peao)_tabuleiroCasa[i][j].peca;
+					Peao p =  new Peao('B', 64*i + offsetX, 64*j + offsetY, "Peao", imagens[3], new Coordenadas (i,j));
+					tab[i][j] = new Casa(_ret[i][j], p,_cor[i][j]);
+					if(_tabuleiroCasa[i][j] != null)
+						p.hasMoved = tempP.hasMoved;
 					break;
 				default:
 					tab[i][j] = new Casa(_ret[i][j],null,_cor[i][j]);
@@ -484,6 +524,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 	
 	private static void salvaTabuleiro(PrintWriter salva) {
 
+		
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 
@@ -546,7 +587,55 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 
 			}
 		}
+		
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				char letra = '0';
+				boolean test = false;
+				
+				if (_tabuleiroCasa[j][i].peca != null) {
+					String peca = _tabuleiroCasa[j][i].peca.nome;
+					switch (peca) {
+						case "Torre":
+							Torre t = (Torre) _tabuleiroCasa[j][i].peca;
+							if(t.hasMoved) {
+								letra = 't';
+								test = true;
+							}
+							break;
+						case "Rei":
+							Rei r = (Rei) _tabuleiroCasa[j][i].peca;
+							if(r.hasMoved) {
+								letra = 'r';
+								test = true;
+							}
+							break;
+						case "Peao":
+							Peao p = (Peao) _tabuleiroCasa[j][i].peca;
+							if(p.hasMoved) {
+								letra = 'p';
+								test = true;
+							}
+							break;
+						default:
+							letra = '0';
+							test = false;
+							break;
+					}
+				}
+				if(test)
+					salva.println(letra + "-" + j + "-" + i);
+			}
+		}
+		salva.println("----------");
 	}
 	
-	
+	public static void resetaJogo() {
+		
+		for (int i=0;i<8;i++) {
+			for (int j=0;j<8;j++) {
+				_tabuleiroCasa[i][j] = null;
+			}
+		}
+	}
 }
