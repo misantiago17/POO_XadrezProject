@@ -49,8 +49,6 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 
 		if(newGame)
 			_tabuleiroChar = inicializaMatriz();
-		//else
-			//mat = load();
 		
 		_tabuleiroCasa = carregaTabuleiro(_tabuleiroChar);
 		
@@ -358,7 +356,7 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 					Control.turnoBranco = false;
 				
 				for(int i = 0; i < 8; i++) {
-					System.out.println("Linha " + i);
+					//System.out.println("Linha " + i);
 					leitura = carrega.readLine();
 					System.out.println(leitura);
 					String[] partes = leitura.split("-");
@@ -415,10 +413,22 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 				char peca = mat[i][j];
 				switch (peca){
 				case 'T':
-					tab[i][j] = new Casa(_ret[i][j], new Torre('P', 64*i + offsetX, 64*j + offsetY, "Torre", imagens[11], new Coordenadas (i,j)),_cor[i][j]);
+					Torre T =  new Torre('P', 64*i + offsetX, 64*j + offsetY, "Torre", imagens[11], new Coordenadas (i,j));
+					tab[i][j] = new Casa(_ret[i][j], T,_cor[i][j]);
+					if (i != 7 || i != 0) {
+						if (j != 0) {
+							T.hasMoved = true;
+						}
+					}
 					break;
 				case 't':
-					tab[i][j] = new Casa(_ret[i][j], new Torre('B', 64*i + offsetX, 64*j + offsetY, "Torre", imagens[5], new Coordenadas (i,j)),_cor[i][j]);
+					Torre t = new Torre('B', 64*i + offsetX, 64*j + offsetY, "Torre", imagens[5], new Coordenadas (i,j));
+					tab[i][j] = new Casa(_ret[i][j], t ,_cor[i][j]);
+					if (i != 7 || i != 0) {
+						if (j != 7) {
+							t.hasMoved = true;
+						}
+					}
 					break;
 				case 'C':
 					tab[i][j] = new Casa(_ret[i][j], new Cavalo('P', 64*i + offsetX, 64*j + offsetY, "Cavalo", imagens[8], new Coordenadas (i,j)),_cor[i][j]);
@@ -439,10 +449,22 @@ public final class Tabuleiro implements ObservadoTabuleiro {
 					tab[i][j] = new Casa(_ret[i][j], new Rainha('B', 64*i + offsetX, 64*j + offsetY, "Rainha", imagens[4], new Coordenadas (i,j)),_cor[i][j]);
 					break;
 				case 'K':
-					tab[i][j] = new Casa(_ret[i][j], new Rei('P', 64*i + offsetX, 64*j + offsetY, "Rei", imagens[7], new Coordenadas (i,j)),_cor[i][j]);
+					Rei K = new Rei('P', 64*i + offsetX, 64*j + offsetY, "Rei", imagens[7], new Coordenadas (i,j));
+					tab[i][j] = new Casa(_ret[i][j], K,_cor[i][j]);
+					if (i != 4) {
+						if (j != 0) {
+							K.hasMoved = true;
+						}
+					}
 					break;
 				case 'k':
-					tab[i][j] = new Casa(_ret[i][j], new Rei('B', 64*i + offsetX, 64*j + offsetY, "Rei", imagens[1], new Coordenadas (i,j)),_cor[i][j]);
+					Rei k = new Rei('B', 64*i + offsetX, 64*j + offsetY, "Rei", imagens[1], new Coordenadas (i,j));
+					tab[i][j] = new Casa(_ret[i][j], k,_cor[i][j]);
+					if (i != 4) {
+						if (j != 7) {
+							k.hasMoved = true;
+						}
+					}
 					break;
 				case 'P':
 					tab[i][j] = new Casa(_ret[i][j], new Peao('P', 64*i + offsetX, 64*j + offsetY, "Peao", imagens[9], new Coordenadas (i,j)),_cor[i][j]);
