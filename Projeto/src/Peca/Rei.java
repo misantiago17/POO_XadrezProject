@@ -258,7 +258,7 @@ public class Rei extends Peca {
 		}
 		
 		//Roque
-		if(!hasMoved) {
+		if(!hasMoved/* && table[0][Yj].peca.cor == this.cor*/) {
 			
 			if(table[Xi - 1][Yj].peca == null && table[Xi - 2][Yj].peca == null && table[0][Yj].peca != null) {
 				if(Torre.class.isInstance(table[0][Yj].peca)/* && table[0][Yj].peca.cor == this.cor*/) {

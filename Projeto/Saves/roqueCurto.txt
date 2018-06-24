@@ -1,0 +1,9 @@
+false
+T-x-x-Q-K-x-x-T
+P-P-x-B-B-x-P-P
+x-x-C-x-x-C-x-x
+x-x-P-P-P-P-x-x
+x-x-x-x-x-x-x-x
+p-p-p-p-p-p-p-p
+x-x-x-x-x-x-x-t
+t-c-b-q-k-b-c-x
