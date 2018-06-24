@@ -1,0 +1,12 @@
+false
+T-C-B-x-K-B-C-x
+T-x-x-x-x-x-x-x
+x-x-x-x-x-x-x-x
+x-x-x-x-x-x-Q-x
+x-x-x-x-x-x-x-x
+x-x-x-x-x-x-x-x
+x-x-x-x-x-x-x-x
+x-x-x-x-x-x-x-k
+t-0-1
+r-7-7
+----------

@@ -1,0 +1,13 @@
+false
+T-C-B-Q-K-B-C-T
+P-P-P-P-x-P-P-P
+x-x-x-x-x-x-x-x
+x-x-x-x-x-x-x-x
+x-x-x-x-x-P-p-x
+p-x-x-x-x-x-x-x
+x-p-p-p-p-x-x-p
+t-c-b-q-k-b-c-t
+p-5-4
+p-6-4
+p-0-5
+----------

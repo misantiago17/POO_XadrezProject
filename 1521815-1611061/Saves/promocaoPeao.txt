@@ -1,9 +1,12 @@
 true
-T-C-B-Q-K-B-C-x
-P-P-P-P-P-x-x-p
-x-x-x-x-x-P-x-x
+T-C-B-Q-K-B-C-T
+x-P-P-P-P-P-p-P
 x-x-x-x-x-x-x-x
 x-x-x-x-x-x-x-x
 x-x-x-x-x-x-x-x
-p-p-p-p-p-p-x-p
+x-x-x-x-x-x-x-x
+p-P-p-p-p-p-p-x
 t-c-b-q-k-b-c-t
+p-6-1
+p-1-6
+----------

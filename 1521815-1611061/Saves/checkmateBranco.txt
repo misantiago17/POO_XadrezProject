@@ -7,3 +7,6 @@ x-x-x-x-x-x-x-x
 x-x-x-x-x-x-x-x
 p-p-p-p-x-p-p-p
 t-c-b-q-k-b-c-t
+p-5-3
+p-6-3
+----------
